@@ -1,6 +1,6 @@
 # Landing de conversión para clínica dental — Sonrisa Vital
 
-Una landing page de alto rendimiento construida para **Sonrisa Vital**, una clínica dental en Santiago Centro. La hice con **Astro** (sitio 100% estático) para demostrar cómo traduzco un negocio real — "reservá tu hora sin esperas" — en una página web que convierte visitantes en pacientes.
+Una landing page de alto rendimiento construida para **Sonrisa Vital**, una clínica dental en Santiago Centro. La hice con **Astro** (sitio 100% estático) para demostrar cómo traduzco un negocio real — "reserva tu hora sin esperas" — en una página web que convierte visitantes en pacientes.
 
 > **Demo en vivo:** [https://demo-landing-jade-three.vercel.app](https://demo-landing-jade-three.vercel.app)
 
@@ -52,7 +52,7 @@ npm run preview
 npm test
 ```
 
-> Los tests leen la salida de `dist/`, así que **corré `npm run build` antes de `npm test`** o validarán el HTML anterior.
+> Los tests leen la salida de `dist/`, así que **corre `npm run build` antes de `npm test`** o validarán el HTML anterior.
 
 ## Estructura del proyecto
 

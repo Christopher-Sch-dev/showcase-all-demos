@@ -5,7 +5,7 @@ Soy Christopher y esto es **la demo que más me enorgullece**: una recepcionista
 La idea es simple pero potente: que una PyME pueda tener atención 24/7 — responder precios, horarios, isapres, reservar horas — sin depender de una persona al teléfono. Y la parte que más impresiona es que el asistente responde por voz en tiempo real, como en una llamada.
 
 - **Demo en vivo:** [https://agent-voice-pied.vercel.app](https://agent-voice-pied.vercel.app)
-- **Nota:** esta es la copia de solo lectura del frontend. La llamada de voz real requiere un backend de IA (no incluido aquí); el chat de demostración funciona con un motor local.
+- **Nota:** esta es la copia de solo lectura del frontend. La llamada de voz real y el chat con IA corren en un backend separado en **Deno Deploy** (org `chschiefelbein`, `https://agent-voice-backend-v2.chschiefelbein.deno.net`); el chat de demostración de este repo funciona con un motor local para que puedas probar la interacción sin infraestructura.
 
 ---
 
@@ -15,7 +15,7 @@ Hay **3 formas de interactuar**, y las 3 usan el mismo cerebro (Gemini):
 
 | Modo | Qué pasa | Cómo lo hace el código |
 |------|----------|------------------------|
-| 💬 **Chat escrito** | Escribís una pregunta, la IA responde | `POST /api/chat` al backend, respuesta en **streaming** (SSE: líneas `data:`) parseadas en tiempo real |
+| 💬 **Chat escrito** | Escribís una pregunta, la IA responde | `POST /api/chat` al backend, respuesta en **JSON directo** (campo `text`) |
 | 🎙️ **Micrófono (chat)** | Hablás, se transcribe y responde por texto | **Web Speech API** del navegador (`SpeechRecognition`) transcribe tu voz y la manda al chat |
 | 📞 **Modo llamada** | Hablás y escuchás en vivo, como una llamada real | **WebSocket → Gemini Live API**. Tu audio viaja en tiempo real y la IA te responde hablando |
 
@@ -31,7 +31,7 @@ Si el backend no está disponible, la demo no se cae: cae en un **modo showcase*
 
 ### El "cerebro"
 
-Un solo `SYSTEM_PROMPT` en `index.astro` define a la recepcionista: su nombre, datos de la clínica (servicios, precios, isapres, horarios, equipo), tono cercano con voseo, y **reglas duras**: solo habla de la clínica, no da consejos médicos, no se sale del rol, y deriva a WhatsApp cuando no sabe algo.
+Un solo `SYSTEM_PROMPT` en `index.astro` define a la recepcionista: su nombre, datos de la clínica (servicios, precios, isapres, horarios, equipo), tono cercano con **tuteo** (español chileno neutro, sin voseo rioplatense), y **reglas duras**: solo habla de la clínica, no da consejos médicos, no se sale del rol, y deriva a WhatsApp cuando no sabe algo.
 
 > 🔒 **Privacidad:** este repo es solo el frontend, sin claves de API ni credenciales. La autenticación y los secrets viven en un backend de IA separado (no incluido en esta copia). El frontend público nunca ve una API key.
 
@@ -46,11 +46,11 @@ Un solo `SYSTEM_PROMPT` en `index.astro` define a la recepcionista: su nombre, d
 - **Vercel** — hosting del frontend (`vercel.json`, build con `npm`).
 
 ```
-Frontend (este repo)         Backend de IA (separado, no incluido)
-─────────────────            ────────────────────────────────
-Astro 7 estático             Node + Express
+Frontend (este repo)         Backend de IA (Deno Deploy, separado)
+─────────────────            ─────────────────────────────────────
+Astro 7 estático             Deno Deploy (Deno.serve + WebSocket)
   │                            │
-  ├─ chat  ────────── POST ────┤  ──► Gemini (texto, streaming)
+  ├─ chat  ────────── POST ────┤  ──► Gemini (texto, JSON directo)
   ├─ mic   ──── Web Speech ────┤      (transcribe → chat)
   └─ llamada ───── WebSocket ──┴──► Gemini Live (audio real-time)
                      (wss /ws/live)
@@ -114,7 +114,7 @@ demo-agent-voice/
 - **Estética terminal** — tema oscuro con acento verde, badges y visualizer de audio.
 ## Decisiones y tradeoffs
 
-- **Frontend estático, backend separado**: esta copia de solo lectura del frontend deja la llamada de voz real fuera (requiere el backend de IA); el chat de demostración funciona con un motor local para que cualquiera pueda probar la interacción sin infraestructura.
+- **Frontend estático, backend separado en Deno Deploy**: esta copia de solo lectura del frontend deja la llamada de voz real y el chat con IA fuera (corren en un backend de Deno Deploy, org `chschiefelbein`); el chat de demostración funciona con un motor local para que cualquiera pueda probar la interacción sin infraestructura.
 - **Web Audio API para audio en vivo**: captura y procesamiento de audio PCM en el navegador, sin librerías pesadas.
 - **Sin credenciales en el cliente**: la autenticación vive en el backend, nunca en el frontend.
 
