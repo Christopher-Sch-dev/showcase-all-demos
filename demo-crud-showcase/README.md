@@ -1,4 +1,4 @@
-# Sonrisa Vital — Panel de gestión de pacientes
+# CRUD de gestión de pacientes para clínica dental — Sonrisa Vital
 
 Un panel interno para una clínica dental que te permite **dar de alta, buscar, filtrar y editar pacientes**. Es una demo MVP que construí para mostrar cómo organizo el código y cómo hago *testing en serio*.
 

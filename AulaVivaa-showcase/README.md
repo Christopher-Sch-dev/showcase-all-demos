@@ -1,4 +1,4 @@
-# 🎓 Aula Viva AI
+# Tutor educativo con IA — Aula Viva AI (PWA)
 
 > **La clase no puede depender de si el profe subió bien el PDF.**
 

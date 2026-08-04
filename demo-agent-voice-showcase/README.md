@@ -1,4 +1,4 @@
-# 🤖 Sonrisa Vital · Recepcionista virtual con IA (demo)
+# Recepcionista virtual con IA (voz + chat) para clínica dental — Sonrisa Vital
 
 Soy Christopher y esto es **la demo que más me enorgullece**: una recepcionista virtual con inteligencia artificial para una clínica dental, que puedes **chatear** como si hablaras con una persona real. Es el frontend de una demo de asistente de voz con IA.
 
