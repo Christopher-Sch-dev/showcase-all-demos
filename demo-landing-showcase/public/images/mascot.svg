@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 360" width="240" height="360">
+  <defs>
+    <linearGradient id="toothGrad" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#edf2f8"/>
+    </linearGradient>
+    <linearGradient id="baseTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4a76a"/>
+      <stop offset="100%" stop-color="#b8915e"/>
+    </linearGradient>
+    <linearGradient id="baseSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c49a5e"/>
+      <stop offset="100%" stop-color="#a8804a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- === PEDESTAL === -->
+  <!-- Sombra en el piso -->
+  <ellipse cx="120" cy="345" rx="90" ry="12" fill="rgba(0,0,0,0.07)"/>
+  <!-- Canto del pedestal -->
+  <path d="M30 328 L30 336 Q30 348 120 348 Q210 348 210 336 L210 328" fill="url(#baseSide)" stroke="#a07840" stroke-width="1.5"/>
+  <!-- Tapa del pedestal -->
+  <ellipse cx="120" cy="328" rx="90" ry="12" fill="url(#baseTop)" stroke="#a07840" stroke-width="1.5"/>
+  <!-- Círculo decorativo en la base -->
+  <ellipse cx="120" cy="328" rx="60" ry="8" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <!-- Placa metálica -->
+  <rect x="55" y="332" rx="3" width="130" height="9" fill="#cbd5e1" stroke="#94a3b8" stroke-width="0.8"/>
+  <rect x="57" y="333" rx="2" width="126" height="7" fill="#e2e8f0"/>
+  <!-- Texto simulado en la placa -->
+  <line x1="62" y1="337" x2="178" y2="337" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.4"/>
+
+  <!-- === SOMBRA SOBRE BASE === -->
+  <ellipse cx="120" cy="324" rx="45" ry="6" fill="rgba(0,0,0,0.06)"/>
+
+  <!-- === ZAPATILLAS === -->
+  <!-- Izquierda - suela -->
+  <path d="M70 316 Q68 318 73 322 Q78 325 100 324 Q104 322 102 318 Z" fill="#1a2a4a"/>
+  <!-- Izquierda - cuerpo -->
+  <path d="M72 304 C70 312 73 318 78 320 L100 318 C103 316 105 312 103 306 L98 302 L78 300 Z" fill="#f8fafc" stroke="#dce2ea" stroke-width="1"/>
+  <!-- Izquierda - detalle azul -->
+  <path d="M78 305 L98 303" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+  <!-- Izquierda - cordones -->
+  <circle cx="85" cy="303" r="1.3" fill="#94a3b8"/>
+  <circle cx="91" cy="303" r="1.3" fill="#94a3b8"/>
+
+  <!-- Derecha - suela -->
+  <path d="M170 316 Q172 318 167 322 Q162 325 140 324 Q136 322 138 318 Z" fill="#1a2a4a"/>
+  <!-- Derecha - cuerpo -->
+  <path d="M168 304 C170 312 167 318 162 320 L140 318 C137 316 135 312 137 306 L142 302 L162 300 Z" fill="#f8fafc" stroke="#dce2ea" stroke-width="1"/>
+  <!-- Derecha - detalle azul -->
+  <path d="M162 305 L142 303" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+  <!-- Derecha - cordones -->
+  <circle cx="155" cy="303" r="1.3" fill="#94a3b8"/>
+  <circle cx="149" cy="303" r="1.3" fill="#94a3b8"/>
+
+  <!-- === PIERNAS === -->
+  <!-- Izquierda -->
+  <path d="M96 190 C92 220 90 260 88 290 C86 302 92 308 100 308 L105 308 C108 308 108 300 106 290 C104 260 104 230 104 190 Z" fill="url(#toothGrad)" stroke="#dce2ea" stroke-width="1.5"/>
+  <!-- Derecha -->
+  <path d="M144 190 C148 220 150 260 152 290 C154 302 148 308 140 308 L135 308 C132 308 132 300 134 290 C136 260 136 230 136 190 Z" fill="url(#toothGrad)" stroke="#dce2ea" stroke-width="1.5"/>
+
+  <!-- === CUERPO DEL DIENTE (CORONA) === -->
+  <path d="M120 42 
+           C72 42 58 75 58 115 
+           C58 145 68 168 80 186 
+           L160 186 
+           C172 168 182 145 182 115 
+           C182 75 168 42 120 42 Z" 
+        fill="url(#toothGrad)" stroke="#d4dce6" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- === BRILLO DEL DIENTE === -->
+  <path d="M82 72 C80 50 100 44 125 44 C112 48 90 58 85 82 C82 95 80 100 82 72 Z" fill="rgba(255,255,255,0.7)"/>
+  <path d="M76 105 C72 82 88 64 112 56 C98 65 82 82 78 108 C76 118 74 120 76 105 Z" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- === BRAZO DERECHO (MANO VACÍA) === -->
+  <path d="M172 148 Q194 158 202 175" fill="none" stroke="url(#toothGrad)" stroke-width="14" stroke-linecap="round"/>
+  <ellipse cx="202" cy="178" rx="10" ry="9" fill="#f0f4fa" stroke="#d4dce6" stroke-width="1.5"/>
+
+  <!-- === BRAZO IZQUIERDO (CEPILLO) === -->
+  <path d="M68 148 Q48 160 38 178" fill="none" stroke="url(#toothGrad)" stroke-width="14" stroke-linecap="round"/>
+  <!-- Mano -->
+  <ellipse cx="36" cy="180" rx="10" ry="9" fill="#f0f4fa" stroke="#d4dce6" stroke-width="1.5"/>
+
+  <!-- === CEPILLO DE DIENTES === -->
+  <g transform="translate(36, 180) rotate(-30)">
+    <!-- Mango -->
+    <rect x="-4" y="6" width="8" height="48" rx="3" fill="#2563eb"/>
+    <!-- Grips -->
+    <rect x="-4" y="30" width="8" height="6" rx="1" fill="#60a5fa"/>
+    <rect x="-4" y="42" width="8" height="6" rx="1" fill="#60a5fa"/>
+    <!-- Cabezal -->
+    <rect x="-5" y="-6" width="10" height="16" rx="4" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="0.8"/>
+    <!-- Cerdas -->
+    <line x1="-2" y1="-6" x2="-2" y2="-12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="2" y1="-6" x2="2" y2="-12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="6" y1="-6" x2="6" y2="-12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-4" x2="0" y2="-10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="4" y1="-4" x2="4" y2="-10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- === MOÑO === -->
+  <g transform="translate(120, 188)">
+    <!-- Ala izquierda -->
+    <path d="M-2 0 L-32 -12 L-32 12 Z" fill="#1a2a4a" stroke="#142040" stroke-width="0.8"/>
+    <!-- Ala derecha -->
+    <path d="M2 0 L32 -12 L32 12 Z" fill="#1a2a4a" stroke="#142040" stroke-width="0.8"/>
+    <!-- Nudo -->
+    <ellipse cx="0" cy="0" rx="7" ry="6" fill="#1a2a4a"/>
+    <!-- Lunares izquierda -->
+    <circle cx="-20" cy="-5" r="2.2" fill="white" opacity="0.5"/>
+    <circle cx="-15" cy="4" r="1.8" fill="white" opacity="0.4"/>
+    <circle cx="-24" cy="2" r="1.5" fill="white" opacity="0.35"/>
+    <!-- Lunares derecha -->
+    <circle cx="20" cy="-5" r="2.2" fill="white" opacity="0.5"/>
+    <circle cx="15" cy="4" r="1.8" fill="white" opacity="0.4"/>
+    <circle cx="24" cy="2" r="1.5" fill="white" opacity="0.35"/>
+    <!-- Lunar nudo -->
+    <circle cx="0" cy="0" r="1.8" fill="white" opacity="0.4"/>
+  </g>
+
+  <!-- === MEJILLAS === -->
+  <ellipse cx="78" cy="132" rx="16" ry="10" fill="#fbc4d0" opacity="0.25"/>
+  <ellipse cx="162" cy="132" rx="16" ry="10" fill="#fbc4d0" opacity="0.25"/>
+
+  <!-- === OJOS === -->
+  <!-- Ojo izquierdo -->
+  <ellipse cx="90" cy="112" rx="14" ry="16" fill="#3d2817"/>
+  <ellipse cx="90" cy="112" rx="10" ry="12" fill="#5c3a1e"/>
+  <ellipse cx="86" cy="106" rx="5" ry="6" fill="white" opacity="0.85"/>
+  <ellipse cx="93" cy="118" rx="2.5" ry="2.5" fill="white" opacity="0.35"/>
+
+  <!-- Ojo derecho -->
+  <ellipse cx="150" cy="112" rx="14" ry="16" fill="#3d2817"/>
+  <ellipse cx="150" cy="112" rx="10" ry="12" fill="#5c3a1e"/>
+  <ellipse cx="146" cy="106" rx="5" ry="6" fill="white" opacity="0.85"/>
+  <ellipse cx="153" cy="118" rx="2.5" ry="2.5" fill="white" opacity="0.35"/>
+
+  <!-- === BOCA === -->
+  <path d="M94 145 Q120 172 146 145" fill="#cc3333"/>
+  <path d="M97 145 Q120 168 143 145" fill="#b82727"/>
+
+  <!-- Dientes superiores -->
+  <rect x="102" y="144" width="6" height="8" rx="1.5" fill="white"/>
+  <rect x="110" y="143" width="7" height="9" rx="1.5" fill="white"/>
+  <rect x="119" y="143" width="7" height="9" rx="1.5" fill="white"/>
+  <rect x="128" y="144" width="6" height="8" rx="1.5" fill="white"/>
+
+  <!-- Lengua -->
+  <ellipse cx="120" cy="160" rx="12" ry="7" fill="#e05555"/>
+</svg>

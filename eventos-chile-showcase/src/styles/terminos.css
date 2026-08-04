@@ -1,0 +1,123 @@
+/**
+ * Estilos para la pagina de Terminos y Condiciones
+ * Diseño responsive mobile-first
+ */
+
+.terminos-page {
+    min-height: calc(100vh - 140px);
+    padding: 2rem 0;
+    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+}
+
+.terminos-card {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.terminos-titulo {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.terminos-fecha {
+    text-align: center;
+    color: #8b949e;
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #30363d;
+}
+
+.terminos-seccion {
+    margin-bottom: 2rem;
+}
+
+.terminos-seccion h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #c9d1d9;
+    margin-bottom: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid #6c63ff;
+}
+
+.terminos-seccion p {
+    color: #8b949e;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.terminos-seccion ul {
+    color: #8b949e;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.terminos-seccion li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.terminos-pie {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(108, 99, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(108, 99, 255, 0.2);
+}
+
+.terminos-pie p {
+    color: #c9d1d9;
+    text-align: center;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .terminos-card {
+        padding: 1.5rem;
+        margin: 0 1rem;
+        border-radius: 12px;
+    }
+
+    .terminos-seccion h2 {
+        font-size: 1.1rem;
+    }
+
+    .terminos-seccion p,
+    .terminos-seccion li {
+        font-size: 0.9rem;
+    }
+
+    .terminos-pie {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .terminos-page {
+        padding: 1rem 0;
+    }
+
+    .terminos-card {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+
+    .terminos-seccion {
+        margin-bottom: 1.5rem;
+    }
+}

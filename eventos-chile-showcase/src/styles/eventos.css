@@ -1,0 +1,1344 @@
+/* VARIABLES GLOBALES */
+:root {
+    --primario: #6C63FF;
+    --secundario: #2D3748;
+    --texto: #2D3748;
+    --acento: #ED8936;
+    --acento-suave: #FED7D7;
+}
+
+/* EFECTO GLITCH MATRIX REAL - Usando clip-path para efecto RGB Split (sin blur) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip: rect(14px, 9999px, 127px, 0);
+    }
+
+    20% {
+        clip: rect(83px, 9999px, 19px, 0);
+    }
+
+    40% {
+        clip: rect(10px, 9999px, 68px, 0);
+    }
+
+    60% {
+        clip: rect(13px, 9999px, 86px, 0);
+    }
+
+    80% {
+        clip: rect(40px, 9999px, 19px, 0);
+    }
+
+    100% {
+        clip: rect(98px, 9999px, 12px, 0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        clip: rect(69px, 9999px, 72px, 0);
+    }
+
+    20% {
+        clip: rect(4px, 9999px, 14px, 0);
+    }
+
+    40% {
+        clip: rect(122px, 9999px, 4px, 0);
+    }
+
+    60% {
+        clip: rect(19px, 9999px, 44px, 0);
+    }
+
+    80% {
+        clip: rect(80px, 9999px, 11px, 0);
+    }
+
+    100% {
+        clip: rect(123px, 9999px, 3px, 0);
+    }
+}
+
+/* Animación Scanline para efecto Cyber HUD */
+@keyframes scanline {
+    0% {
+        top: -20%;
+    }
+
+    100% {
+        top: 120%;
+    }
+}
+
+.animate-scanline {
+    animation: scanline 3s linear infinite;
+}
+
+/* Título Cyber con Glitch Automático y Responsivo */
+.glitch-title-cyber {
+    position: relative;
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    font-weight: 900;
+    color: white;
+    letter-spacing: -0.05em;
+    font-family: monospace, 'Courier New', Courier, sans-serif;
+    background: linear-gradient(to right, #22d3ee, #3b82f6, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.glitch-title-cyber::before,
+.glitch-title-cyber::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    background: linear-gradient(to right, #22d3ee, #3b82f6, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.glitch-title-cyber::before {
+    left: 2px;
+    text-shadow: -1px 0 #00ff00;
+    clip: rect(24px, 9999px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-title-cyber::after {
+    left: -2px;
+    text-shadow: -1px 0 #ff00ff;
+    clip: rect(85px, 9999px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+/* Título con efecto Glitch Matrix real - clip-path RGB Split */
+.glitch-title {
+    position: relative;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: monospace, 'Courier New', Courier, sans-serif;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    /* Fondo negro para recortar */
+}
+
+.glitch-title::before {
+    left: 2px;
+    text-shadow: -1px 0 #00ff00;
+    /* Verde Matrix */
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+    left: -2px;
+    text-shadow: -1px 0 #ff00ff;
+    /* Magenta Cyber */
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+/* ESTILO GENERAL - Dark Premium Mode */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #050505;
+    /* Dark Premium */
+    color: #ffffff;
+    /* Texto blanco */
+    position: relative;
+}
+
+/* CONFETI ELIMINADO - Reemplazado por fondo sutil en index.css */
+
+/* HEADER Y FOOTER */
+header,
+footer {
+    background: linear-gradient(135deg, var(--secundario) 0%, #4A5568 100%);
+    color: white;
+    box-shadow: 0 6px 10px rgba(108, 99, 255, 0.2);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#h1_titulo {
+    animation: cambioColores 5s ease-in-out infinite;
+    background: linear-gradient(45deg, white, #9F7AEA, var(--primario), var(--acento));
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+}
+
+@keyframes cambioColores {
+    0% {
+        background-position: 5% 50%;
+    }
+
+    25% {
+        background-position: 100% 50%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    75% {
+        background-position: 2% 100%;
+    }
+
+    100% {
+        background-position: 1% 50%;
+    }
+}
+
+header h1:hover {
+    transform: translateY(12px);
+    cursor: default;
+}
+
+/* ENLACES EN FOOTER */
+#contacto,
+#mail,
+#Ftnosotros {
+    margin: 0.3rem 0;
+    transition: color 0.3s ease;
+}
+
+#contacto {
+    color: #fff;
+    text-decoration: none;
+}
+
+#mail,
+#Ftnosotros {
+    color: #9F7AEA;
+}
+
+#mail:hover,
+#Ftnosotros:hover {
+    color: var(--acento);
+}
+
+/* NAVBAR */
+nav ul {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: rgba(108, 99, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* CARRUSEL DE EVENTOS - Mejorado: sin bordes, más grande, rectangular, pegado a bordes */
+.carrusel-seccion-wrapper {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.carrusel-seccion-wrapper .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.carrusel-eventos {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 2rem 0;
+    animation: fadeInUp 1s ease-out;
+    border: none;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carrusel-lista {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5rem 2rem;
+    scroll-behavior: smooth;
+    align-items: stretch;
+    min-height: 300px;
+    width: 100%;
+
+    /*ocultando la barra de scroll, se ve fea xd*/
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Mejorar scroll en móviles */
+    -webkit-overflow-scrolling: touch;
+}
+
+.carrusel-lista::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari y Opera */
+}
+
+/* TARJETAS DEL CARRUSEL - Glassmorphism Dark */
+.Tarjetas {
+    width: 240px;
+    max-width: 90vw;
+    min-width: 200px;
+    height: 340px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Vidrio oscuro (bg-white/5) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    /* Centrado y layout igual en todas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0.5rem;
+    /* Siempre el mismo padding para las tarjetas */
+    padding: 1.2rem;
+    transition: transform 0.4s cubic-bezier(.25, .6, .25, .9), box-shadow 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Borde sutil */
+    position: relative;
+    flex-shrink: 0;
+    /* Para que todas tengan el mismo alto, incluso si una tiene menos texto */
+    box-sizing: border-box;
+    color: #ffffff;
+    /* Texto blanco */
+}
+
+.Tarjetas:hover {
+    transform: rotateY(0deg) scale(1.07);
+    box-shadow: 0 25px 80px rgba(108, 99, 255, 0.5);
+    /* Glow effect violeta */
+    border-color: rgba(108, 99, 255, 0.3);
+    /* Borde brillante en hover */
+}
+
+.Tarjetas img,
+.img-tarjeta-evento {
+    width: 100%;
+    height: 80px;
+    /* Reduje altura para dejar más espacio al contenido */
+    object-fit: contain;
+    /* Cambié a cover para mejor aprovechamiento */
+    display: block;
+    margin: 0 auto 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.Tarjetas h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    /* Texto blanco */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Tarjetas p {
+    margin: 0.3rem 0;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    /* Evito que los párrafos se expandan demasiado */
+    max-height: 2.8rem;
+    text-align: justify;
+
+}
+
+.tipo-evento {
+    background: rgba(237, 137, 54, 0.15);
+    color: var(--acento);
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* BOTONES PRINCIPALES DE LAS TARJETAS */
+.btn-asistir {
+    background: linear-gradient(135deg, var(--primario), #9F7AEA);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.25);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    white-space: nowrap;
+    text-align: center;
+    align-self: center;
+}
+
+.btn-asistir::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-asistir:hover::before {
+    left: 100%;
+}
+
+.btn-asistir:hover {
+    background: linear-gradient(135deg, #5A52D5, #8B7EFF);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
+}
+
+/* TARJETAS 3D DE EVENTOS - Dark Premium */
+.eventos-tarjetas-3d {
+    background: transparent;
+    /* Sin fondo, usa el del body */
+    border-radius: 20px;
+    box-shadow: none;
+    /* Sin sombra, el fondo es oscuro */
+}
+
+.eventos-tarjetas-3d h2 {
+    text-align: center;
+    color: #ffffff;
+    /* Texto blanco */
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.eventos-tarjetas-3d h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primario), var(--acento));
+    border-radius: 2px;
+}
+
+/* TARJETA 3D - REFACTORIZADA CON EFECTO MOUSE MEJORADO (ZERO-LAG) */
+.tarjeta-evento-3d {
+    width: 320px;
+    height: 380px;
+    perspective: 1000px;
+    position: relative;
+    --rotate-x: 0deg;
+    --rotate-y: 0deg;
+}
+
+.carta-evento-flip {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+}
+
+/* Efecto 3D con mouse - SOLO cuando NO está volteada */
+.carta-evento-flip:not(.volteada) {
+    transform: perspective(1000px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+    transition: transform 0.05s ease-out;
+}
+
+/* Flip completo - tiene prioridad sobre el efecto mouse */
+.carta-evento-flip.volteada {
+    transform: rotateY(180deg);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.cara-frontal,
+.cara-posterior {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cara-frontal {
+    background: rgba(15, 23, 42, 0.85);
+    /* FIX: Fondo mucho más oscuro y opaco */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    color: #ffffff;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    /* Sombra interna para profundidad */
+}
+
+.cara-posterior {
+    background: rgba(15, 23, 42, 0.9);
+    /* FIX: Casi opaco para leer info */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff;
+    transform: rotateY(180deg);
+    text-align: left;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Estados de visibilidad - ELIMINADAS (ahora se usan inline styles) */
+/* Las clases .cara-visible y .cara-oculta ya no se usan */
+
+/* IMAGEN DEL EVENTO */
+.imagen-evento {
+    width: 100%;
+    height: 120px;
+    /* Reduje altura para dejar más espacio al contenido */
+    object-fit: contain;
+    /* Cambié a cover para mejor aprovechamiento */
+    display: block;
+    margin: 0 auto 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+    flex-shrink: 0;
+}
+
+/* INFORMACIÓN DEL EVENTO */
+.informacion-evento {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+    max-height: 100%;
+    padding: 0.3rem 0.2rem;
+    text-align: left;
+    overflow: hidden;
+}
+
+.cara-posterior .informacion-evento {
+    color: rgba(255, 255, 255, 0.95) !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+.cara-posterior .informacion-evento p,
+.cara-posterior .informacion-evento h3,
+.cara-posterior .informacion-evento strong {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    pointer-events: auto !important;
+    cursor: text;
+}
+
+/* TÍTULOS AJUSTADOS */
+.cara-frontal h3,
+.cara-posterior h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.cara-frontal h3 {
+    color: #ffffff;
+    /* Texto blanco */
+}
+
+.cara-posterior h3 {
+    color: #ffffff;
+    /* Texto blanco */
+}
+
+/* PÁRRAFOS  */
+.cara-frontal p,
+.cara-posterior p {
+    margin: 0.25rem 0;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    max-height: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cara-frontal p {
+    color: rgba(255, 255, 255, 0.9);
+    /* Texto blanco con ligera transparencia */
+}
+
+.cara-posterior p {
+    color: rgba(255, 255, 255, 0.9);
+    /* Texto blanco con ligera transparencia */
+    font-size: 0.7rem;
+}
+
+.cara-posterior p strong {
+    color: #ffffff;
+    /* Texto blanco */
+    font-weight: 600;
+}
+
+/* PÁRRAFOS ESPECÍFICOS - DETALLES TRASEROS */
+.cara-posterior .detalle-completo {
+    font-size: 0.68rem;
+    line-height: 1.2;
+    max-height: 4rem;
+    /* Limitar altura de descripción */
+    margin: 0.2rem 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Máximo 3 líneas */
+    -webkit-box-orient: vertical;
+}
+
+/* ETIQUETA DE TIPO */
+.etiqueta-tipo {
+    background: rgba(237, 137, 54, 0.15);
+    color: var(--acento);
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+    margin: 0.5rem 0;
+    align-self: center;
+}
+
+/* BOTONES EN TARJETAS 3D - Glass & Neon Style */
+.boton-detalle,
+.boton-volver,
+.boton-asistir {
+    background: rgba(0, 240, 255, 0.05);
+    color: #ffffff;
+    border: 1px solid rgba(0, 240, 255, 0.5);
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-align: center;
+    align-self: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 50;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: auto !important;
+    /* CRÍTICO: Siempre clickeable */
+}
+
+.boton-volver {
+    background: rgba(139, 92, 246, 0.05);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+}
+
+/* Contenedor de botones en cara posterior */
+.botones-cara-posterior {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+    width: 100%;
+    position: relative;
+    z-index: 40;
+    pointer-events: auto !important;
+    /* CRÍTICO: Siempre recibe eventos */
+}
+
+.botones-cara-posterior .boton-detalle,
+.botones-cara-posterior .boton-asistir,
+.botones-cara-posterior .boton-volver {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+    pointer-events: auto !important;
+    /* CRÍTICO: Cada botón individual */
+}
+
+.boton-detalle:hover {
+    background: rgba(0, 240, 255, 0.25);
+    border-color: rgba(0, 240, 255, 0.9);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 4px 15px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.boton-volver:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: rgba(139, 92, 246, 0.9);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6), 0 4px 15px rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.boton-asistir:hover {
+    background: rgba(0, 240, 255, 0.25);
+    border-color: rgba(0, 240, 255, 0.9);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6), 0 4px 15px rgba(0, 240, 255, 0.3);
+    transform: translateY(-2px) scale(1.02);
+}
+
+/* EFECTOS HOVER - Glow effect (brillo) en lugar de solo elevación */
+.tarjeta-evento-3d:hover .carta-evento-flip {
+    box-shadow: 0 20px 50px rgba(108, 99, 255, 0.5);
+    /* Glow effect más intenso */
+}
+
+.tarjeta-evento-3d:hover .cara-frontal,
+.tarjeta-evento-3d:hover .cara-posterior {
+    border-color: rgba(108, 99, 255, 0.4);
+    /* Borde brillante en hover */
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+    /* Glow interno */
+}
+
+/* ANIMACIONES DE APARICIÓN */
+@keyframes aparecerTarjeta {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.tarjeta-evento-3d {
+    animation: aparecerTarjeta 0.6s ease-out forwards;
+}
+
+.tarjeta-evento-3d:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.tarjeta-evento-3d:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.tarjeta-evento-3d:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.tarjeta-evento-3d:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.tarjeta-evento-3d:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.tarjeta-evento-3d:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+/* RESPONSIVE - MEJORADO */
+@media (max-width: 1200px) {
+    .tarjeta-evento-3d {
+        max-width: 300px;
+        height: 380px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .tarjeta-evento-3d {
+        max-width: 280px;
+        height: 370px;
+    }
+
+    .eventos-tarjetas-3d h2 {
+        font-size: 2rem;
+    }
+
+    .boton-detalle,
+    .boton-volver,
+    .boton-asistir {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    .botones-cara-posterior .boton-asistir,
+    .botones-cara-posterior .boton-volver {
+        padding: 0.55rem 0.7rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tarjeta-evento-3d {
+        max-width: 300px;
+        height: 390px;
+        /* Un poco más alto para contenido */
+        min-width: 240px;
+    }
+
+    .cara-frontal,
+    .cara-posterior {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .imagen-evento {
+        height: 110px;
+        margin-bottom: 0.8rem;
+    }
+
+    .informacion-evento {
+        min-height: 140px;
+        max-height: 100%;
+        padding: 0.2rem 0.1rem;
+    }
+
+    /* Títulos más pequeños en móvil */
+    .cara-frontal h3,
+    .cara-posterior h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.6rem;
+    }
+
+    /* Párrafos más compactos */
+    .cara-frontal p,
+    .cara-posterior p {
+        font-size: 0.65rem;
+        margin: 0.2rem 0;
+    }
+
+    .cara-posterior .detalle-completo {
+        font-size: 0.62rem;
+        line-height: 1.1;
+        max-height: 3.5rem;
+        -webkit-line-clamp: 2;
+        /* Solo 2 líneas en móvil */
+    }
+
+    /* Botones más pequeños */
+    .boton-detalle,
+    .boton-volver,
+    .boton-asistir {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.75rem;
+        border-radius: 15px;
+    }
+
+    .botones-cara-posterior {
+        gap: 6px;
+    }
+
+    .botones-cara-posterior .boton-asistir,
+    .botones-cara-posterior .boton-volver {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tarjeta-evento-3d {
+        max-width: 280px;
+        height: 380px;
+        min-width: 260px;
+    }
+
+    /* Reducir perspective en móvil pequeño para mejor efecto */
+    .tarjeta-evento-3d {
+        perspective: 1500px;
+    }
+
+    .imagen-evento {
+        height: 100px;
+        margin-bottom: 0.6rem;
+    }
+
+    .cara-frontal h3,
+    .cara-posterior h3 {
+        font-size: 0.85rem;
+    }
+
+    .cara-frontal p,
+    .cara-posterior p {
+        font-size: 0.6rem;
+    }
+}
+
+/* ========================================
+   MEDIA QUERIES ADICIONALES
+   ======================================== */
+
+/* Tablets grandes (1024px - 1200px) */
+@media (max-width: 1200px) {
+
+    /* Carrusel de eventos */
+    .carrusel-eventos {
+        max-width: 950px;
+        padding: 1.75rem;
+    }
+
+    .Tarjetas {
+        width: 220px;
+        min-width: 180px;
+        height: 330px;
+    }
+
+    .Tarjetas h3 {
+        font-size: 0.75rem;
+    }
+
+    .Tarjetas p {
+        font-size: 0.65rem;
+    }
+
+    .tipo-evento {
+        font-size: 0.7rem;
+        padding: 3px 7px;
+    }
+
+    .btn-asistir {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    /* Sección de tarjetas 3D */
+    .eventos-tarjetas-3d h2 {
+        font-size: 2rem;
+        margin-bottom: 1.75rem;
+    }
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    /* Confeti eliminado - Dark Premium Mode */
+
+    /* Header y footer */
+    header,
+    footer {
+        min-height: 65px;
+        padding: 0.75rem;
+    }
+
+    /* Navbar */
+    nav ul {
+        gap: 0.5rem;
+    }
+
+    nav a {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    /* Carrusel de eventos */
+    .carrusel-eventos {
+        max-width: 800px;
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .carrusel-lista {
+        gap: 1.25rem;
+        padding: 0.75rem;
+        min-height: 240px;
+    }
+
+    .Tarjetas {
+        width: 210px;
+        min-width: 170px;
+        height: 320px;
+        padding: 1rem;
+    }
+
+    .Tarjetas img,
+    .img-tarjeta-evento {
+        height: 70px;
+        margin-bottom: 0.85rem;
+    }
+
+    .Tarjetas h3 {
+        font-size: 0.7rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .Tarjetas p {
+        font-size: 0.6rem;
+        margin: 0.25rem 0;
+    }
+
+    .tipo-evento {
+        font-size: 0.68rem;
+        padding: 3px 6px;
+    }
+
+    .btn-asistir {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    /* Tarjetas 3D */
+    .eventos-tarjetas-3d h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Móviles grandes y tablets pequeñas (576px - 768px) */
+@media (max-width: 768px) {
+    /* Confeti eliminado - Dark Premium Mode */
+
+    /* Header y footer */
+    header,
+    footer {
+        min-height: 60px;
+        padding: 0.5rem;
+    }
+
+    /* Navbar vertical */
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        text-align: center;
+        display: block;
+    }
+
+    /* Carrusel de eventos */
+    .carrusel-eventos {
+        max-width: 95%;
+        padding: 1.25rem;
+        margin: 1rem auto;
+        border-width: 3px;
+    }
+
+    .carrusel-lista {
+        gap: 1rem;
+        padding: 0.5rem;
+        min-height: 220px;
+    }
+
+    .Tarjetas {
+        width: 200px;
+        min-width: 160px;
+        height: 310px;
+        padding: 0.9rem;
+        margin: 0 0.3rem;
+    }
+
+    .Tarjetas img,
+    .img-tarjeta-evento {
+        height: 65px;
+        margin-bottom: 0.75rem;
+    }
+
+    .Tarjetas h3 {
+        font-size: 0.68rem;
+        margin-bottom: 0.6rem;
+        -webkit-line-clamp: 2;
+    }
+
+    .Tarjetas p {
+        font-size: 0.58rem;
+        margin: 0.2rem 0;
+        line-height: 1.15;
+    }
+
+    .tipo-evento {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+        margin: 0.4rem 0;
+    }
+
+    .btn-asistir {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    /* Tarjetas 3D */
+    .eventos-tarjetas-3d {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .eventos-tarjetas-3d h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .eventos-tarjetas-3d h2::after {
+        width: 100px;
+        height: 3px;
+        bottom: -12px;
+    }
+}
+
+/* Móviles pequeños (hasta 576px) */
+@media (max-width: 576px) {
+
+    /* Header y footer */
+    header,
+    footer {
+        min-height: 55px;
+        padding: 0.4rem;
+    }
+
+    nav a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border-radius: 15px;
+    }
+
+    /* Carrusel de eventos */
+    .carrusel-eventos {
+        padding: 1rem;
+        margin: 0.75rem auto;
+        border-radius: 12px;
+        border-width: 2px;
+    }
+
+    .carrusel-lista {
+        gap: 0.85rem;
+        padding: 0.4rem;
+        min-height: 200px;
+    }
+
+    .Tarjetas {
+        width: 180px;
+        min-width: 150px;
+        height: 290px;
+        padding: 0.8rem;
+        border-radius: 10px;
+    }
+
+    .Tarjetas img,
+    .img-tarjeta-evento {
+        height: 60px;
+        margin-bottom: 0.6rem;
+        border-radius: 10px;
+    }
+
+    .Tarjetas h3 {
+        font-size: 0.65rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .Tarjetas p {
+        font-size: 0.55rem;
+        margin: 0.15rem 0;
+    }
+
+    .tipo-evento {
+        font-size: 0.6rem;
+        padding: 2px 5px;
+        margin: 0.3rem 0;
+        border-radius: 8px;
+    }
+
+    .btn-asistir {
+        padding: 0.4rem 0.65rem;
+        font-size: 0.7rem;
+        border-radius: 5px;
+    }
+
+    /* Tarjetas 3D */
+    .eventos-tarjetas-3d {
+        padding: 1.25rem 0.5rem;
+    }
+
+    .eventos-tarjetas-3d h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .eventos-tarjetas-3d h2::after {
+        width: 80px;
+        height: 2px;
+        bottom: -10px;
+    }
+
+    .etiqueta-tipo {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        margin: 0.4rem 0;
+    }
+}
+
+/* Pantallas muy pequeñas (hasta 400px) */
+@media (max-width: 400px) {
+
+    /* Carrusel de eventos */
+    .carrusel-eventos {
+        padding: 0.75rem;
+    }
+
+    .carrusel-lista {
+        gap: 0.7rem;
+        padding: 0.3rem;
+        min-height: 200px;
+        /* Mejorar scroll en móviles pequeños */
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .Tarjetas {
+        width: 160px;
+        min-width: 140px;
+        height: 275px;
+        padding: 0.7rem;
+        scroll-snap-align: start;
+    }
+
+    .Tarjetas img,
+    .img-tarjeta-evento {
+        height: 55px;
+        margin-bottom: 0.5rem;
+    }
+
+    .Tarjetas h3 {
+        font-size: 0.6rem;
+    }
+
+    .Tarjetas p {
+        font-size: 0.52rem;
+    }
+
+    .tipo-evento {
+        font-size: 0.58rem;
+        padding: 2px 4px;
+    }
+
+    .btn-asistir {
+        padding: 0.35rem 0.55rem;
+        font-size: 0.65rem;
+    }
+
+    /* Tarjetas 3D */
+    .eventos-tarjetas-3d h2 {
+        font-size: 1.25rem;
+    }
+
+    .eventos-tarjetas-3d h2::after {
+        width: 70px;
+    }
+
+    .boton-detalle,
+    .boton-volver,
+    .boton-asistir {
+        font-size: 0.7rem;
+        padding: 0.45rem 0.6rem;
+    }
+
+    .etiqueta-tipo {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+}

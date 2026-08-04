@@ -1,0 +1,26 @@
+/* Estilos para scroll horizontal de categorías - Estilo Netflix */
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.category-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.category-scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth scroll en todos los navegadores */
+.category-scroll-container {
+    scroll-snap-type: x proximity;
+}
+
+.category-scroll-container > div {
+    scroll-snap-align: start;
+}
+
+/* Asegurar que el hover de las tarjetas 3D no se corte */
+.category-scroll-container {
+    padding-top: 2rem !important;
+    padding-bottom: 4rem !important;
+}

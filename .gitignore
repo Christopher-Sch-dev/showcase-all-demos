@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────────────────────
+# SHOWCASE ALL DEMOS — .gitignore
+# Refleja rules.md. Ver rules.md para las reglas completas.
+# Nada interno, de metodología, ni credenciales se commitea.
+# ─────────────────────────────────────────────────────────────
+
+# ── 0. Reglas internas (NO se commitean, pero SIEMPRE se leen) ──
+rules.md
+
+# ── 1. Metodología Onyx ──
+.onyx/
+**/.onyx/
+
+# ── 2. Credenciales y secretos ──
+.env
+.env.*
+*.env
+*.env.local
+.env.example
+.env.production
+.env.development
+.cred/
+auth.json
+client_secret*
+token*.json
+*.local
+.n8n-credentials.md
+*_key.json
+service-account*.json
+
+# ── 3. Cache / build / dependencias ──
+node_modules/
+dist/
+build/
+.astro/
+.vercel/
+.wrangler/
+.next/
+target/
+__pycache__/
+.venv/
+*.pyc
+
+# ── 4. Artefactos de testing / tooling ──
+coverage/
+reports/
+.stryker-tmp/
+.mutmap/
+mutants/
+.codegraph/
+*.log
+
+# ── 5. Backups / residuos ──
+*.bak
+*.bak.*
+*.tmp
+*.old
+*~
+
+# ── 6. Sistema / editor ──
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

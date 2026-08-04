@@ -1,0 +1,102 @@
+/* Estilos para el componente de crop de imagen */
+.image-cropper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.image-cropper-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.image-cropper-header {
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-cropper-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.image-cropper-preview {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #f8f9fa;
+    user-select: none;
+}
+
+.image-cropper-mask {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.image-cropper-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    max-width: none;
+    user-select: none;
+    transition: transform 0.1s ease-out;
+}
+
+.image-cropper-controls {
+    width: 100%;
+    text-align: center;
+}
+
+.image-cropper-footer {
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .image-cropper-container {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    .image-cropper-preview {
+        width: 250px;
+        height: 250px;
+    }
+
+    .image-cropper-mask {
+        width: 250px !important;
+        height: 250px !important;
+    }
+}
+

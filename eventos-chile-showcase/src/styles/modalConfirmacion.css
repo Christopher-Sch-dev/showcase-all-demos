@@ -1,0 +1,215 @@
+/**
+ * =============================================================================
+ * Estilos para Modal de Confirmacion Profesional
+ * Reemplaza window.confirm y window.prompt
+ * =============================================================================
+ */
+
+.modal-confirmacion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-confirmacion-content {
+    background: #21262d;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.2s ease-out;
+    border: 1px solid #30363d;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Variantes de color (borde superior) */
+.modal-confirmacion-content.modal-danger {
+    border-top: 3px solid #f85149;
+}
+
+.modal-confirmacion-content.modal-warning {
+    border-top: 3px solid #f59e0b;
+}
+
+.modal-confirmacion-content.modal-info {
+    border-top: 3px solid #58a6ff;
+}
+
+.modal-confirmacion-header {
+    padding: 1.25rem 1.5rem 0.75rem;
+}
+
+.modal-confirmacion-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.modal-confirmacion-body {
+    padding: 0.75rem 1.5rem 1.25rem;
+}
+
+.modal-mensaje {
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+    white-space: pre-line;
+}
+
+.modal-input-container {
+    position: relative;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    background: #0d1117;
+    color: #c9d1d9;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s;
+}
+
+.modal-input:focus {
+    outline: none;
+    border-color: #58a6ff;
+}
+
+.modal-input::placeholder {
+    color: #6e7681;
+}
+
+.char-count {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.char-count.valid {
+    color: #3fb950;
+}
+
+.char-count.invalid {
+    color: #f59e0b;
+}
+
+.modal-confirmacion-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem 1.5rem;
+    justify-content: flex-end;
+}
+
+.btn-modal-cancelar,
+.btn-modal-confirmar {
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-modal-cancelar {
+    background: #30363d;
+    color: #c9d1d9;
+}
+
+.btn-modal-cancelar:hover:not(:disabled) {
+    background: #3a424a;
+}
+
+.btn-modal-confirmar {
+    color: #ffffff;
+}
+
+.btn-modal-confirmar.btn-danger {
+    background: linear-gradient(135deg, #f85149, #da3633);
+}
+
+.btn-modal-confirmar.btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #ff6b63, #f85149);
+}
+
+.btn-modal-confirmar.btn-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.btn-modal-confirmar.btn-warning:hover:not(:disabled) {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.btn-modal-confirmar.btn-info {
+    background: linear-gradient(135deg, #58a6ff, #388bfd);
+}
+
+.btn-modal-confirmar.btn-info:hover:not(:disabled) {
+    background: linear-gradient(135deg, #79b8ff, #58a6ff);
+}
+
+.btn-modal-cancelar:disabled,
+.btn-modal-confirmar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .modal-confirmacion-content {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-confirmacion-header,
+    .modal-confirmacion-body,
+    .modal-confirmacion-actions {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .modal-confirmacion-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-modal-cancelar,
+    .btn-modal-confirmar {
+        width: 100%;
+    }
+}

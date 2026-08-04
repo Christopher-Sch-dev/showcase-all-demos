@@ -1,0 +1,7 @@
+{
+  "default": {
+    "require": ["tests/step_definitions/*.steps.ts"],
+    "requireModule": ["tsx"],
+    "format": ["progress"]
+  }
+}

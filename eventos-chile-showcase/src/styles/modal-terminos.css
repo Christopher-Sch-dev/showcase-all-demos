@@ -1,0 +1,238 @@
+/**
+ * Estilos para Modal de Terminos y Condiciones
+ * Diseño responsive con scroll detection
+ */
+
+.modal-terminos-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-terminos-container {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-terminos-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #30363d;
+    text-align: center;
+    background: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-terminos-header h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.modal-terminos-subtitulo {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.modal-terminos-contenido {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    color: #c9d1d9;
+    line-height: 1.7;
+}
+
+.modal-terminos-contenido section {
+    margin-bottom: 1.5rem;
+}
+
+.modal-terminos-contenido h3 {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid #6c63ff;
+}
+
+.modal-terminos-contenido p {
+    color: #8b949e;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.modal-terminos-contenido ul {
+    color: #8b949e;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.modal-terminos-contenido li {
+    margin-bottom: 0.25rem;
+}
+
+.modal-terminos-final {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(108, 99, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(108, 99, 255, 0.2);
+}
+
+.modal-terminos-final p {
+    color: #c9d1d9;
+    text-align: center;
+    margin: 0;
+    font-weight: 500;
+}
+
+.modal-terminos-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #30363d;
+    background: #1e2228;
+    border-radius: 0 0 15px 15px;
+}
+
+.modal-terminos-aviso {
+    text-align: center;
+    color: #f59e0b;
+    font-size: 0.85rem;
+    margin: 0 0 0.75rem 0;
+    padding: 0.5rem;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 6px;
+}
+
+.modal-terminos-botones {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.btn-cancelar-terminos {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #8b949e;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-cancelar-terminos:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.btn-aceptar-terminos {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-aceptar-terminos:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn-aceptar-terminos:disabled {
+    background: #30363d;
+    color: #6e7681;
+    cursor: not-allowed;
+}
+
+/* Scrollbar personalizado */
+.modal-terminos-contenido::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-terminos-contenido::-webkit-scrollbar-track {
+    background: #0d1117;
+    border-radius: 4px;
+}
+
+.modal-terminos-contenido::-webkit-scrollbar-thumb {
+    background: #6c63ff;
+    border-radius: 4px;
+}
+
+.modal-terminos-contenido::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal-terminos-container {
+        max-height: 90vh;
+        border-radius: 12px;
+    }
+
+    .modal-terminos-header {
+        padding: 1rem;
+        border-radius: 11px 11px 0 0;
+    }
+
+    .modal-terminos-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .modal-terminos-contenido {
+        padding: 1rem;
+    }
+
+    .modal-terminos-botones {
+        flex-direction: column;
+    }
+
+    .btn-cancelar-terminos,
+    .btn-aceptar-terminos {
+        width: 100%;
+    }
+}

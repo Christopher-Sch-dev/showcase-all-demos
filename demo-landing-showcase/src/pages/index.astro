@@ -1,0 +1,1219 @@
+---
+// Sonrisa Vital — Landing page rediseñada
+// 1 file, sin componentes, CSS inline. Diseño Dentaire sobre contenido Sonrisa Vital.
+---
+
+<!--
+  THESIS: Sonrisa Vital es tu dentista de confianza en Santiago Centro, sin esperas.
+  OWN-WORLD: Navy/ocean palette (#0E384C / #1E84B5 / #EFF8FF / #527282), Poppins single-font,
+  tarjetas white con sombra soft, borders redondeados generosos (30px), scroll reveals sutiles.
+  STORY: El visitante siente calma y confianza profesional. Reserva online en segundos.
+  FIRST VIEWPORT: Hero asimétrico con headline bold, subtext, CTA primario + WhatsApp.
+  FORM: Persuade — landing page de conversión, acción clara (agendar hora).
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0E384C" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Sonrisa Vital — Clínica dental en Santiago Centro</title>
+  <meta name="description" content="Clínica dental en Santiago Centro. Limpieza, ortodoncia invisible, implantes y urgencias 24/7. Aceptamos todas las isapres y Fonasa." />
+  <link rel="canonical" href="https://demo-landing-jade-three.vercel.app" />
+  <meta property="og:type" content="dentist" />
+  <meta property="og:title" content="Sonrisa Vital — Clínica dental en Santiago Centro" />
+  <meta property="og:description" content="Clínica dental en Santiago Centro. Limpieza, ortodoncia invisible, implantes y urgencias 24/7. Aceptamos todas las isapres y Fonasa." />
+  <meta property="og:url" content="https://demo-landing-jade-three.vercel.app" />
+  <meta property="og:image" content="https://demo-landing-jade-three.vercel.app/og-default.png" />
+  <meta property="og:locale" content="es_CL" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sonrisa Vital — Clínica dental en Santiago Centro" />
+  <meta name="twitter:description" content="Clínica dental en Santiago Centro. Limpieza, ortodoncia invisible, implantes y urgencias 24/7." />
+  <meta name="twitter:image" content="https://demo-landing-jade-three.vercel.app/og-default.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    /* === Tokens === */
+    :root {
+      --canvas: #EFF8FF;
+      --white: #FFFFFF;
+      --navy: #0E384C;
+      --steel: #527282;
+      --ocean: #1E84B5;
+      --ocean-deep: #18709A;
+      --line: rgba(14,56,76,0.10);
+      --gold: #FFC107;
+      --red: rgb(230,87,87);
+      --font: 'Poppins', system-ui, sans-serif;
+      --content-max: 1320px;
+      --shadow-soft: 0 4px 40px rgba(0,0,0,0.06);
+      --shadow-card: 0 4px 40px rgba(14,56,76,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--steel);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.8;
+    }
+    h1, h2, h3, h4 { color: var(--navy); font-weight: 700; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; }
+    ::selection { background: var(--ocean); color: var(--white); }
+
+    /* === Utilities === */
+    .container {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* === Navigation === */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(8px);
+      transition: box-shadow 0.3s, background 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled {
+      border-bottom-color: var(--line);
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 1px 4px rgba(14,56,76,0.06);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .nav__brand-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--ocean);
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .nav__links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--steel);
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--ocean); }
+    .nav__cta {
+      background: var(--ocean) !important;
+      color: var(--white) !important;
+      padding: 10px 24px;
+      border-radius: 99px;
+      font-weight: 600 !important;
+      font-size: 0.875rem !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav__cta:hover {
+      background: var(--ocean-deep) !important;
+      transform: translateY(-1px);
+      color: var(--white) !important;
+    }
+    .nav__toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      width: 42px;
+      height: 42px;
+      font-size: 1.2rem;
+      color: var(--navy);
+      cursor: pointer;
+    }
+
+    /* === Hero === */
+    .hero {
+      background: var(--canvas);
+      padding: 140px 0 80px;
+    }
+    .hero__grid {
+      display: grid;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero__content {
+      max-width: 640px;
+    }
+    .hero__overline {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ocean);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+    .hero__title {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .hero__hl {
+      color: var(--ocean);
+    }
+    .hero__sub {
+      font-size: 1rem;
+      color: var(--steel);
+      line-height: 1.8;
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+    }
+    .btn--primary {
+      background: var(--ocean);
+      color: var(--white);
+    }
+    .btn--primary:hover {
+      background: var(--ocean-deep);
+      transform: translateY(-1px);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--ocean);
+    }
+    .btn--ghost:hover {
+      background: rgba(30,132,181,0.06);
+      transform: translateY(-1px);
+    }
+    .hero__visual {
+      display: none;
+    }
+
+    /* === Stats Bar === */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 640px;
+    }
+    .stats__item {
+      background: var(--white);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stats__number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .stats__label {
+      font-size: 0.85rem;
+      color: var(--steel);
+      margin-top: 4px;
+    }
+
+    /* === Section pattern === */
+    .section {
+      padding: 80px 0;
+    }
+    .section--alt {
+      background: var(--canvas);
+    }
+    .section__header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section__overline {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ocean);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .section__title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .section__sub {
+      color: var(--steel);
+      max-width: 600px;
+      margin: 12px auto 0;
+      font-size: 0.95rem;
+    }
+
+    /* === Services === */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--line);
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 50px rgba(14,56,76,0.12);
+    }
+    .service-card__icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--canvas);
+      color: var(--ocean);
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .service-card:hover .service-card__icon {
+      background: var(--ocean);
+      color: var(--white);
+    }
+    .service-card__title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .service-card__desc {
+      font-size: 0.9rem;
+      color: var(--steel);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .service-card__price {
+      font-weight: 600;
+      color: var(--ocean);
+      font-size: 1.05rem;
+    }
+
+    /* === Team Carousel — Spotlight Morph === */
+    .carousel {
+      position: relative;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+    .carousel__track-wrap {
+      position: relative;
+      min-height: 180px;
+      overflow: hidden;
+    }
+    .carousel__track {
+      position: relative;
+      height: 100%;
+    }
+    .carousel__slide {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 100%;
+      max-width: 340px;
+      padding: 0 8px;
+      transition: all 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity, filter;
+    }
+    .carousel__slide--active {
+      z-index: 3;
+      filter: none !important;
+    }
+    .carousel__slide--prev,
+    .carousel__slide--next {
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .team-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--line);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: box-shadow 0.3s;
+    }
+    .team-card__avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--canvas);
+      color: var(--ocean);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+    .carousel__slide--active .team-card__avatar {
+      background: var(--ocean);
+      color: var(--white);
+    }
+    .team-card__name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .team-card__role {
+      font-size: 0.85rem;
+      color: var(--ocean);
+      margin-top: 2px;
+    }
+    .team-card__exp {
+      font-size: 0.85rem;
+      color: var(--steel);
+      margin-top: 4px;
+    }
+
+    /* Carousel controls */
+    .carousel__controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    .carousel__arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--line);
+      background: var(--white);
+      color: var(--navy);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .carousel__arrow:hover {
+      background: var(--ocean);
+      border-color: var(--ocean);
+      color: var(--white);
+    }
+    .carousel__dots {
+      display: flex;
+      gap: 8px;
+    }
+    .carousel__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background: var(--line);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      padding: 0;
+    }
+    .carousel__dot--active {
+      background: var(--ocean);
+      transform: scale(1.35);
+      box-shadow: 0 0 0 3px rgba(30,132,181,0.2);
+    }
+    .carousel__dot:hover {
+      background: var(--ocean);
+      transform: scale(1.15);
+    }
+
+    /* === FAQ === */
+    .faq__grid {
+      position: relative;
+    }
+    .faq__visual {
+      display: none;
+    }
+    .faq__mascot {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .section--faq {
+      position: relative;
+    }
+    .faq-list {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 20px 0;
+    }
+    .faq-item:first-child {
+      border-top: 1px solid var(--line);
+    }
+    .faq-q {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--navy);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-q::-webkit-details-marker { display: none; }
+    .faq-q::after {
+      content: "\f078";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 0.8rem;
+      color: var(--ocean);
+      transition: transform 0.2s;
+    }
+    details[open] .faq-q::after {
+      transform: rotate(180deg);
+    }
+    .faq-a {
+      color: var(--steel);
+      font-size: 0.9rem;
+      margin-top: 12px;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* === Form === */
+    .contact-form {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .contact-form__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field--full { grid-column: 1 / -1; }
+    .field label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--navy);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      padding: 14px 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--steel);
+      opacity: 0.5;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(30,132,181,0.15);
+    }
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn--submit {
+      background: var(--ocean);
+      color: var(--white);
+      padding: 16px 32px;
+      border: none;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn--submit:hover { background: var(--ocean-deep); }
+    .form-status {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .form-status[data-tone="ok"] { color: var(--ocean); }
+    .form-status[data-tone="err"] { color: var(--red); }
+    .form-status[data-tone="pending"] { color: var(--steel); }
+
+    /* === Footer === */
+    .footer {
+      background: var(--navy);
+      color: var(--white);
+      padding: 64px 0 0;
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer__brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .footer__desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+    .footer__heading {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer__link {
+      display: block;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+    .footer__link:hover { color: var(--white); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      margin-top: 48px;
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .footer__bottom a { color: var(--ocean); }
+
+    /* === Scroll reveal === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === Responsive === */
+    @media (min-width: 768px) {
+      .section { padding: 100px 0; }
+      .hero { padding: 160px 0 80px; }
+      .hero__grid {
+        grid-template-columns: 1fr 1.3fr;
+      }
+      .hero__visual {
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+      .hero__mascot {
+        width: 100%;
+        height: auto;
+        justify-self: center;
+        position: relative;
+        z-index: 2;
+        animation: float3d 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        filter: drop-shadow(0 -4px 8px rgba(255,255,255,0.08)) drop-shadow(0 25px 35px rgba(14,56,76,0.18));
+      }
+      .hero__visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 40%, rgba(30,132,181,0.1) 0%, transparent 65%);
+        z-index: 0;
+        animation: glowPulse 4s ease-in-out infinite;
+      }
+      .hero__visual::after {
+        content: '';
+        position: absolute;
+        bottom: 12%;
+        left: 50%;
+        width: 65%;
+        aspect-ratio: 12 / 1;
+        background: radial-gradient(ellipse, rgba(14,56,76,0.12) 0%, transparent 70%);
+        transform: translateX(-50%);
+        z-index: 0;
+        animation: shadowShift 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+      }
+      @keyframes float3d {
+        0%, 100% { transform: perspective(800px) rotateY(-3deg) rotateX(2deg) translateY(0); }
+        50%      { transform: perspective(800px) rotateY(3deg) rotateX(-1deg) translateY(-10px); }
+      }
+      @keyframes glowPulse {
+        0%, 100% { opacity: 0.4; }
+        50%      { opacity: 0.9; }
+      }
+      @keyframes shadowShift {
+        0%, 100% { opacity: 0.6; width: 65%; }
+        50%      { opacity: 0.25; width: 50%; }
+      }
+      .hero__title { font-size: clamp(2.8rem, 4.5vw, 3.6rem); }
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .faq__visual {
+        display: block;
+        position: absolute;
+        right: -80px;
+        top: 200px;
+        width: min(780px, 65%);
+        pointer-events: none;
+      }
+      .faq__mascot {
+        position: relative;
+        z-index: 2;
+        animation: float3d 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        filter: drop-shadow(0 -4px 8px rgba(255,255,255,0.06)) drop-shadow(0 20px 30px rgba(14,56,76,0.12));
+      }
+      .faq__visual::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 40%, rgba(30,132,181,0.08) 0%, transparent 65%);
+        z-index: 0;
+        animation: glowPulse 4s ease-in-out infinite;
+      }
+      .faq__visual::after {
+        content: '';
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        width: 60%;
+        aspect-ratio: 12 / 1;
+        background: radial-gradient(ellipse, rgba(14,56,76,0.08) 0%, transparent 70%);
+        transform: translateX(-50%);
+        z-index: 0;
+        animation: shadowShift 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .nav__links a:not(.nav__cta) { display: none; }
+      .nav__links a.nav__cta {
+        font-size: 0.8rem !important;
+        padding: 8px 16px;
+      }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .stats__number { font-size: 1.4rem; }
+      .contact-form__grid { grid-template-columns: 1fr; }
+
+      .hero__actions { justify-content: center; }
+      .hero__overline,
+      .hero__title,
+      .hero__sub { text-align: center; }
+      .hero__sub { margin-left: auto; margin-right: auto; }
+      .stats { margin: 0 auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .hero__mascot { animation: none; }
+      .faq__mascot { animation: none; }
+      .faq__visual::before, .faq__visual::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === Navigation === -->
+  <header class="nav" id="site-nav" role="banner">
+    <div class="nav__inner">
+      <a href="#" class="nav__brand" aria-label="Sonrisa Vital">
+        <span class="nav__brand-icon" aria-hidden="true"><i class="fa-solid fa-tooth"></i></span>
+        Sonrisa Vital
+      </a>
+      <nav class="nav__links" aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#faq">Preguntas</a>
+        <a href="#contacto" class="nav__cta">Agendar hora</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- === Hero === -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero__grid">
+          <div class="hero__content">
+            <p class="hero__overline">// Clínica dental · Santiago Centro</p>
+            <h1 class="hero__title" id="hero-title">Tu dentista, <span class="hero__hl">sin esperas</span>.</h1>
+            <p class="hero__sub">Reservá online en 30 segundos. Te confirmamos por WhatsApp en menos de 1 hora. Aceptamos todas las isapres y Fonasa. Urgencias 24/7.</p>
+            <div class="hero__actions">
+              <a href="#contacto" class="btn btn--primary">
+                Reservar mi hora <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+              <a href="https://wa.me/56912345678" class="btn btn--ghost" rel="noopener">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp urgencias
+              </a>
+            </div>
+            <div class="stats">
+              <div class="stats__item">
+                <p class="stats__number">+12 años</p>
+                <p class="stats__label">atendiendo en Santiago</p>
+              </div>
+              <div class="stats__item">
+                <p class="stats__number">+8.000</p>
+                <p class="stats__label">pacientes atendidos</p>
+              </div>
+              <div class="stats__item">
+                <p class="stats__number">30 min</p>
+                <p class="stats__label">tiempo de respuesta</p>
+              </div>
+            </div>
+          </div>
+          <div class="hero__visual" aria-hidden="true">
+            <img src="/images/Gemini_Generated_Image_ynde7bynde7bynde-Photoroom.png" alt="Mascota Sonrisa Vital" class="hero__mascot" width="677" height="369" loading="eager">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === Servicios === -->
+    <section id="servicios" class="section" aria-labelledby="servicios-title">
+      <div class="container">
+        <header class="section__header">
+          <p class="section__overline">Servicios</p>
+          <h2 class="section__title" id="servicios-title">Equipos digitales, materiales certificados</h2>
+          <p class="section__sub">Todos los precios incluyen el control post-tratamiento.</p>
+        </header>
+        <div class="services-grid" role="list">
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-broom"></i></div>
+            <h3 class="service-card__title">Limpieza profunda</h3>
+            <p class="service-card__desc">Profilaxis con ultrasonido. 45 minutos.</p>
+            <span class="service-card__price">$25.000</span>
+          </article>
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-teeth"></i></div>
+            <h3 class="service-card__title">Ortodoncia invisible</h3>
+            <p class="service-card__desc">Alineadores transparentes a medida. 6 a 12 meses.</p>
+            <span class="service-card__price">desde $890.000</span>
+          </article>
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-sun"></i></div>
+            <h3 class="service-card__title">Blanqueamiento LED</h3>
+            <p class="service-card__desc">Una sesión de 60 minutos. Resultados visibles ya.</p>
+            <span class="service-card__price">$120.000</span>
+          </article>
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-gem"></i></div>
+            <h3 class="service-card__title">Implantes dentales</h3>
+            <p class="service-card__desc">Implante de titanio + corona de zirconio. Garantía 5 años.</p>
+            <span class="service-card__price">cotizar</span>
+          </article>
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-microscope"></i></div>
+            <h3 class="service-card__title">Conducto (endodoncia)</h3>
+            <p class="service-card__desc">Con microscopio dental. 1 a 2 sesiones.</p>
+            <span class="service-card__price">desde $180.000</span>
+          </article>
+          <article class="service-card reveal" role="listitem">
+            <div class="service-card__icon"><i class="fa-solid fa-truck-medical"></i></div>
+            <h3 class="service-card__title">Urgencias 24/7</h3>
+            <p class="service-card__desc">Dolor, fractura o infección. Te respondemos en menos de 30 minutos.</p>
+            <span class="service-card__price">urgencia</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- === Equipo === -->
+    <section id="equipo" class="section section--alt" aria-labelledby="equipo-title">
+      <div class="container">
+        <header class="section__header">
+          <p class="section__overline">Equipo</p>
+          <h2 class="section__title" id="equipo-title">Especialistas con experiencia</h2>
+          <p class="section__sub">Postgrado en universidades de Chile y el extranjero.</p>
+        </header>
+        <div class="carousel" id="team-carousel">
+          <div class="carousel__track-wrap">
+            <div class="carousel__track" id="team-track">
+              <article class="carousel__slide" role="listitem">
+                <div class="team-card">
+                  <div class="team-card__avatar" aria-hidden="true">CM</div>
+                  <div>
+                    <h3 class="team-card__name">Dra. Carolina Méndez</h3>
+                    <p class="team-card__role">Directora · Odontóloga general</p>
+                    <p class="team-card__exp">12 años de experiencia</p>
+                  </div>
+                </div>
+              </article>
+              <article class="carousel__slide" role="listitem">
+                <div class="team-card">
+                  <div class="team-card__avatar" aria-hidden="true">SR</div>
+                  <div>
+                    <h3 class="team-card__name">Dr. Sebastián Rojas</h3>
+                    <p class="team-card__role">Ortodoncia</p>
+                    <p class="team-card__exp">8 años de experiencia</p>
+                  </div>
+                </div>
+              </article>
+              <article class="carousel__slide" role="listitem">
+                <div class="team-card">
+                  <div class="team-card__avatar" aria-hidden="true">VS</div>
+                  <div>
+                    <h3 class="team-card__name">Dra. Valentina Soto</h3>
+                    <p class="team-card__role">Endodoncia y estética</p>
+                    <p class="team-card__exp">6 años de experiencia</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="carousel__controls">
+            <button class="carousel__arrow" id="carousel-prev" aria-label="Anterior">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="carousel__dots" id="carousel-dots"></div>
+            <button class="carousel__arrow" id="carousel-next" aria-label="Siguiente">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === FAQ === -->
+    <section id="faq" class="section section--faq" aria-labelledby="faq-title">
+      <div class="container">
+        <header class="section__header">
+          <p class="section__overline">Preguntas frecuentes</p>
+          <h2 class="section__title" id="faq-title">Todo lo que necesitás saber</h2>
+        </header>
+        <div class="faq__grid">
+          <dl class="faq-list">
+            <details class="faq-item reveal">
+              <summary class="faq-q">¿Aceptan isapres o Fonasa?</summary>
+              <p class="faq-a">Sí. Trabajamos con Consalud, Cruz Blanca, Banmédica, Colmena, Nueva Masvida y bonos Fonasa. Te entregamos el programa para reembolso.</p>
+            </details>
+            <details class="faq-item reveal">
+              <summary class="faq-q">¿Cuánto demora un blanqueamiento?</summary>
+              <p class="faq-a">Una sesión de 60 minutos. Resultados visibles inmediatamente y se asientan a las 2 semanas. Recomendamos una limpieza previa.</p>
+            </details>
+            <details class="faq-item reveal">
+              <summary class="faq-q">¿Tienen financiamiento?</summary>
+              <p class="faq-a">Sí, hasta 12 cuotas con tarjetas. Tratamientos largos (ortodoncia, implantes) tienen plan a medida sin interés.</p>
+            </details>
+            <details class="faq-item reveal">
+              <summary class="faq-q">¿Atienden urgencias?</summary>
+              <p class="faq-a">Sí, 24/7 por WhatsApp. Para dolor intenso, fractura o infección respondemos en menos de 30 minutos y te derivamos a la sucursal más cercana.</p>
+            </details>
+          </dl>
+        </div>
+      </div>
+      <div class="faq__visual" aria-hidden="true">
+        <img src="/images/Gemini_Generated_Image_pto5ekpto5ekpto5-Photoroom 2.png" alt="" class="faq__mascot" width="677" height="369" loading="lazy">
+      </div>
+    </section>
+
+    <!-- === Contacto === -->
+    <section id="contacto" class="section section--alt" aria-labelledby="contacto-title">
+      <div class="container">
+        <header class="section__header">
+          <p class="section__overline">Reservá tu hora</p>
+          <h2 class="section__title" id="contacto-title">Te respondemos en menos de 1 hora</h2>
+          <p class="section__sub">En horario hábil. Para urgencias, escribinos por WhatsApp.</p>
+        </header>
+        <form class="contact-form" data-webhook="https://demo.n8n.io/webhook/sonrisa-vital" aria-label="Formulario de reserva">
+          <div class="contact-form__grid">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required minlength="2" autocomplete="name" placeholder="Tu nombre" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="correo@ejemplo.cl" />
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono (opcional)</label>
+              <input type="tel" id="telefono" name="telefono" autocomplete="tel" placeholder="+56 9 1234 5678" />
+            </div>
+            <div class="field">
+              <label for="servicio">Servicio de interés</label>
+              <select id="servicio" name="servicio">
+                <option value="">Sin preferencia</option>
+                <option value="Limpieza profunda">Limpieza profunda</option>
+                <option value="Ortodoncia invisible">Ortodoncia invisible</option>
+                <option value="Blanqueamiento LED">Blanqueamiento LED</option>
+                <option value="Implantes dentales">Implantes dentales</option>
+                <option value="Conducto (endodoncia)">Conducto (endodoncia)</option>
+                <option value="Urgencias 24/7">Urgencias 24/7</option>
+              </select>
+            </div>
+            <div class="field field--full">
+              <label for="mensaje">Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" required minlength="10" placeholder="Contanos brevemente qué necesitás..."></textarea>
+            </div>
+            <div class="field field--full form-actions">
+              <button type="submit" class="btn--submit">
+                Enviar y reservar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- === Footer === -->
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand">Sonrisa Vital</p>
+        <p class="footer__desc">Clínica dental en Santiago Centro. Equipos digitales, materiales certificados, profesionales con postgrado.</p>
+      </div>
+      <div>
+        <p class="footer__heading">Contacto</p>
+        <a href="mailto:hola@sonrisavital.cl" class="footer__link">hola@sonrisavital.cl</a>
+        <a href="tel:+56223456789" class="footer__link">+56 2 2345 6789</a>
+        <p class="footer__desc" style="margin-top:8px">Av. Libertador 1234, of. 502<br />Santiago Centro, Chile</p>
+      </div>
+      <div>
+        <p class="footer__heading">Horario</p>
+        <p class="footer__desc">Lun a vie 09:00 a 20:00</p>
+        <p class="footer__desc">Sáb 09:00 a 14:00</p>
+        <p class="footer__desc">Urgencias 24/7</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      © 2026 Sonrisa Vital
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('site-nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Team carousel — Spotlight Morph
+    (function() {
+      const track = document.getElementById('team-track');
+      const dots = document.getElementById('carousel-dots');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+      if (!track || !dots) return;
+
+      const slides = Array.from(track.children);
+      const total = slides.length;
+      if (total < 2) return;
+
+      let index = 0;
+      let autoTimer = null;
+      let isPaused = false;
+
+      function positionSlides(i) {
+        index = (i + total) % total;
+        const isMobile = window.innerWidth < 768;
+        const containerW = track.parentElement.offsetWidth;
+
+        slides.forEach(function(slide, idx) {
+          const rel = (idx - index + total) % total; // 0=active, 1=next, 2=prev
+
+          slide.classList.remove('carousel__slide--active', 'carousel__slide--prev', 'carousel__slide--next');
+
+          var offset, scaleVal, opacity, blurPx;
+          if (rel === 0)      { offset = 0; scaleVal = 1;   opacity = 1;   blurPx = 0;   slide.classList.add('carousel__slide--active'); }
+          else if (rel === 1) { offset = 1; scaleVal = 0.75; opacity = 0.35; blurPx = 4;  slide.classList.add('carousel__slide--next'); }
+          else                { offset = -1; scaleVal = 0.75; opacity = 0.35; blurPx = 4;  slide.classList.add('carousel__slide--prev'); }
+
+          var xPx = offset * (isMobile ? containerW : 356);
+          slide.style.transform = 'translateX(-50%) translateX(' + xPx + 'px) scale(' + scaleVal + ')';
+          slide.style.opacity = opacity;
+          slide.style.filter = blurPx ? 'blur(' + blurPx + 'px)' : 'none';
+          slide.style.pointerEvents = rel === 0 ? 'auto' : 'none';
+        });
+
+        // Update dots
+        Array.from(dots.children).forEach(function(d, j) {
+          d.classList.toggle('carousel__dot--active', j === index);
+        });
+      }
+
+      function next() { positionSlides(index + 1); }
+      function prev() { positionSlides(index - 1); }
+
+      function startAuto() { stopAuto(); if (!isPaused) autoTimer = setInterval(next, 5000); }
+      function stopAuto() { if (autoTimer) { clearInterval(autoTimer); autoTimer = null; } }
+      function restartAuto() { stopAuto(); startAuto(); }
+
+      // Build dots
+      for (var i = 0; i < total; i++) {
+        (function(idx) {
+          var btn = document.createElement('button');
+          btn.className = 'carousel__dot' + (idx === 0 ? ' carousel__dot--active' : '');
+          btn.setAttribute('aria-label', 'Ir al especialista ' + (idx + 1));
+          btn.addEventListener('click', function() { positionSlides(idx); restartAuto(); });
+          dots.appendChild(btn);
+        })(i);
+      }
+
+      nextBtn.addEventListener('click', function() { next(); restartAuto(); });
+      prevBtn.addEventListener('click', function() { prev(); restartAuto(); });
+
+      // Keyboard
+      document.addEventListener('keydown', function(e) {
+        if (e.target.closest('.carousel')) {
+          if (e.key === 'ArrowRight') { e.preventDefault(); next(); restartAuto(); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); restartAuto(); }
+        }
+      });
+
+      // Pause on hover
+      var wrap = track.parentElement;
+      wrap.addEventListener('mouseenter', function() { isPaused = true; stopAuto(); });
+      wrap.addEventListener('mouseleave', function() { isPaused = false; startAuto(); });
+
+      // Touch swipe
+      var startX = 0;
+      wrap.addEventListener('touchstart', function(e) { startX = e.changedTouches[0].screenX; }, { passive: true });
+      wrap.addEventListener('touchend', function(e) {
+        var diff = e.changedTouches[0].screenX - startX;
+        if (Math.abs(diff) > 40) { if (diff < 0) { next(); restartAuto(); } else { prev(); restartAuto(); } }
+      }, { passive: true });
+
+      // Debounced resize
+      var resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() { positionSlides(index); }, 150);
+      });
+
+      // Initial render — disable transition to avoid flash
+      slides.forEach(function(s) { s.style.transition = 'none'; });
+      positionSlides(0);
+      requestAnimationFrame(function() { requestAnimationFrame(function() { slides.forEach(function(s) { s.style.transition = ''; }); }); });
+
+      startAuto();
+    })();
+
+    // Contact form
+    const form = document.querySelector('.contact-form');
+    const status = document.getElementById('form-status');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!status) return;
+        const data = Object.fromEntries(new FormData(form).entries());
+        const webhook = form.dataset.webhook || '';
+        status.textContent = 'Enviando...';
+        status.dataset.tone = 'pending';
+        try {
+          if (!webhook || webhook.includes('demo.n8n.io')) {
+            await new Promise(r => setTimeout(r, 800));
+            status.textContent = '✓ Mensaje recibido. En producción esto conectaría con N8N → CRM → WhatsApp.';
+            status.dataset.tone = 'ok';
+            form.reset();
+            return;
+          }
+          const res = await fetch(webhook, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, source: 'sonrisa-vital.landing', ts: new Date().toISOString() })
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          status.textContent = '✓ Recibido. Te confirmamos por WhatsApp en menos de 1 hora.';
+          status.dataset.tone = 'ok';
+          form.reset();
+        } catch {
+          status.textContent = '✗ No pudimos enviar. Escríbenos directo a hola@sonrisavital.cl';
+          status.dataset.tone = 'err';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
