@@ -1,0 +1,59 @@
+{
+  "name": "demo-lead-qualifier",
+  "version": "0.1.0",
+  "description": "Expose the 3 agentic actions (capture_lead / qualify / book) of the deterministic lead FSM as MCP stdio tools. Each tool maps args → AgentAction → reduce() (src/lib/state.ts); the reducer validates every transition, so the AI cannot break the logic.",
+  "server": {
+    "command": "npx",
+    "args": ["tsx", "src/agent/mcp-server.ts"]
+  },
+  "tools": [
+    {
+      "name": "capture_lead",
+      "description": "Create a new lead (status=new) and start the speed-to-lead timer. new→ valid from any state.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "intent": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "email": { "type": "string" },
+              "phone": { "type": "string" },
+              "topic": { "type": "string" },
+              "budget": { "type": "number" },
+              "niche": { "enum": ["realestate", "law"] },
+              "capturedAt": { "type": "number" }
+            },
+            "required": ["name", "email", "phone", "topic", "capturedAt"]
+          }
+        },
+        "required": ["intent"]
+      }
+    },
+    {
+      "name": "qualify",
+      "description": "Transition new → qualified with score (0-100) + non-empty reason. Marks first response to measure speed-to-lead <60s.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "leadId": { "type": "string" },
+          "score": { "type": "number", "minimum": 0, "maximum": 100 },
+          "reason": { "type": "string" }
+        },
+        "required": ["leadId", "score", "reason"]
+      }
+    },
+    {
+      "name": "book",
+      "description": "Transition qualified → booked; bookingUrl defaults to the central Calendly URL (never mailto).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "leadId": { "type": "string" },
+          "bookingUrl": { "type": "string" }
+        },
+        "required": ["leadId"]
+      }
+    }
+  ]
+}

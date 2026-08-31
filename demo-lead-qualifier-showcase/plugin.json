@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "demo-lead-qualifier",
+  "version": "0.1.0",
+  "description": "Lead Qualifier AI — cualquier IA externa opera el lead-funnel (captura → califica → agenda) sobre una FSM determinista, sin poder romperla.",
+  "skills": [
+    {
+      "name": "lead-qualifier",
+      "description": "Operar el lead-funnel del demo: form → captura (<60s) → calificación → agendado Calendly, usando la capa agéntica src/agent/plugin.ts.",
+      "path": "skills/lead-qualifier"
+    }
+  ],
+  "mcp": {
+    "path": "mcp.json"
+  }
+}

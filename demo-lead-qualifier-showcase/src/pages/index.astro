@@ -1,0 +1,170 @@
+---
+/**
+ * LANDING EN default (`/`) — demo-lead-qualifier, nicho Real Estate (dark luxury).
+ * Consume la config Zod (getNicheConfig('realestate')) + el demo en vivo (DemoShell island).
+ * Estructura: Hero → PainPoint → Solution (demo) → ROI → Proof → CTA Calendly.
+ * El island DemoShell se hidrata con client:load para el demo funcional.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNicheConfig } from '../config';
+import { strings } from '../i18n/strings';
+import DemoShell from '../components/DemoShell';
+import ROICalculator from '../components/ROICalculator';
+import CTACalendly from '../components/ui/CTACalendly';
+
+const config = getNicheConfig('realestate')!;
+const t = strings.en;
+const a = config.aesthetic;
+---
+
+<BaseLayout
+  title="Real Estate AI Lead Response — under 60s"
+  description="Demo funcional: un lead se captura, califica y agenda en menos de 60 segundos. 100x más probable contactar en 5 min vs 30. CTA Calendly."
+  config={config}
+  lang="en"
+  canonical="/"
+>
+  {/* Hero */}
+  <section class="py-20 sm:py-28">
+    <div class="max-w-3xl">
+      <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
+        {config.hero.eyebrow}
+      </p>
+      <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-6xl" style={{ color: a.text }}>
+        {config.hero.headline}
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg" style={{ color: a.muted }}>
+        {config.hero.subheadline}
+      </p>
+      <div class="mt-8">
+        <a
+          href="#solution"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-full px-6 py-3 font-semibold"
+          style={{ backgroundColor: a.accent, color: '#0E0F13' }}
+        >
+          {config.hero.ctaLabel} ↓
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* PainPoint */}
+  <section class="py-16" style={{ backgroundColor: a.surface }}>
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
+          {t.painEyebrow}
+        </p>
+        <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
+          {config.painPoint.headline}
+        </h2>
+        <p class="mt-4 text-base" style={{ color: a.muted }}>
+          {config.painPoint.body}
+        </p>
+      </div>
+      <div class="space-y-3">
+        {config.painPoint.metrics.map((m, i) => (
+          <div key={i} class="rounded-lg border p-4" style={{ borderColor: a.muted }}>
+            <div class="text-3xl font-bold" style={{ color: a.accent }}>
+              {m.value}
+            </div>
+            <div class="mt-1 text-sm" style={{ color: a.muted }}>
+              {m.label}
+            </div>
+            <a
+              href={m.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-1 inline-flex min-h-[44px] items-center text-xs underline"
+              style={{ color: a.muted }}
+            >
+              {t.kpiSource} ↗
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Solution (demo en vivo) */}
+  <section id="solution" class="py-16">
+    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
+      {t.solutionEyebrow}
+    </p>
+    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
+      {t.solutionHeadline}
+    </h2>
+    <p class="mt-3 max-w-2xl text-base" style={{ color: a.muted }}>
+      {t.solutionBody}
+    </p>
+    <div class="mt-8">
+      <DemoShell client:load t={t} niche="realestate" />
+    </div>
+  </section>
+
+  {/* ROI */}
+  <section class="py-16" style={{ backgroundColor: a.surface }}>
+    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
+      {t.roiEyebrow}
+    </p>
+    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
+      {t.roiHeadline}
+    </h2>
+    <p class="mt-3 max-w-2xl text-base" style={{ color: a.muted }}>
+      {t.roiBodyNote}
+    </p>
+    <div class="mt-6 grid gap-6 lg:grid-cols-2">
+      <ROICalculator client:load t={t} config={config} />
+      <div class="rounded-lg border p-5">
+        <div class="text-sm font-semibold" style={{ color: a.text }}>{t.kpiSource}</div>
+        <ul class="mt-3 space-y-2">
+          {config.metrics.map((m, i) => (
+            <li key={i} class="flex flex-wrap items-center gap-2 text-sm">
+              <span class="font-bold" style={{ color: a.accent }}>{m.value}</span>
+              <span style={{ color: a.muted }}>{m.label}</span>
+              <a href={m.source} target="_blank" rel="noopener noreferrer" class="text-xs underline" style={{ color: a.muted }}>
+                {t.kpiSource} ↗
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* Proof */}
+  <section class="py-16">
+    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
+      {t.proofEyebrow}
+    </p>
+    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
+      {t.proofHeadline}
+    </h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2">
+      {config.proof.map((p, i) => (
+        <div key={i} class="rounded-lg border p-5" style={{ borderColor: a.muted }}>
+          <p class="text-sm italic" style={{ color: a.muted }}>{p.text}</p>
+          {p.source && (
+            <a href={p.source} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-[44px] items-center text-xs underline" style={{ color: a.accent }}>
+              {t.kpiSource} ↗
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* CTA final Calendly */}
+  <section class="py-16 text-center" style={{ backgroundColor: a.surface }}>
+    <h2 class="font-display text-3xl font-bold" style={{ color: a.text }}>
+      See your funnel run in real time.
+    </h2>
+    <p class="mx-auto mt-3 max-w-xl text-base" style={{ color: a.muted }}>
+      Book a free 20-minute walkthrough on Calendly. No commitment.
+    </p>
+    <div class="mt-6 flex justify-center">
+      <CTACalendly client:load href={config.cta.url} label="Book a free 20-min demo" radius={config.aesthetic.radius} accent={config.aesthetic.accent} />
+    </div>
+  </section>
+</BaseLayout>
+

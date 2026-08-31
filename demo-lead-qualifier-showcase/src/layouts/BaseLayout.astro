@@ -1,0 +1,128 @@
+---
+/**
+ * BASELAYOUT — layout base de la landing.
+ * Aplica la estética del nicho (config.aesthetic) por CSS vars (--lq-*), NUNCA hardcode por nicho.
+ * NAV con toggle EN/ES, footer. SEO meta (canonical/hreflang). prefers-reduced-motion.
+ * Recibe la config ya resuelta (DI) desde el frontmatter de la página.
+ */
+import type { NicheConfig } from '../config/schema';
+import type { Lang } from '../i18n/strings';
+import { strings } from '../i18n/strings';
+
+interface Props {
+  title: string;
+  description: string;
+  config: NicheConfig;
+  lang: Lang;
+  /** URL canónica. */
+  canonical?: string;
+  /** Link al idioma alterno (toggle EN/ES). */
+  altHref?: string;
+}
+
+const { title, description, config, lang, canonical, altHref } = Astro.props;
+const a = config.aesthetic;
+const isDark = a.theme === 'dark';
+const t = strings[lang];
+const altLabel = lang === 'en' ? 'ES' : 'EN';
+const altTarget = altHref ?? (lang === 'en' ? '/es/' : '/');
+const year = new Date().getFullYear();
+
+// CSS vars de la estética del nicho (inyectadas desde config.aesthetic).
+const vars = [
+  `--brand-bg:${a.background}`,
+  `--brand-surface:${a.surface}`,
+  `--brand-accent:${a.accent}`,
+  `--brand-text:${a.text}`,
+  `--brand-muted:${a.muted}`,
+  `--brand-display:"${a.displayFont}"`,
+  `--brand-body:"${a.bodyFont}"`,
+].join(';');
+---
+
+<!doctype html>
+<html lang={lang} data-theme={a.theme} class={isDark ? 'dark' : 'light'} style={vars}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {lang === 'en' ? (
+      <>
+        <link rel="alternate" hreflang="es-CL" href="/es/" />
+        <link rel="alternate" hreflang="x-default" href="/" />
+      </>
+    ) : (
+      <>
+        <link rel="alternate" hreflang="en" href="/" />
+        <link rel="alternate" hreflang="es-CL" href="/es/" />
+      </>
+    )}
+    <style is:global>
+      :root {
+        --brand-bg: {a.background};
+        --brand-surface: {a.surface};
+        --brand-accent: {a.accent};
+        --brand-text: {a.text};
+        --brand-muted: {a.muted};
+        --brand-display: {a.displayFont};
+        --brand-body: {a.bodyFont};
+      }
+      html { background-color: var(--brand-bg); color: var(--brand-text); }
+      body {
+        font-family: var(--brand-body), system-ui, sans-serif;
+        background-color: var(--brand-bg);
+        color: var(--brand-text);
+        -webkit-font-smoothing: antialiased;
+      }
+      h1, h2, h3 { font-family: var(--brand-display), serif; }
+      a { color: inherit; text-decoration: none; }
+      /* prefers-reduced-motion: reduce → off (AC-11) */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen overflow-x-hidden">
+    {/* NAV + toggle EN/ES (persistente vía href, i18n) */}
+    <header
+      class="sticky top-0 z-40 border-b backdrop-blur"
+      style={{ backgroundColor: 'var(--brand-bg)', borderColor: 'var(--brand-muted)' }}
+    >
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-8" aria-label="main">
+        <a
+          href={lang === 'en' ? '/' : '/es/'}
+          class="inline-flex min-h-[44px] items-center gap-2 text-lg font-bold"
+          style={{ color: 'var(--brand-accent)' }}
+        >
+          {config.name}
+        </a>
+        <a
+          href={altTarget}
+          class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border px-3 text-sm font-semibold"
+          style={{ borderColor: 'var(--brand-accent)', color: 'var(--brand-accent)' }}
+          aria-label={`Switch language to ${altLabel}`}
+        >
+          {altLabel} ↗
+        </a>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-8">
+      <slot />
+    </main>
+
+    <footer class="mx-auto max-w-7xl px-4 py-8 text-center text-sm sm:px-8" style={{ color: 'var(--brand-muted)' }}>
+      <p class="font-mono text-xs uppercase tracking-widest">{config.name} · {t.modeBadge}</p>
+      <p class="mt-2">{t.footerMadeWith}</p>
+      <p class="mt-4 text-xs">© {year} demo-lead-qualifier</p>
+    </footer>
+  </body>
+</html>
