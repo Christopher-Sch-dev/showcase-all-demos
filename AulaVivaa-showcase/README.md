@@ -1,115 +1,119 @@
-# Tutor educativo con IA — Aula Viva AI (PWA)
+# AI educational tutor — Aula Viva AI (PWA)
 
-> **La clase no puede depender de si el profe subió bien el PDF.**
+> **Class can't depend on whether the teacher uploaded the PDF correctly.**
 
 *Progressive Web App | React + Vite + Gemini | Christopher Schiefelbein*
 
-> **Demo en vivo:** [aula-viva.vercel.app](https://aula-viva.vercel.app)
+> **Live demo:** [aula-viva.vercel.app](https://aula-viva.vercel.app)
 
 ---
 
-## ¿Por qué existe esto?
+## Why this exists
 
-Estudié en Duoc UC y viví el problema de primera mano: los profesores a veces muestran PDFs en clase que nunca suben a la plataforma, o los suben mal. El contenido del día se pierde. Los alumnos no prestan atención, no toman buenas notas, y al momento de estudiar no tienen nada.
+I studied at Duoc UC and lived the problem firsthand: teachers sometimes show PDFs in class that they never upload to the platform, or upload them wrong. The day's content is lost. Students don't pay attention, don't take good notes, and when it's time to study they have nothing.
 
-Aula Viva reemplaza y agiliza ese proceso completo, para los dos lados del aula.
+Aula Viva replaces and streamlines that whole process, for both sides of the classroom.
 
-El docente puede subir el material de la clase, organizar su contenido por asignatura y fecha, y tener apoyos de IA para preparar su clase. El alumno, al estar inscrito en la misma asignatura, accede al material directamente, puede hacer repasos inteligentes, pedir resúmenes, hacer preguntas sobre el contenido, y aprender de forma mucho más activa.
+The teacher can upload the class material, organize their content by subject and date, and have AI support to prepare their class. The student, by being enrolled in the same subject, accesses the material directly, can do smart reviews, ask for summaries, ask questions about the content, and learn much more actively.
 
-Todo organizado por asignatura, por fecha y por orden estudiantil. Nada se pierde.
-
----
-
-## ¿Cómo funciona?
-
-El núcleo de la app es un pipeline de **RAG (Retrieval-Augmented Generation)** que corre completamente en el navegador:
-
-1. El docente sube un PDF a la clase.
-2. `pdf.js` extrae el texto en un Web Worker (sin bloquear la UI).
-3. Si el PDF es una imagen escaneada, Tesseract.js aplica OCR automáticamente.
-4. El texto extraído se inyecta en el contexto de **Gemini 2.5 Flash** junto con el historial de chat.
-5. El alumno o docente interactúa con la IA, que responde basándose en el contenido real del material.
-
-La IA adapta su respuesta según el rol del usuario:
-- **Docente**: enfoque didáctico, planificación, taxonomía de Bloom.
-- **Alumno**: explicaciones simples, analogías, mnemotecnia, modo repaso.
+Everything organized by subject, by date and by student order. Nothing gets lost.
 
 ---
 
-## Filosofía técnica para DEMO en PWA (port de Android)
+## How it works
 
-Tomé la decisión de hacer todo **Local-First** para que pueda ser probado en ambos roles (docente y alumno): sin backend propio, sin base de datos en servidor, sin costos de infraestructura.
+The core of the app is a **RAG (Retrieval-Augmented Generation)** pipeline that runs entirely in the browser:
 
-- **Persistencia**: IndexedDB vía Dexie.js — base de datos transaccional completa en el navegador.
-- **API Key**: modelo BYOK (el usuario trae su propia clave de Gemini), nunca transmitida a ningún servidor mío.
-- **Deploy**: Vercel, dominio público, sin fricción de instalación.
+1. The teacher uploads a PDF to the class.
+2. `pdf.js` extracts the text in a Web Worker (without blocking the UI).
+3. If the PDF is a scanned image, Tesseract.js applies OCR automatically.
+4. The extracted text is injected into the **Gemini 2.5 Flash** context along with the chat history.
+5. The student or teacher interacts with the AI, which answers based on the real content of the material.
 
-Fue la decisión correcta para un proyecto de portafolio que tiene que funcionar al instante para cualquiera que quiera probarlo.
+The AI adapts its response according to the user's role:
+- **Teacher**: didactic approach, planning, Bloom's taxonomy.
+- **Student**: simple explanations, analogies, mnemonics, review mode.
+
+---
+
+## Technical philosophy for a DEMO in PWA (Android port)
+
+I made the decision to do everything **Local-First** so it can be tested in both roles (teacher and student): no own backend, no server database, no infrastructure costs.
+
+- **Persistence**: IndexedDB via Dexie.js — a complete transactional database in the browser.
+- **API Key**: BYOK model (the user brings their own Gemini key), never transmitted to any server of mine.
+- **Deploy**: Vercel, public domain, no installation friction.
+
+It was the right decision for a portfolio project that has to work instantly for anyone who wants to try it.
 
 ---
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |------|------------|
 | UI | React 18, TypeScript |
 | Build | Vite |
-| Estado | Zustand, React Router v7 |
-| DB Local | Dexie.js (IndexedDB) |
-| Estilos | Tailwind CSS, Framer Motion |
-| IA | Google Gemini 2.5 Flash API |
+| State | Zustand, React Router v7 |
+| Local DB | Dexie.js (IndexedDB) |
+| Styles | Tailwind CSS, Framer Motion |
+| AI | Google Gemini 2.5 Flash API |
 | PDF | pdf.js (Web Worker), Tesseract.js (OCR) |
 | Deploy | Vercel |
 
 ---
 
-## Ejecutar localmente
+## Run locally
 
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Iniciar servidor de desarrollo
+# Start development server
 npm run dev
 
-# Compilar para producción
+# Compile for production
 npm run build
 ```
 
-> Necesitas una API Key de Google Gemini. Puedes obtener una gratis en [aistudio.google.com](https://aistudio.google.com). La app te la pide al inicio, se guarda solo en tu `localStorage`.
+> You need a Google Gemini API Key. You can get one for free at [aistudio.google.com](https://aistudio.google.com). The app asks for it at startup, and it's stored only in your `localStorage`.
 
 ---
 
-## Seguridad
+## Security
 
-- La API key nunca sale del navegador.
-- Las respuestas de IA pasan por `react-markdown` con sanitización para prevenir XSS.
-- Roles estrictos: los alumnos no acceden a controles de edición de docentes.
-
----
-
-*Desarrollado por Christopher Schiefelbein — enero 2026*
+- The API key never leaves the browser.
+- AI responses go through `react-markdown` with sanitization to prevent XSS.
+- Strict roles: students don't access teacher editing controls.
 
 ---
 
-## Decisiones y tradeoffs
+*Developed by Christopher Schiefelbein — January 2026*
 
-- **Local-First (IndexedDB)**: para que la demo funcione al instante sin backend propio ni costos de infraestructura. La persistencia es transaccional y completa en el navegador.
-- **RAG en el navegador**: extracción de texto del PDF con `pdf.js`, OCR con Tesseract y contexto inyectado en Gemini, todo del lado del cliente.
-- **BYOK (trae tu propia API key)**: el usuario usa su propia clave de Gemini, nunca transmitida a un servidor mío.
+---
 
-## Qué demuestra
+## Decisions and tradeoffs
 
-- Una PWA educativa completa que convierte material de clase en repasos interactivos con IA.
-- Procesamiento de PDFs en el navegador sin bloquear la UI (Web Workers).
-- Arquitectura Local-First con roles (docente/alumno) y persistencia en IndexedDB.
+- **Local-First (IndexedDB)**: so the demo works instantly without an own backend or infrastructure costs. Persistence is transactional and complete in the browser.
+- **RAG in the browser**: PDF text extraction with `pdf.js`, OCR with Tesseract and context injected into Gemini, all client-side.
+- **BYOK (bring your own API key)**: the user uses their own Gemini key, never transmitted to a server of mine.
 
-## Qué aprendí
+## What it demonstrates
 
-- Cómo montar un pipeline RAG completo dentro del navegador, del PDF a la respuesta de IA.
-- Cómo usar OCR para PDFs escaneados sin backend.
-- Cómo diseñar una PWA instalable con roles y datos locales transaccionales.
+- A complete educational PWA that turns class material into interactive AI reviews.
+- PDF processing in the browser without blocking the UI (Web Workers).
+- Local-First architecture with roles (teacher/student) and IndexedDB persistence.
 
-## Privacidad
+## What I learned
 
-Copia pública de solo lectura de la demo. No incluye secretos, credenciales, variables de entorno reales ni URLs de infraestructura interna. La versión original es un repositorio privado.
+- How to set up a complete RAG pipeline inside the browser, from PDF to AI response.
+- How to use OCR for scanned PDFs without a backend.
+- How to design an installable PWA with roles and transactional local data.
+
+## Privacy
+
+Public, read-only copy of the demo. It doesn't include secrets, credentials, real environment variables or internal infrastructure URLs. The original version is a private repository.
+
+---
+
+**Other languages:** [Español](./README.es.md)

@@ -1,104 +1,108 @@
-# Landing de conversión para clínica dental — Sonrisa Vital
+# Conversion landing page for a dental clinic — Sonrisa Vital
 
-Una landing page de alto rendimiento construida para **Sonrisa Vital**, una clínica dental en Santiago Centro. La hice con **Astro** (sitio 100% estático) para demostrar cómo traduzco un negocio real — "reserva tu hora sin esperas" — en una página web que convierte visitantes en pacientes.
+A high-performance landing page built for **Sonrisa Vital**, a dental clinic in downtown Santiago. I built it with **Astro** (100% static site) to demonstrate how I translate a real business — "book your appointment with no waiting" — into a web page that converts visitors into patients.
 
-> **Demo en vivo:** [https://demo-landing-jade-three.vercel.app](https://demo-landing-jade-three.vercel.app)
+> **Live demo:** [https://demo-landing-jade-three.vercel.app](https://demo-landing-jade-three.vercel.app)
 
 ---
 
-## ¿Qué es?
+## What it is
 
-Una landing de conversión de una sola página para una clínica dental. El objetivo no es "mostrar bonito": es que una persona que llega desde Google o redes **reserve una hora en menos de un minuto**.
+A single-page conversion landing for a dental clinic. The goal isn't to "look pretty": it's that someone arriving from Google or social media **books an appointment in under a minute**.
 
-La estructura sigue un recorrido de conversión claro:
+The structure follows a clear conversion journey:
 
-- **Hero** con propuesta clara y CTA principal ("Reservar mi hora" + "WhatsApp urgencias").
-- **Servicios** con precios explícitos (menos fricción, más confianza).
-- **Equipo** con carrusel de especialistas (autoridad).
-- **FAQ** que derriba objeciones típicas (isapres, Fonasa, financiamiento, urgencias).
-- **Formulario de reserva** con los datos justos para que el equipo pueda contactar al paciente.
-- **SEO completo**: title, meta description, Open Graph, canonical, `lang="es"`, favicon.
+- **Hero** with a clear value proposition and main CTA ("Book my appointment" + "WhatsApp emergencies").
+- **Services** with explicit prices (less friction, more trust).
+- **Team** with a carousel of specialists (authority).
+- **FAQ** that addresses typical objections (isapres, Fonasa, financing, emergencies).
+- **Booking form** with just the right data so the team can contact the patient.
+- **Complete SEO**: title, meta description, Open Graph, canonical, `lang="es"`, favicon.
 
-## Stack y por qué
+## Stack and why
 
-| Herramienta | Rol | Por qué la elegí |
+| Tool | Role | Why I chose it |
 |---|---|---|
-| **Astro 7** | Framework del sitio | Genera HTML estático puro → carga instantánea, mejor SEO y core-web-vitals. Cero JavaScript de framework en el camino crítico. |
-| **HTML + CSS inline** | Diseño e interacción | Una sola página, sin dependencias de UI. Más rápido de mantener, más rápido de cargar. |
-| **TypeScript** | Tipado | Base sólida y mantenible, compatible con las herramientas de testing. |
-| **Vitest** | Tests de render | Verifico el HTML que realmente se sirve (SEO, CTAs, formulario) — no solo código unitario que no prueba nada del producto. |
-| **Stryker** | Mutation testing | Configurado para asegurar que los tests realmente detectan bugs (en este repo la lógica es estática, por eso la suite de tests protege el output renderizado). |
+| **Astro 7** | Site framework | Generates pure static HTML → instant load, better SEO and core-web-vitals. Zero framework JavaScript on the critical path. |
+| **Inline HTML + CSS** | Design and interaction | A single page, no UI dependencies. Faster to maintain, faster to load. |
+| **TypeScript** | Typing | Solid, maintainable base, compatible with the testing tools. |
+| **Vitest** | Render tests | I verify the HTML that is actually served (SEO, CTAs, form) — not just unit code that tests nothing about the product. |
+| **Stryker** | Mutation testing | Configured to ensure the tests actually catch bugs (in this repo the logic is static, so the test suite protects the rendered output). |
 
-**Por qué Astro:** este proyecto no necesita un SPA. Un sitio de conversión quiere lo más rápido posible y lo más indexable posible. Astro me da HTML estático por defecto y la opción de añadir interactividad donde hace falta (carrusel, formulario, scroll-reveal).
+**Why Astro:** this project doesn't need an SPA. A conversion site wants to be as fast and as indexable as possible. Astro gives me static HTML by default and the option to add interactivity where it's needed (carousel, form, scroll-reveal).
 
-## Cómo correrlo localmente
+## How to run it locally
 
-Requisito: Node.js 18+ y npm.
+Requirement: Node.js 18+ and npm.
 
 ```bash
-# 1. Instalar dependencias
+# 1. Install dependencies
 npm install
 
-# 2. Servidor de desarrollo (→ http://localhost:4321)
+# 2. Development server (→ http://localhost:4321)
 npm run dev
 
-# 3. Build de producción (→ carpeta dist/)
+# 3. Production build (→ dist/ folder)
 npm run build
 
-# 4. Previsualizar el build localmente
+# 4. Preview the build locally
 npm run preview
 
-# 5. Correr la suite de tests (verifica el HTML renderizado de dist/)
+# 5. Run the test suite (verifies the rendered HTML in dist/)
 npm test
 ```
 
-> Los tests leen la salida de `dist/`, así que **corre `npm run build` antes de `npm test`** o validarán el HTML anterior.
+> The tests read the output of `dist/`, so **run `npm run build` before `npm test`** or they'll validate the previous HTML.
 
-## Estructura del proyecto
+## Project structure
 
 ```
 demo-landing-showcase/
 ├── src/
 │   └── pages/
-│       └── index.astro      # Toda la landing (HTML + CSS + JS, ~1200 líneas)
+│       └── index.astro      # The whole landing (HTML + CSS + JS, ~1200 lines)
 ├── public/
-│   └── images/              # Ilustraciones (mascota, etc.)
+│   └── images/              # Illustrations (mascot, etc.)
 ├── tests/
-│   └── landing.test.ts      # 10 tests de render (SEO, CTAs, form, lang, sin placeholders)
-├── astro.config.mjs         # Config de Astro (output static, site)
-├── vitest.config.ts         # Config de Vitest
-├── stryker.config.json      # Config de mutation testing
+│   └── landing.test.ts      # 10 render tests (SEO, CTAs, form, lang, no placeholders)
+├── astro.config.mjs         # Astro config (output static, site)
+├── vitest.config.ts         # Vitest config
+├── stryker.config.json      # Mutation testing config
 └── package.json
 ```
 
-**Nota honesta:** el formulario está conectado a un webhook de demo (no captura leads reales todavía). En el código está preparado para conectarse a una automatización real (N8N → CRM → WhatsApp) cuando el negocio lo decida. El foco de este repo es el *frontend* de conversión.
+**Honest note:** the form is connected to a demo webhook (it doesn't capture real leads yet). In the code it's ready to connect to a real automation (N8N → CRM → WhatsApp) when the business decides to. The focus of this repo is the conversion *frontend*.
 
-## Qué demuestra
+## What it demonstrates
 
-- **Craft de UI:** paleta coherente (navy/ocean), tipografía única (Poppins), tarjetas con sombras suaves y bordes generosos, animaciones sutiles de scroll-reveal y carrusel "spotlight", respeto por `prefers-reduced-motion`.
-- **Diseño orientado a conversión:** jerarquía clara, CTAs visibles, precios explícitos, FAQ que responde objeciones, formulario corto y con `aria-live` para feedback.
-- **Accesibilidad y SEO:** landmarks semánticos, `lang="es"`, `aria-label` en interactivos, meta tags completos, canonical.
-- **Testing real:** una suite que valida el HTML servido — que el título SEO, las meta descriptions, los Open Graph, los CTAs y el formulario estén presentes y que no haya placeholders sin rellenar.
-- **Responsive:** del móvil al escritorio con grids adaptativos.
-
----
-
-Hecho por **Christopher** — construcción de productos web reales, de la idea al deploy.
+- **UI craft:** coherent palette (navy/ocean), unique typography (Poppins), cards with soft shadows and generous borders, subtle scroll-reveal animations and a "spotlight" carousel, respect for `prefers-reduced-motion`.
+- **Conversion-oriented design:** clear hierarchy, visible CTAs, explicit prices, FAQ that answers objections, short form with `aria-live` for feedback.
+- **Accessibility and SEO:** semantic landmarks, `lang="es"`, `aria-label` on interactive elements, complete meta tags, canonical.
+- **Real testing:** a suite that validates the served HTML — that the SEO title, meta descriptions, Open Graph, CTAs and form are present and that there are no unfilled placeholders.
+- **Responsive:** from mobile to desktop with adaptive grids.
 
 ---
 
-## Decisiones y tradeoffs
+Made by **Christopher** — building real web products, from idea to deploy.
 
-- **Astro en lugar de un SPA**: una landing de conversión necesita carga instantánea y buen SEO. Astro entrega HTML estático puro y añade interactividad solo donde hace falta.
-- **HTML + CSS inline en un solo archivo**: sin dependencias de UI ni de framework en el camino crítico. Más fácil de mantener y más rápido de cargar.
-- **Tests sobre el HTML renderizado**: valido lo que realmente se sirve (SEO, CTAs, formulario), no solo funciones unitarias.
+---
 
-## Qué aprendí
+## Decisions and tradeoffs
 
-- Cómo traducir un negocio real en un recorrido de conversión efectivo (hero → servicios → prueba social → formulario).
-- Cómo estructurar SEO completo (Open Graph, canonical, lang, meta) para que una landing sea indexable.
-- Cómo usar Vitest + Stryker para verificar que una página estática realmente entrega lo que promete.
+- **Astro instead of an SPA**: a conversion landing needs instant load and good SEO. Astro delivers pure static HTML and adds interactivity only where needed.
+- **Inline HTML + CSS in a single file**: no UI or framework dependencies on the critical path. Easier to maintain and faster to load.
+- **Tests on the rendered HTML**: I validate what is actually served (SEO, CTAs, form), not just unit functions.
 
-## Privacidad
+## What I learned
 
-Copia pública de solo lectura de la demo. No incluye secretos, credenciales, variables de entorno reales ni URLs de infraestructura interna. La versión original es un repositorio privado.
+- How to translate a real business into an effective conversion journey (hero → services → social proof → form).
+- How to structure complete SEO (Open Graph, canonical, lang, meta) so a landing is indexable.
+- How to use Vitest + Stryker to verify that a static page really delivers what it promises.
+
+## Privacy
+
+Public, read-only copy of the demo. It doesn't include secrets, credentials, real environment variables or internal infrastructure URLs. The original version is a private repository.
+
+---
+
+**Other languages:** [Español](./README.es.md)

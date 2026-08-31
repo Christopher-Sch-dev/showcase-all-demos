@@ -1,47 +1,51 @@
-# Eventos Chile — Frontend de gestión de eventos culturales
+# Eventos Chile — Cultural events management frontend
 
-Frontend en **React + Vite** para una plataforma de gestión de eventos culturales. Permite explorar eventos, registrarse y administrar el contenido desde un panel, con autenticación por roles.
+Frontend in **React + Vite** for a cultural events management platform. It lets you explore events, register and manage content from a panel, with role-based authentication.
 
-## Demo en vivo
+## Live demo
 
 [https://eventos-chile-20.vercel.app](https://eventos-chile-20.vercel.app)
 
-## Para quién es
+## Who it's for
 
-Es un proyecto de portafolio que muestra cómo construir el frontend de una plataforma real: listado de eventos, detalle, administración con roles y subida de imágenes. Sirve como referencia para quien quiera ver cómo estructuro una app React con backend separado.
+It's a portfolio project that shows how to build the frontend of a real platform: event listing, detail, role-based administration and image upload. It serves as a reference for anyone who wants to see how I structure a React app with a separate backend.
 
 ## Stack
 
-| Capa | Tecnología |
+| Layer | Technology |
 |------|------------|
 | UI | React 18 |
 | Build | Vite |
 | Routing | React Router |
 | HTTP | Axios |
-| Estilos | Bootstrap 5 |
+| Styles | Bootstrap 5 |
 | Testing | Vitest |
 
-## Qué demuestra
+## What it demonstrates
 
-- **Arquitectura por capas**: `components`, `pages`, `services`, `context` y `utils` bien separados.
-- **Autenticación y roles**: control de acceso por tipo de usuario en el frontend.
-- **Manejo de estado**: contextos de React para sesión y datos compartidos.
-- **Subida de imágenes**: integración con almacenamiento en la nube (Supabase) para imágenes de eventos y perfiles.
-- **Testing**: suite con Vitest y tests de componentes.
+- **Layered architecture**: `components`, `pages`, `services`, `context` and `utils` well separated.
+- **Authentication and roles**: access control by user type on the frontend.
+- **State management**: React contexts for session and shared data.
+- **Image upload**: integration with cloud storage (Supabase) for event and profile images.
+- **Testing**: suite with Vitest and component tests.
 
-## Decisiones y tradeoffs
+## Decisions and tradeoffs
 
-- **React + Vite** en lugar de Next.js: el frontend es una SPA que consume una API separada; no necesita renderizado del lado del servidor.
-- **Bootstrap 5** para UI: prioriza velocidad de desarrollo y consistencia sobre un design system custom.
-- **Separación frontend/backend**: el frontend no conoce la base de datos; se comunica con la API por HTTP. Esto permite escalar cada parte por separado.
+- **React + Vite** instead of Next.js: the frontend is an SPA that consumes a separate API; it doesn't need server-side rendering.
+- **Bootstrap 5** for UI: prioritizes development speed and consistency over a custom design system.
+- **Frontend/backend separation**: the frontend doesn't know the database; it communicates with the API over HTTP. This lets each part scale separately.
 
-## Qué aprendí
+## What I learned
 
-- Cómo estructurar un frontend grande y mantenible con responsabilidades claras por carpeta.
-- Cómo integrar autenticación JWT del lado del cliente (guardas de ruta, almacenamiento de sesión).
-- Cómo manejar subida y optimización de imágenes del lado del cliente antes de enviarlas al storage.
-- Cómo escribir tests para componentes de React y servicios.
+- How to structure a large, maintainable frontend with clear responsibilities per folder.
+- How to integrate client-side JWT authentication (route guards, session storage).
+- How to handle client-side image upload and optimization before sending them to storage.
+- How to write tests for React components and services.
 
-## Privacidad
+## Privacy
 
-Copia pública de solo lectura del frontend. No incluye credenciales, la URL del backend ni variables de entorno reales (reemplazadas por placeholders).
+Public, read-only copy of the frontend. It doesn't include credentials, the backend URL or real environment variables (replaced with placeholders).
+
+---
+
+**Other languages:** [Español](./README.es.md)

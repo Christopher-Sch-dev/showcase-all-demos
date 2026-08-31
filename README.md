@@ -1,12 +1,12 @@
 # Full Stack Demos — Live Case Studies
 
-Proyectos reales en producción con su código público de solo lectura. Construidos por **Christopher Schiefelbein**, full stack developer y dev que enseña lo que construye, desde Santiago, Chile.
+Real projects in production with their public, read-only code. Built by **Christopher Schiefelbein**, full stack developer and dev who teaches what he builds, from Santiago, Chile.
 
-Stack principal: **Astro, React, TypeScript, Python y AI agents**.
+Main stack: **Astro, React, TypeScript, Python and AI agents**.
 
 ## Demos
 
-| Proyecto | Stack | Demo en vivo |
+| Project | Stack | Live demo |
 |----------|-------|--------------|
 | [Conversion landing page for a dental clinic](./demo-landing-showcase/README.md) | Astro, TypeScript | [demo-landing-jade-three.vercel.app](https://demo-landing-jade-three.vercel.app) |
 | [Dental patient CRUD dashboard](./demo-crud-showcase/README.md) | Astro, TypeScript, Stryker | [demo-crud-three.vercel.app](https://demo-crud-three.vercel.app) |
@@ -17,17 +17,21 @@ Stack principal: **Astro, React, TypeScript, Python y AI agents**.
 
 ## How to use this repo
 
-Cada carpeta es un proyecto independiente y funcional. Para explorar uno:
+Each folder is an independent, functional project. To explore one:
 
-1. Abre la carpeta del proyecto que te interese.
-2. Lee su `README.md` — explica qué hace, el stack, las decisiones y qué demuestra.
-3. Prueba la demo en vivo desde el link de la tabla.
-4. Si quieres correrlo localmente, sigue las instrucciones de su README (`npm install` + `npm run dev`).
+1. Open the folder of the project you're interested in.
+2. Read its `README.md` — it explains what it does, the stack, the decisions and what it demonstrates.
+3. Try the live demo from the link in the table.
+4. If you want to run it locally, follow the instructions in its README (`npm install` + `npm run dev`).
 
-Este repositorio es una **copia pública de solo lectura**: sin secretos, sin credenciales, sin URLs de infraestructura interna. Es una vitrina del código que construyo.
+This repository is a **public, read-only copy**: no secrets, no credentials, no internal infrastructure URLs. It's a showcase of the code I build.
 
 ## About the author
 
-Soy Christopher Schiefelbein, **software engineering student** y **full stack developer** de Santiago, Chile. Me enfoco en construir productos web reales — de la idea al deploy — con testing, decisiones de arquitectura claras e integración de **AI agents** donde aportan valor real. Escribo y comparto lo que aprendo construyendo.
+I'm Christopher Schiefelbein, **software engineering student** and **full stack developer** from Santiago, Chile. I focus on building real web products — from idea to deploy — with testing, clear architecture decisions and **AI agents** integration where it adds real value. I write and share what I learn while building.
 
-Si quieres ver más de mi trabajo: [christopher-sch-dev.pages.dev](https://christopher-sch-dev.pages.dev)
+If you want to see more of my work: [christopher-sch-dev.pages.dev](https://christopher-sch-dev.pages.dev)
+
+---
+
+**Other languages:** [Español](./README.es.md)
