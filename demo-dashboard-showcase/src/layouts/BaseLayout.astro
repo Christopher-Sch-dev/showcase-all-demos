@@ -1,0 +1,132 @@
+---
+/**
+ * BASE LAYOUT — shell de la landing/dashboard (light clínico por config Zod).
+ * Aplica el aesthetic del nicho (getNicheConfig('dental').aesthetic) como CSS variables
+ * (teal #2F9E9B + lavanda + Plus Jakarta Sans). NUNCA hardcode: los tokens vienen de la config.
+ * Nav con toggle EN/ES (persistente via localStorage en el island LangToggle). Footer.
+ * prefers-reduced-motion: reduce → off . Mobile 375px sin horizontal scroll.
+ */
+import type { NicheConfig } from '../config/schema';
+import type { UiStrings } from '../i18n/strings';
+import LangToggle from '../components/LangToggle';
+import ModeBadge from '../components/ModeBadge';
+
+interface Props {
+ config: NicheConfig;
+ strings: UiStrings;
+ lang: 'en' | 'es';
+ title: string;
+ description: string;
+}
+
+const { config, strings, lang, title, description } = Astro.props;
+const a = config.aesthetic;
+const otherLang = lang === 'en' ? 'es' : 'en';
+const otherHref = lang === 'en' ? '/es/' : '/';
+const otherLabel = strings.nav.switchTo;
+---
+
+<!doctype html>
+<html lang={lang}>
+ <head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+ <title>{title}</title>
+ <meta name="description" content={description} />
+ <meta name="robots" content="index, follow" />
+ <link rel="canonical" href={lang === 'en' ? '/' : '/es/'} />
+ <!-- Favicon inline (evita 404 de /favicon.ico en producción — detectado por E2E real). -->
+ <link
+ rel="icon"
+ href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232F9E9B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='bold' fill='white' text-anchor='middle'%3E%E2%97%89%3C/text%3E%3C/svg%3E"
+ />
+ <meta property="og:title" content={title} />
+ <meta property="og:description" content={description} />
+ <meta property="og:type" content="website" />
+ <link rel="preconnect" href="https://fonts.googleapis.com" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <link
+ href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+ rel="stylesheet"
+ />
+ <style is:global define:vars={{
+ 'bg': a.background,
+ 'surface': a.surface,
+ 'text': a.text,
+ 'text-secondary': a.muted,
+ 'accent': a.accent,
+ 'accent-strong': a.accentStrong,
+ 'accent-soft': a.accentSoft,
+ 'lavender': a.lavender,
+ 'lavender-soft': a.lavenderSoft,
+ 'font-display': `"${a.displayFont}", system-ui, sans-serif`,
+ 'font-body': `"${a.bodyFont}", system-ui, sans-serif`,
+ }}>
+ /* Design tokens desde la config Zod del nicho (light clínico dental). */
+ :root {
+ --surface-2: #F3F4F6;
+ --text-muted: #9CA3AF;
+ --success: var(--accent);
+ --warning: #C97A00;
+ --danger: #C0392B;
+ --border: #E5E7EB;
+ --radius: 8px;
+ --radius-card: 12px;
+ --radius-pill: 9999px;
+ --motion-fast: 150ms;
+ --motion-med: 300ms;
+ --ease: cubic-bezier(0.4, 0, 0.2, 1);
+ --font-mono: "JetBrains Mono", monospace;
+ }
+ html { scroll-behavior: smooth; }
+ body {
+ margin: 0;
+ background: var(--bg);
+ color: var(--text);
+ font-family: var(--font-body);
+ -webkit-font-smoothing: antialiased;
+ overflow-x: hidden;
+ }
+ h1, h2, h3, h4 { font-family: var(--font-display); }
+ /* prefers-reduced-motion: off */
+ @media (prefers-reduced-motion: reduce) {
+ html { scroll-behavior: auto; }
+ *, *::before, *::after {
+ animation-duration: 0.01ms !important;
+ animation-iteration-count: 1 !important;
+ transition-duration: 0.01ms !important;
+ }
+ }
+ </style>
+ </head>
+ <body class="min-h-screen">
+ <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white">
+ Skip to content
+ </a>
+
+ <header class="sticky top-0 z-40 border-b border-border bg-surface/90 backdrop-blur-sm">
+ <nav class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3" aria-label="Main">
+ <a href={lang === 'en' ? '/' : '/es/'} class="flex items-center gap-2 font-display text-lg font-bold text-text">
+ <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-white" aria-hidden="true">◉</span>
+ {strings.nav.brand}
+ </a>
+ <div class="flex items-center gap-3">
+ <ModeBadge strings={strings} />
+ <LangToggle lang={lang} otherHref={otherHref} otherLabel={otherLabel} />
+ </div>
+ </nav>
+ </header>
+
+ <main id="main">
+ <slot />
+ </main>
+
+ <footer class="mt-16 border-t border-border bg-surface">
+ <div class="mx-auto flex max-w-6xl flex-col items-center gap-2 px-4 py-8 text-center">
+ <p class="max-w-xl text-sm text-text-secondary">{strings.footer.tagline}</p>
+ <p class="text-xs text-text-muted">{strings.footer.stack}</p>
+ <p class="text-xs text-text-muted">{strings.footer.rights}</p>
+ </div>
+ </footer>
+ </body>
+</html>

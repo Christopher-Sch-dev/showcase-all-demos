@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "demo-dashboard",
+  "version": "0.1.0",
+  "description": "Capa agéntica del dashboard dental: cualquier IA externa (Claude, ChatGPT, Cursor, Codex, MCP) opera la FSM determinista de citas y el CRUD de pacientes via reduce() sin romperla.",
+  "author": {
+    "name": "Christopher",
+    "url": "https://calendly.com/csch1305"
+  },
+  "homepage": "https://calendly.com/csch1305",
+  "license": "MIT",
+  "keywords": [
+    "agent-plugin",
+    "dental",
+    "dashboard",
+    "fsm",
+    "citas",
+    "no-show",
+    "mcp"
+  ]
+}

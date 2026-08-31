@@ -1,0 +1,124 @@
+---
+/**
+ * LANDING EN (default) — "/" — Hero → Pain → Solution (dashboard en vivo) → ROI → Proof → CTA Calendly.
+ * Consume getNicheConfig('dental') (config Zod) + strings i18n EN. Estética light clínico por config.
+ * El copy de venta viene de la config (hero/painPoint/roiFormula/proof/cta) — NUNCA if-por-nicho.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNicheConfig } from '../config';
+import { getStrings } from '../i18n/strings';
+import CTACalendly from '../components/ui/CTACalendly';
+import RoiCalculator from '../components/RoiCalculator';
+import Dashboard from '../components/Dashboard';
+import { CALENDLY_URL } from '../lib/constants';
+
+const config = getNicheConfig('dental')!;
+const strings = getStrings('en');
+const a = config.aesthetic;
+const title = `${config.name} — Recover your no-shows`;
+const description = config.hero.subheadline;
+---
+
+<BaseLayout config={config} strings={strings} lang="en" title={title} description={description}>
+ <!-- HERO -->
+ <section class="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center">
+ <p class="mx-auto mb-4 inline-block rounded-pill bg-accent-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-strong">
+ {config.hero.eyebrow}
+ </p>
+ <h1 class="mx-auto max-w-3xl font-display text-4xl font-extrabold leading-tight text-text sm:text-5xl">
+ {config.hero.headline}
+ </h1>
+ <p class="mx-auto mt-5 max-w-2xl text-lg text-text-secondary">{config.hero.subheadline}</p>
+ <div class="mt-8 flex justify-center">
+ <CTACalendly label={config.hero.ctaLabel} url={config.cta.url} strings={strings} microTrust={strings.cta.microTrust} />
+ </div>
+ </section>
+
+ <!-- PAIN -->
+ <section class="border-y border-border bg-surface py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">{config.painPoint.headline}</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">{config.painPoint.body}</p>
+ <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+ {config.painPoint.metrics.map((m) => ( <div key={m.label} class="rounded-card border border-border bg-surface p-5 text-center shadow-sm">
+ <p class="font-display text-3xl font-extrabold text-accent-strong">{m.value}</p>
+ <p class="mt-1 text-sm text-text-secondary">{m.label}</p>
+ <a href={m.source} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-xs text-text-muted underline hover:text-accent-strong">
+ {strings.kpi.source}
+ </a>
+ </div>
+))}
+ </div>
+ </div>
+ </section>
+
+ <!-- SOLUTION (dashboard en vivo) -->
+ <section class="py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">See it live. Click a patient, watch the dashboard react.</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">
+ This isn't a mockup. Add a patient, mark a no-show, and watch the KPI bar recalculate in real time. Filter by treatment, page the table, and see revenue by month and by procedure — all derived live from your data, never hardcoded.
+ </p>
+ <ul class="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
+ {[
+ 'No-show rate — live, so you see the leak before it compounds.',
+ 'Revenue per patient — know which patients are worth the most.',
+ 'Production by month & treatment — see where the money is and where it is stuck.',
+ 'Recovered no-shows — track the slots you win back, not just the ones you lose.',
+ ].map((b) => ( <li key={b} class="flex items-start gap-2 rounded-lg bg-lavender-soft p-3 text-sm text-text-secondary">
+ <span class="mt-0.5 text-accent-strong" aria-hidden="true">✓</span>
+ {b}
+ </li>
+))}
+ </ul>
+ <!-- Dashboard en vivo (client:load) -->
+ <div class="mt-10">
+ <Dashboard client:load config={config} strings={strings} />
+ </div>
+ </div>
+ </section>
+
+ <!-- ROI -->
+ <section class="border-y border-border bg-surface py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">Cut your no-shows in half. Keep the revenue you already earned.</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">
+ Automated reminders cut no-shows 22.95% (Dental Tribune/Sesame, 1.6M appointments). Move the slider to see what you'd recover with your own numbers.
+ </p>
+ <div class="mx-auto mt-8 max-w-xl">
+ <RoiCalculator client:load config={config} strings={strings} />
+ </div>
+ </div>
+ </section>
+
+ <!-- PROOF -->
+ <section class="py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">Real practices. Real numbers. No invented testimonials.</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">We don't fabricate quotes. Here's what the industry data and real, named practices show:</p>
+ <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+ {config.proof.map((p) => ( <div key={p.text} class="rounded-card border border-border bg-surface p-5 shadow-sm">
+ <p class="text-sm text-text-secondary">{p.text}</p>
+ {p.source ? ( <a href={p.source} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-xs text-text-muted underline hover:text-accent-strong">
+ {strings.kpi.source}
+ </a>
+) : null}
+ </div>
+))}
+ </div>
+ </div>
+ </section>
+
+ <!-- CTA Calendly -->
+ <section class="border-t border-border bg-accent-soft py-16">
+ <div class="mx-auto max-w-3xl px-4 text-center">
+ <h2 class="font-display text-3xl font-bold text-text">See your practice's numbers in a 20-minute live walkthrough.</h2>
+ <p class="mx-auto mt-4 max-w-2xl text-text-secondary">
+ No sales pitch. We'll open the dashboard, plug in your numbers, and show you exactly what your no-show rate is costing you — and what recovering it is worth.
+ </p>
+ <div class="mt-8 flex justify-center">
+ <CTACalendly label={config.cta.label} url={config.cta.url} strings={strings} microTrust={strings.cta.microTrust} />
+ </div>
+ </div>
+ </section>
+</BaseLayout>

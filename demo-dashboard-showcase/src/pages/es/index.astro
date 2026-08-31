@@ -1,0 +1,111 @@
+---
+/**
+ * LANDING ES (es-CL) — "/es/" — Hero → Pain → Solution (dashboard en vivo) → ROI → Proof → CTA Calendly.
+ * Consume getNicheConfig('dental') (config Zod) + strings i18n es-CL (copy de venta en strings.landing).
+ * Estética light clínico por config. NUNCA if-por-nicho.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getNicheConfig } from '../../config';
+import { getStrings } from '../../i18n/strings';
+import CTACalendly from '../../components/ui/CTACalendly';
+import RoiCalculator from '../../components/RoiCalculator';
+import Dashboard from '../../components/Dashboard';
+
+const config = getNicheConfig('dental')!;
+const strings = getStrings('es');
+const L = strings.landing!;
+const title = `${config.name} — Recupera tus inasistencias`;
+const description = L.hero.subheadline;
+---
+
+<BaseLayout config={config} strings={strings} lang="es" title={title} description={description}>
+ <!-- HERO -->
+ <section class="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center">
+ <p class="mx-auto mb-4 inline-block rounded-pill bg-accent-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-strong">
+ {L.hero.eyebrow}
+ </p>
+ <h1 class="mx-auto max-w-3xl font-display text-4xl font-extrabold leading-tight text-text sm:text-5xl">
+ {L.hero.headline}
+ </h1>
+ <p class="mx-auto mt-5 max-w-2xl text-lg text-text-secondary">{L.hero.subheadline}</p>
+ <div class="mt-8 flex justify-center">
+ <CTACalendly label={L.hero.ctaLabel} url={config.cta.url} strings={strings} microTrust={strings.cta.microTrust} />
+ </div>
+ </section>
+
+ <!-- PAIN -->
+ <section class="border-y border-border bg-surface py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">{L.pain.headline}</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">{L.pain.body}</p>
+ <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+ {L.pain.metrics.map((m) => ( <div key={m.label} class="rounded-card border border-border bg-surface p-5 text-center shadow-sm">
+ <p class="font-display text-3xl font-extrabold text-accent-strong">{m.value}</p>
+ <p class="mt-1 text-sm text-text-secondary">{m.label}</p>
+ <a href={m.source} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-xs text-text-muted underline hover:text-accent-strong">
+ {strings.kpi.source}
+ </a>
+ </div>
+))}
+ </div>
+ </div>
+ </section>
+
+ <!-- SOLUTION (dashboard en vivo) -->
+ <section class="py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">{L.solution.headline}</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">{L.solution.body}</p>
+ <ul class="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2">
+ {L.solution.bullets.map((b) => ( <li key={b} class="flex items-start gap-2 rounded-lg bg-lavender-soft p-3 text-sm text-text-secondary">
+ <span class="mt-0.5 text-accent-strong" aria-hidden="true">✓</span>
+ {b}
+ </li>
+))}
+ </ul>
+ <div class="mt-10">
+ <Dashboard client:load config={config} strings={strings} />
+ </div>
+ </div>
+ </section>
+
+ <!-- ROI -->
+ <section class="border-y border-border bg-surface py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">{L.roi.headline}</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">{L.roi.body}</p>
+ <div class="mx-auto mt-8 max-w-xl">
+ <RoiCalculator client:load config={config} strings={strings} />
+ </div>
+ </div>
+ </section>
+
+ <!-- PROOF -->
+ <section class="py-14">
+ <div class="mx-auto max-w-6xl px-4">
+ <h2 class="mx-auto max-w-2xl text-center font-display text-3xl font-bold text-text">{L.proof.headline}</h2>
+ <p class="mx-auto mt-4 max-w-3xl text-center text-text-secondary">{L.proof.body}</p>
+ <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+ {L.proof.items.map((p) => ( <div key={p.text} class="rounded-card border border-border bg-surface p-5 shadow-sm">
+ <p class="text-sm text-text-secondary">{p.text}</p>
+ {p.source ? ( <a href={p.source} target="_blank" rel="noopener noreferrer" class="mt-3 inline-block text-xs text-text-muted underline hover:text-accent-strong">
+ {strings.kpi.source}
+ </a>
+) : null}
+ </div>
+))}
+ </div>
+ </div>
+ </section>
+
+ <!-- CTA Calendly -->
+ <section class="border-t border-border bg-accent-soft py-16">
+ <div class="mx-auto max-w-3xl px-4 text-center">
+ <h2 class="font-display text-3xl font-bold text-text">{L.cta.headline}</h2>
+ <p class="mx-auto mt-4 max-w-2xl text-text-secondary">{L.cta.body}</p>
+ <div class="mt-8 flex justify-center">
+ <CTACalendly label={L.cta.label} url={config.cta.url} strings={strings} microTrust={strings.cta.microTrust} />
+ </div>
+ </div>
+ </section>
+</BaseLayout>

@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "packageManager": "npm",
+  "reporters": ["html", "clear-text", "progress"],
+  "testRunner": "vitest",
+  "plugins": ["@stryker-mutator/vitest-runner"],
+  "coverageAnalysis": "perTest",
+  "ignoreStatic": true,
+  "concurrency": 2,
+  "incremental": true,
+  "cleanTempDir": "always",
+  "mutate": ["src/lib/**/*.ts", "!src/lib/**/*.test.ts"],
+  "tsconfigFile": "tsconfig.json"
+}
