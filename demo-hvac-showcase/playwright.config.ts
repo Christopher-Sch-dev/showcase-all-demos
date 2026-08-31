@@ -6,9 +6,8 @@ export default defineConfig({
   workers: 2, // cap de recursos (multi-proyecto activo): evita saturar CPU/RAM con varios Chromium
   timeout: 60_000,
   use: {
-    // Usar el binario system REAL (NO /usr/bin/chromium que es wrapper y toca ~/.config/chromium)
+    // Chromium del bundle de Playwright.
     launchOptions: {
-      executablePath: '/usr/lib/chromium/chromium',
       args: ['--no-sandbox', '--disable-dev-shm-usage'],
     },
   },

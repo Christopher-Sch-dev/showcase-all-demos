@@ -1,7 +1,7 @@
 /**
  * PLAYWRIGHT CONFIG — E2E de producción real + adversarial (demo-dashboard).
- * - testDir './e2e', fullyParallel true, workers 2 (cap recursos multi-proyecto, skill test-resource-caps).
- * - Chromium SYSTEM real (/usr/lib/chromium/chromium, NO /usr/bin/chromium) + args sandbox-safe.
+ * - testDir './e2e', fullyParallel true, workers 2 (cap de recursos multi-proyecto).
+ * - Projects: desktop (1440x900) + mobile (375x812, hasTouch, isMobile).
  * - Projects: desktop (1440x900) + mobile (375x812, hasTouch, isMobile).
  * - NUNCA mock: corre contra el build estático servido (dist/ en http://localhost:8080).
  * - Best practices web validadas (playwright.dev/docs/best-practices + /emulation):
@@ -23,10 +23,9 @@ export default defineConfig({
  reporter: [['list'], ['html', { open: 'never' }]],
  use: {
  baseURL: BASE_URL,
- // Chromium SYSTEM real (no el bundle de Playwright). --no-sandbox + --disable-dev-shm-usage
+ // Chromium del bundle de Playwright. --no-sandbox + --disable-dev-shm-usage
  // para entornos root/CI con /dev/shm limitado.
  launchOptions: {
- executablePath: '/usr/lib/chromium/chromium',
  args: ['--no-sandbox', '--disable-dev-shm-usage'],
  },
  trace: 'retain-on-failure',
