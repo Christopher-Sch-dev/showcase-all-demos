@@ -1,0 +1,38 @@
+# demo-hvac
+
+> Demo de recepción por IA para captura de llamadas y despacho HVAC.
+> Embudo interactivo de lead a factura: captura llamadas perdidas, califica y agenda leads, despacha al técnico más cercano y factura al completar — con KPIs en vivo.
+
+## Acerca de
+- **Producto**: Software a medida + add-on de IA para SMB de HVAC / servicio técnico.
+- **Problema**: el 62% de las llamadas HVAC quedan sin respuesta (CallJolt 2026); el 85% de esos clientes nunca vuelve a llamar; ticket promedio $2,200; ~$14,700 millones/año perdidos por llamadas perdidas.
+- **Solución**: una recepcionista por IA contesta al primer ring, califica y agenda el lead, despacha al técnico más cercano y factura al completar — en un solo tablero.
+- **Diferenciador**: "tu sistema, operado por IA 24/7" — núcleo determinista + conexión agent-ready (plugin/MCP).
+
+## Cómo funciona (5 pasos)
+1. **Responde cada llamada** — la recepcionista por IA contesta al primer ring, sin música en espera.
+2. **Califica y captura el lead** — hace las preguntas correctas y agenda antes de que cuelguen.
+3. **Agenda al instante** — el trabajo llega al tablero como cita confirmada.
+4. **Despacha al técnico más cercano** — el equipo ve el trabajo en su teléfono.
+5. **Factura y cierra el ciclo** — completa en sitio, factura con un toque, ingreso registrado.
+
+## Métricas clave (fuentes)
+- 62% de llamadas HVAC sin respuesta — [CallJolt 2026](https://calljolt.com/blog/hvac/hvac-industry-missed-call-statistics-2026)
+- 85% de clientes que nunca vuelven a llamar — [SkipCalls](https://skipcalls.com/blog/the-62-percent-problem-contractor-speed-to-lead)
+- $2,200 ticket promedio de servicio HVAC — [CallJolt 2026](https://calljolt.com/blog/hvac/hvac-industry-missed-call-statistics-2026)
+- 21x más probable de calificar un lead si respondes en menos de 5 minutos — [CallJolt speed-to-lead](https://calljolt.com/blog/guides/speed-to-lead-statistics-5-minute-rule)
+- ~$14,700 millones/año perdidos por llamadas perdidas
+
+## Páginas
+- [Inicio (ES)](/es/)
+- [Home (EN)](/)
+- Agenda una demo: https://calendly.com/csch1305
+
+## FAQ (resumida)
+- **¿Qué hace?** Simula el embudo completo de lead a factura: la recepcionista por IA captura la llamada perdida, califica y agenda el lead, despacha al técnico más cercano, factura al completar y actualiza KPIs en vivo.
+- **¿Producto real o mockup?** Es una demo interactiva funcional — despacha un lead, observa la cola y mira el ingreso recuperado en tiempo real. Sin registro, se reinicia con un clic.
+- **¿Puedo verlo con mi propio negocio?** Agenda una llamada de 20 min por Calendly para revisar tu volumen, ticket y recuperación.
+
+## Páginas completas (humanas)
+- Landing ES: https://demo-hvac.vercel.app/es/
+- Landing EN: https://demo-hvac.vercel.app/

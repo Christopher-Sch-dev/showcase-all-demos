@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Permitir crawlers de IA/LLM (llms.txt, JSON-LD AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://demo-hvac.vercel.app/sitemap.xml

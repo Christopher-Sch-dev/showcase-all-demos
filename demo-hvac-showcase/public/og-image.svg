@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="demo-hvac — AI receptionist for HVAC call-capture and dispatch">
+  <rect width="1200" height="630" fill="#0F1115" />
+  <rect x="0" y="0" width="1200" height="6" fill="#FF7A1A" />
+  <text x="70" y="110" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#FF7A1A" font-weight="bold" letter-spacing="2">DEMO-HVAC</text>
+  <text x="70" y="230" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#FFFFFF" font-weight="bold">Stop losing $2,200 jobs</text>
+  <text x="70" y="300" font-family="Arial, Helvetica, sans-serif" font-size="58" fill="#FFFFFF" font-weight="bold">to missed calls.</text>
+  <text x="70" y="380" font-family="Arial, Helvetica, sans-serif" font-size="28" fill="#9AA3AF">AI receptionist · capture · qualify · dispatch · invoice</text>
+  <rect x="70" y="440" width="280" height="60" rx="8" fill="#FF7A1A" />
+  <text x="210" y="479" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#FFFFFF" font-weight="bold" text-anchor="middle">See it live</text>
+  <text x="70" y="575" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#6B7280">62% of HVAC calls go unanswered · $14.7B/yr lost (CallJolt 2026)</text>
+</svg>

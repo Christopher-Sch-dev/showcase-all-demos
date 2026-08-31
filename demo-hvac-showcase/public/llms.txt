@@ -1,0 +1,38 @@
+# demo-hvac
+
+> AI receptionist demo for HVAC call-capture and dispatch.
+> Interactive lead-to-invoice funnel: capture missed calls, qualify & book leads, dispatch the closest tech, invoice on completion — with live KPIs.
+
+## About
+- **Product**: Custom software + AI add-on for HVAC / field-service SMBs.
+- **Problem**: 62% of HVAC calls go unanswered (CallJolt 2026); 85% of those callers never call back; average ticket $2,200; ~$14.7B/yr lost to missed calls.
+- **Solution**: An AI receptionist picks up on the first ring, qualifies and books the lead, dispatches the closest technician, and invoices on completion — in one board.
+- **Differentiator**: "Your system, operated by AI 24/7" — deterministic core + agent-ready connection (plugin/MCP).
+
+## How it works (5 steps)
+1. **Answer every call** — AI receptionist picks up on the first ring, no hold music.
+2. **Qualify & capture the lead** — asks the right questions and books a slot before the caller hangs up.
+3. **Schedule instantly** — the job lands on the board as a confirmed appointment.
+4. **Dispatch the closest tech** — the crew sees the job on their phone.
+5. **Invoice & close the loop** — complete on site, invoice in one tap, revenue booked.
+
+## Key metrics (sources)
+- 62% of HVAC calls go unanswered — [CallJolt 2026](https://calljolt.com/blog/hvac/hvac-industry-missed-call-statistics-2026)
+- 85% of callers never call back — [SkipCalls](https://skipcalls.com/blog/the-62-percent-problem-contractor-speed-to-lead)
+- $2,200 average HVAC service ticket — [CallJolt 2026](https://calljolt.com/blog/hvac/hvac-industry-missed-call-statistics-2026)
+- 21x more likely to qualify a lead if you respond within 5 minutes — [CallJolt speed-to-lead](https://calljolt.com/blog/guides/speed-to-lead-statistics-5-minute-rule)
+- ~$14.7B/yr industry revenue lost to missed calls
+
+## Pages
+- [Home (EN)](/)
+- [Home (ES)](/es/)
+- Book a demo: https://calendly.com/csch1305
+
+## FAQ (short)
+- **What does it do?** Simulates a full lead-to-invoice funnel: AI receptionist captures a missed call, qualifies and books the lead, dispatches the closest tech, invoices on completion, and updates KPIs live.
+- **Real product or mockup?** A working interactive demo — drag a lead to dispatch, watch the queue, see revenue recovered in real time. Ungated, reset in one click.
+- **Can I see it on my own business?** Book a 20-min call via Calendly to review your call volume, ticket, and recovery.
+
+## Full pages (human)
+- EN landing: https://demo-hvac.vercel.app/
+- ES landing: https://demo-hvac.vercel.app/es/

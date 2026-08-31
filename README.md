@@ -11,6 +11,7 @@ Main stack: **Astro, React, TypeScript, Python and AI agents**.
 | [Conversion landing page for a dental clinic](./demo-landing-showcase/README.md) | Astro, TypeScript | [demo-landing-jade-three.vercel.app](https://demo-landing-jade-three.vercel.app) |
 | [Dental patient CRUD dashboard](./demo-crud-showcase/README.md) | Astro, TypeScript, Stryker | [demo-crud-three.vercel.app](https://demo-crud-three.vercel.app) |
 | [Dental dashboard & backoffice](./demo-dashboard-showcase/README.md) | Astro, React, TypeScript, Tailwind, Zod, Stryker | [demo-dashboard-jobhunteraai.vercel.app](https://demo-dashboard-jobhunteraai.vercel.app) |
+| [HVAC call-capture & dispatch simulator](./demo-hvac-showcase/README.md) | Astro, React, TypeScript, Tailwind, Zod, Stryker | [demo-hvac-jobhunteraai.vercel.app](https://demo-hvac-jobhunteraai.vercel.app) |
 | [AI voice receptionist for dental clinics](./demo-agent-voice-showcase/README.md) | Astro, Web Audio API | [agent-voice-pied.vercel.app](https://agent-voice-pied.vercel.app) |
 | [AI tutoring PWA with in-browser RAG](./AulaVivaa-showcase/README.md) | React, Vite, Gemini | [aula-viva.vercel.app](https://aula-viva.vercel.app) |
 | [Cultural events platform frontend](./eventos-chile-showcase/README.md) | React, Vite, Bootstrap | [eventos-chile-20.vercel.app](https://eventos-chile-20.vercel.app) |
