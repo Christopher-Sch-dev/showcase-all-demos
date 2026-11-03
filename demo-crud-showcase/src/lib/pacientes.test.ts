@@ -296,7 +296,7 @@ describe('anti-mutante fase 2: stats con pendiente', () => {
 
 describe('anti-mutante fase 2: constantes y formato', () => {
   it('STORAGE_KEY es el literal esperado', () => {
-    expect(STORAGE_KEY).toBe('sonrisa.pacientes');
+    expect(STORAGE_KEY).toBe('xgnition.pacientes');
   });
 
   it('uuid tiene formato p + base36', () => {

@@ -12,7 +12,7 @@ export interface Paciente {
   estado: 'activo' | 'inactivo' | 'pendiente';
 }
 
-export const STORAGE_KEY = 'sonrisa.pacientes';
+export const STORAGE_KEY = 'xgnition.pacientes';
 
 export const seedPacientes: Paciente[] = [
   { id: 'p1', nombre: 'María Fernández', rut: '12.345.678-9', email: 'maria.f@example.com', telefono: '+569****5678', ultimaVisita: '2026-06-15', tratamiento: 'Limpieza profunda', estado: 'activo' },
