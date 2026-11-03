@@ -7,6 +7,8 @@ export default {
         // Design tokens base neutros del scaffold. La paleta de nicho (RE dark luxury / Law navy)
         // se resuelve desde src/config/schema.ts aesthetic (DI) y se aplica por CSS vars en el layout.
         // displayFont/bodyFont/accent/background/text/muted se inyectan desde config.aesthetic.
+        // OJO: las familias apuntan a --brand-* (las que BaseLayout declara). Si apuntan a un
+        // token inexistente, la declaración queda inválida y el texto hereda la fuente del body.
         colors: {
           lq: {
             base: '#FAFAF7',
@@ -17,9 +19,9 @@ export default {
           },
         },
         fontFamily: {
-          display: ['var(--lq-display)', 'serif'],
-          body: ['var(--lq-body)', 'system-ui', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
+          display: ['var(--brand-display)', 'Georgia', 'serif'],
+          body: ['var(--brand-body)', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
         },
       borderRadius: {
         sm: '8px',

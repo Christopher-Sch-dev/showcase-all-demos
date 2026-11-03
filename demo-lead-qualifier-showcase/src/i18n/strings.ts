@@ -14,6 +14,8 @@ export interface UIStrings {
   reset: string;
   proofHeadline: string;
   proofEyebrow: string;
+  heroCtaSecondary: string;
+  heroFlowLabel: string;
   solutionEyebrow: string;
   solutionHeadline: string;
   solutionBody: string;
@@ -84,6 +86,8 @@ const en: UIStrings = {
   reset: 'Reset demo',
   proofHeadline: 'Trusted, auditable numbers',
   proofEyebrow: 'PROOF',
+  heroCtaSecondary: 'Run the numbers',
+  heroFlowLabel: 'Live intake',
   solutionEyebrow: 'SOLUTION · LIVE',
   solutionHeadline: 'See it run on a real lead.',
   solutionBody:
@@ -158,6 +162,8 @@ const es: UIStrings = {
   reset: 'Reiniciar demo',
   proofHeadline: 'Números confiables y auditables',
   proofEyebrow: 'PRUEBA',
+  heroCtaSecondary: 'Calcular el impacto',
+  heroFlowLabel: 'Intake en vivo',
   solutionEyebrow: 'SOLUCIÓN',
   solutionHeadline: 'Míralo correr con un lead real.',
   solutionBody:
