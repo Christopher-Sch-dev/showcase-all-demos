@@ -13,6 +13,7 @@ A single-page conversion landing for a dental clinic. The goal isn't to "look pr
 The structure follows a clear conversion journey:
 
 - **Hero** with a clear value proposition and main CTA ("Book my appointment" + "WhatsApp emergencies").
+- **Hand-drawn SVG illustrations** (`Dentist`, `WaitingRoom`): the page's visual centrepiece — a dentist in three-quarter view wearing a coat, and a waiting room in one-point perspective — with no generated images and no heavy assets.
 - **Services** with explicit prices (less friction, more trust).
 - **Team** with a carousel of specialists (authority).
 - **FAQ** that addresses typical objections (isapres, Fonasa, financing, emergencies).
@@ -24,7 +25,7 @@ The structure follows a clear conversion journey:
 | Tool | Role | Why I chose it |
 |---|---|---|
 | **Astro 7** | Site framework | Generates pure static HTML → instant load, better SEO and core-web-vitals. Zero framework JavaScript on the critical path. |
-| **Inline HTML + CSS** | Design and interaction | A single page, no UI dependencies. Faster to maintain, faster to load. |
+| **Components + scoped CSS** | Design and interaction | Every section is its own `.astro` with its own `<style>`: no UI dependencies, easy to maintain piece by piece. |
 | **TypeScript** | Typing | Solid, maintainable base, compatible with the testing tools. |
 | **Vitest** | Render tests | I verify the HTML that is actually served (SEO, CTAs, form) — not just unit code that tests nothing about the product. |
 | **Stryker** | Mutation testing | Configured to ensure the tests actually catch bugs (in this repo the logic is static, so the test suite protects the rendered output). |
@@ -59,15 +60,35 @@ npm test
 ```
 demo-landing-showcase/
 ├── src/
-│   └── pages/
-│       └── index.astro      # The whole landing (HTML + CSS + JS, ~1200 lines)
+│   ├── pages/
+│   │   └── index.astro              # Composition: only orders the sections
+│   ├── layouts/
+│   │   └── BaseLayout.astro         # Head, SEO, fonts and JSON-LD
+│   ├── components/
+│   │   ├── Nav.astro
+│   │   ├── Hero.astro
+│   │   ├── Waiting.astro
+│   │   ├── Services.astro
+│   │   ├── Team.astro
+│   │   ├── Faq.astro
+│   │   ├── Contact.astro
+│   │   ├── ContactForm.astro
+│   │   ├── BookingPanel.astro
+│   │   ├── Footer.astro
+│   │   ├── Icon.astro
+│   │   └── illustrations/
+│   │       ├── Dentist.astro        # Hand-drawn SVG illustration
+│   │       └── WaitingRoom.astro    # Waiting room in perspective
+│   └── styles/
+│       └── global.css               # Design tokens and visual system
 ├── public/
-│   └── images/              # Illustrations (mascot, etc.)
+│   ├── favicon.svg
+│   └── og-default.png
 ├── tests/
-│   └── landing.test.ts      # 10 render tests (SEO, CTAs, form, lang, no placeholders)
-├── astro.config.mjs         # Astro config (output static, site)
-├── vitest.config.ts         # Vitest config
-├── stryker.config.json      # Mutation testing config
+│   └── landing.test.ts              # 17 render and redesign-regression tests
+├── astro.config.mjs                 # Astro config (output static, site)
+├── vitest.config.ts                 # Vitest config
+├── stryker.config.json              # Mutation testing config
 └── package.json
 ```
 
@@ -75,10 +96,10 @@ demo-landing-showcase/
 
 ## What it demonstrates
 
-- **UI craft:** coherent palette (navy/ocean), unique typography (Poppins), cards with soft shadows and generous borders, subtle scroll-reveal animations and a "spotlight" carousel, respect for `prefers-reduced-motion`.
+- **UI craft:** coherent palette (navy/ocean), a type pair of Fraunces (display) + Inter (body), hand-drawn SVG illustrations instead of generated images, cards with soft shadows and generous borders, subtle scroll-reveal animations and a "spotlight" carousel, respect for `prefers-reduced-motion`.
 - **Conversion-oriented design:** clear hierarchy, visible CTAs, explicit prices, FAQ that answers objections, short form with `aria-live` for feedback.
 - **Accessibility and SEO:** semantic landmarks, `lang="es"`, `aria-label` on interactive elements, complete meta tags, canonical.
-- **Real testing:** a suite that validates the served HTML — that the SEO title, meta descriptions, Open Graph, CTAs and form are present and that there are no unfilled placeholders.
+- **Real testing:** 17 tests over the served HTML — SEO title, meta descriptions, Open Graph, CTAs, form and a favicon that actually exists — plus redesign regressions: Rioplatense voseo, Font Awesome over CDN, heavy images, horizontal scroll and the display typeface.
 - **Responsive:** from mobile to desktop with adaptive grids.
 
 ---
@@ -90,7 +111,8 @@ Made by **Christopher** — building real web products, from idea to deploy.
 ## Decisions and tradeoffs
 
 - **Astro instead of an SPA**: a conversion landing needs instant load and good SEO. Astro delivers pure static HTML and adds interactivity only where needed.
-- **Inline HTML + CSS in a single file**: no UI or framework dependencies on the critical path. Easier to maintain and faster to load.
+- **Sections as components, not one monolith**: every block lives in its own `.astro` with scoped CSS. No UI or framework dependencies on the critical path, and the served HTML stays under 60 KB (a test protects that).
+- **Hand-written SVG illustrations instead of generated images**: they stay sharp at any density, weigh kilobytes instead of megabytes, and are editable as code.
 - **Tests on the rendered HTML**: I validate what is actually served (SEO, CTAs, form), not just unit functions.
 
 ## What I learned

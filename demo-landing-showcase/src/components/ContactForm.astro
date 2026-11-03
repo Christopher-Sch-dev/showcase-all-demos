@@ -1,0 +1,154 @@
+---
+// rol: formulario de reserva. Envía al webhook y refleja el resultado en el
+// propio botón, sin sacar al paciente de la página.
+import Icon from './Icon.astro';
+
+const serviceOptions = [
+  'Limpieza profunda',
+  'Ortodoncia invisible',
+  'Blanqueamiento LED',
+  'Implantes dentales',
+  'Conducto (endodoncia)',
+  'Urgencias 24/7',
+];
+---
+
+<form class="form" id="booking-form" data-webhook="https://demo.n8n.io/webhook/reserva">
+  <div class="form__row">
+    <label class="field">
+      <span class="field__label">Nombre</span>
+      <input class="field__input" type="text" name="nombre" required placeholder="Tu nombre completo" />
+    </label>
+  </div>
+
+  <div class="form__row form__row--2">
+    <label class="field">
+      <span class="field__label">Email</span>
+      <input class="field__input" type="email" name="email" required placeholder="tu@correo.cl" />
+    </label>
+    <label class="field">
+      <span class="field__label">Teléfono <em>(opcional)</em></span>
+      <input class="field__input" type="tel" name="telefono" placeholder="+56 9 ..." />
+    </label>
+  </div>
+
+  <div class="form__row">
+    <label class="field">
+      <span class="field__label">Servicio de interés</span>
+      <select class="field__input field__input--select" name="servicio">
+        <option value="">Sin preferencia</option>
+        {serviceOptions.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <div class="form__row">
+    <label class="field">
+      <span class="field__label">Mensaje</span>
+      <textarea class="field__input" name="mensaje" rows="3" placeholder="Cuéntanos brevemente qué necesitas"></textarea>
+    </label>
+  </div>
+
+  <button class="btn btn--primary form__submit" type="submit">
+    <span class="form__label">Enviar y reservar</span>
+    <Icon name="arrow" size={16} />
+  </button>
+
+  <p class="form__status" role="status" aria-live="polite" hidden></p>
+  <p class="form__fine">
+    Al enviar aceptas que te contactemos por email o WhatsApp. No compartimos tus
+    datos con terceros.
+  </p>
+</form>
+
+<script>
+  // rol: envía la reserva al webhook y refleja el resultado en el propio botón.
+  const form = document.getElementById('booking-form') as HTMLFormElement | null;
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const status = form.querySelector('.form__status') as HTMLElement;
+    const button = form.querySelector('.form__submit') as HTMLButtonElement;
+    const label = form.querySelector('.form__label') as HTMLElement;
+    const original = label.textContent ?? '';
+
+    button.disabled = true;
+    label.textContent = 'Enviando…';
+    status.hidden = true;
+
+    try {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const res = await fetch(form.dataset.webhook ?? '', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+
+      status.textContent = 'Listo. Te contactamos en menos de 1 hora para confirmar el horario.';
+      status.className = 'form__status form__status--ok';
+      status.hidden = false;
+      form.reset();
+      label.textContent = 'Reserva enviada';
+    } catch {
+      status.textContent = 'No pudimos enviar la reserva. Escríbenos por WhatsApp y lo resolvemos al tiro.';
+      status.className = 'form__status form__status--error';
+      status.hidden = false;
+      label.textContent = original;
+      button.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .form {
+    display: grid;
+    gap: 1.05rem;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .form__row { display: grid; gap: 1.05rem; }
+  .form__row--2 { grid-template-columns: 1fr 1fr; }
+
+  .field { display: grid; gap: 0.4rem; }
+  .field__label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .field__label em { font-style: normal; opacity: 0.6; }
+
+  .field__input {
+    width: 100%;
+    min-height: 46px;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.92rem;
+    color: var(--navy);
+    background: var(--canvas);
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .field__input::placeholder { color: color-mix(in srgb, var(--muted) 60%, transparent); }
+  .field__input:focus { outline: none; border-color: var(--ocean); background: var(--white); }
+  .field__input--select { appearance: none; cursor: pointer; }
+  textarea.field__input { resize: vertical; min-height: 84px; line-height: 1.6; }
+
+  .form__submit { width: 100%; margin-top: 0.4rem; }
+  .form__submit:disabled { opacity: 0.72; cursor: progress; }
+
+  .form__status { font-size: 0.84rem; line-height: 1.55; padding: 0.7rem 0.9rem; border-radius: 10px; }
+  .form__status--ok { color: #14603C; background: color-mix(in srgb, #2FBF71 12%, transparent); }
+  .form__status--error { color: #9A2A2A; background: color-mix(in srgb, #C2410C 10%, transparent); }
+  .form__fine { font-size: 0.7rem; line-height: 1.6; color: color-mix(in srgb, var(--muted) 78%, transparent); }
+
+  @media (max-width: 900px) {
+    .form__row--2 { grid-template-columns: 1fr; }
+  }
+</style>

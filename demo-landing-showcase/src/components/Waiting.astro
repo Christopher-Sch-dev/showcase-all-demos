@@ -1,0 +1,120 @@
+---
+// rol: el argumento de la marca hecho imagen. El titular promete "sin esperas";
+// acá se muestra la sala de espera vacía y por qué. Va entre el hero y los
+// servicios: es la transición entre la promesa y la oferta.
+import WaitingRoom from './illustrations/WaitingRoom.astro';
+
+const points = [
+  {
+    title: 'Reservas en línea',
+    body: 'Eliges hora, día y profesional sin llamar a nadie.',
+  },
+  {
+    title: 'Llegas y pasas',
+    body: 'Tu box está preparado antes de que cruces la puerta.',
+  },
+  {
+    title: 'Urgencias el mismo día',
+    body: 'Dolor o fractura: te damos hora hoy, no la próxima semana.',
+  },
+];
+---
+
+<section class="waiting">
+  <div class="container waiting__grid">
+    <div class="waiting__visual">
+      <WaitingRoom />
+    </div>
+
+    <div class="waiting__copy">
+      <p class="eyebrow">La espera</p>
+      <h2 class="h2">La sala de espera<br />que casi no usamos.</h2>
+      <p class="lead waiting__lead">
+        No es que seamos más rápidos por casualidad. Es que la agenda se ordena
+        antes de que llegues.
+      </p>
+
+      <ul class="waiting__list">
+        {points.map((p, i) => (
+          <li class="waiting__item">
+            <span class="waiting__num">{String(i + 1).padStart(2, '0')}</span>
+            <span>
+              <strong class="waiting__title">{p.title}</strong>
+              <span class="waiting__body">{p.body}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .waiting {
+    padding-block: var(--section-y);
+    background: var(--white);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .waiting__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: stretch;
+  }
+  .waiting__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    border: 1px solid var(--line-soft);
+    background: var(--canvas);
+    padding: clamp(1rem, 2.4vw, 1.75rem);
+    box-shadow: var(--shadow-card);
+  }
+  .waiting__visual svg { width: 100%; height: auto; }
+  .waiting__lead { margin-top: 1rem; max-width: 42ch; }
+
+  .waiting__list {
+    list-style: none;
+    margin-top: 2rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  .waiting__item {
+    display: flex;
+    gap: 1rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  /* ancho fijo + cifras tabulares: sin esto las tres filas no comparten eje,
+     porque los números de Fraunces son proporcionales (01 mide 16px, 02 mide 19) */
+  .waiting__num {
+    flex: none;
+    width: 2.4ch;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ocean);
+    padding-top: 0.15rem;
+    letter-spacing: 0.04em;
+  }
+  .waiting__title {
+    display: block;
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .waiting__body {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  @media (max-width: 940px) {
+    .waiting__grid { grid-template-columns: 1fr; }
+  }
+</style>

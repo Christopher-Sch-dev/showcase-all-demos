@@ -1,0 +1,111 @@
+---
+// rol: retrato de la doctora. Busto 3/4 con corte intencional en el borde
+// inferior: un retrato cortado se lee profesional; una figura entera a medias
+// se lee error.
+// Valores opacos fijos (alpha sobre fondos distintos hace cambiar de color al
+// mismo material): estructura navy 0.48 = 3.0:1, detalle navy 0.34,
+// piel #F2C9AC, cuello #DBA477, guante ocean 0.28 + navy 0.50.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg class:list={['dentist', className]} viewBox="0 0 240 260" role="img"
+  aria-label="Odontóloga con bata blanca, sosteniendo un espejo dental">
+  <!-- pelo de atrás: color opaco, un solo valor dondequiera que esté -->
+  <path d="M78 98c0-34 18-56 42-56s42 22 42 56c0 20 2 38 6 54-9 5-17 3-23-4-6 11-15 16-25 16s-19-5-25-16c-6 7-14 9-23 4 4-16 6-34 6-54z"
+    fill="#3C5059" />
+
+  <!-- cuello: 36 de ancho y 19 visibles, más oscuro que la cara para que exista mentón -->
+  <path d="M102 130h36v34c0 8-8 14-18 14s-18-6-18-14z"
+    fill="#DBA477" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.8" />
+
+  <!-- bata: hombros anchos, centro en y164 para no comerse el cuello -->
+  <path d="M120 164c-31 0-54 14-60 38l-8 58h136l-8-58c-6-24-29-38-60-38z"
+    fill="#F4F8F9" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2.2" />
+
+  <!-- solapa en V -->
+  <path d="M105 168l15 32 15-32" fill="none" stroke="var(--navy)" stroke-opacity="0.36"
+    stroke-width="2" stroke-linejoin="round" />
+
+  <!-- bolsillo, lejos del mango del espejo -->
+  <rect x="136" y="202" width="26" height="21" rx="3" fill="var(--ocean)" fill-opacity="0.1"
+    stroke="var(--navy)" stroke-opacity="0.36" stroke-width="1.6" />
+  <path d="M140 208h12" stroke="var(--navy)" stroke-opacity="0.32" stroke-width="1.6" stroke-linecap="round" />
+
+  <!-- brazo izquierdo: dos tramos de ancho distinto = hombro que afina a muñeca -->
+  <path d="M64 194L69 222" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="20" stroke-linecap="round" />
+  <path d="M69 222L72 242" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="13" stroke-linecap="round" />
+  <path d="M64 194L69 222" stroke="#FCFDFD" stroke-width="16" stroke-linecap="round" />
+  <path d="M69 222L72 242" stroke="#FCFDFD" stroke-width="9" stroke-linecap="round" />
+
+  <!-- brazo derecho: mismo criterio -->
+  <path d="M177 194L182 218" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="20" stroke-linecap="round" />
+  <path d="M182 218L178 236" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="13" stroke-linecap="round" />
+  <path d="M177 194L182 218" stroke="#FCFDFD" stroke-width="16" stroke-linecap="round" />
+  <path d="M182 218L178 236" stroke="#FCFDFD" stroke-width="9" stroke-linecap="round" />
+
+  <!-- espejo dental: mango sobre la mano, sin tocar el bolsillo -->
+  <g>
+    <rect x="172" y="206" width="5" height="32" rx="2.5" fill="var(--navy)" fill-opacity="0.66" />
+    <circle cx="174.5" cy="200" r="11" fill="var(--ocean)" fill-opacity="0.26"
+      stroke="var(--navy)" stroke-opacity="0.52" stroke-width="1.9" />
+    <path d="M169 196a7 7 0 0 1 6-4" fill="none" stroke="#FFFFFF" stroke-width="1.8"
+      stroke-linecap="round" />
+  </g>
+  <!-- mano derecha cerrada sobre el mango -->
+  <path d="M165 226c-5 5-4 13 2 16 6 3 15 1 18-5 2-5-1-11-6-13-4-1-10-1-14 2z"
+    fill="var(--ocean)" fill-opacity="0.28" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.9" />
+  <path d="M169 230h11M169 235h10" stroke="var(--navy)" stroke-opacity="0.42" stroke-width="1.4" stroke-linecap="round" />
+
+  <!-- mano izquierda: separada del corte, con dedos y contraste propio -->
+  <path d="M60 236c-6 4-7 11-2 15 5 4 14 4 19 0 4-4 3-11-2-14-4-2-11-3-15-1z"
+    fill="var(--ocean)" fill-opacity="0.28" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.9" />
+  <path d="M62 241h14M62 246h13" stroke="var(--navy)" stroke-opacity="0.42" stroke-width="1.4" stroke-linecap="round" />
+
+  <!-- orejas -->
+  <ellipse cx="81" cy="102" rx="6.5" ry="9.5" fill="#F2C9AC"
+    stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.7" />
+  <ellipse cx="159" cy="102" rx="6.5" ry="9.5" fill="#F2C9AC"
+    stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.7" />
+
+  <!-- cara -->
+  <ellipse cx="120" cy="100" rx="39" ry="45" fill="#F2C9AC" />
+
+  <!-- sombra de mandíbula: da mentón sin contornear toda la cara -->
+  <path d="M96 133q24 15 48 0q-7 13-24 13t-24-13z" fill="#E0AC85" />
+
+  <!-- flequillo: frente pareja de 7 unidades sobre las cejas -->
+  <path d="M82 94c-4-30 15-50 38-50s42 20 38 50c-6-12-13-18-20-20-6 5-15 8-25 7-10-1-17 1-22 9-3 4-6 5-9 4z"
+    fill="#263A44" />
+
+  <!-- cejas pareadas a la misma altura -->
+  <path d="M96 88c5-3 13-3 18 0" fill="none" stroke="var(--navy)" stroke-opacity="0.66"
+    stroke-width="2.6" stroke-linecap="round" />
+  <path d="M126 88c5-3 13-3 18 0" fill="none" stroke="var(--navy)" stroke-opacity="0.66"
+    stroke-width="2.6" stroke-linecap="round" />
+
+  <!-- ojos: 10.4 de ancho, interpupilar 32 = 41% del ancho de la cara -->
+  <ellipse cx="104" cy="103" rx="5.2" ry="5.9" fill="#FFFFFF" stroke="var(--navy)"
+    stroke-opacity="0.3" stroke-width="0.8" />
+  <ellipse cx="136" cy="103" rx="5.2" ry="5.9" fill="#FFFFFF" stroke="var(--navy)"
+    stroke-opacity="0.3" stroke-width="0.8" />
+  <ellipse cx="104" cy="103" rx="3.1" ry="3.6" fill="var(--navy)" fill-opacity="0.88" />
+  <ellipse cx="136" cy="103" rx="3.1" ry="3.6" fill="var(--navy)" fill-opacity="0.88" />
+  <circle cx="105.2" cy="101.6" r="1.15" fill="#FFFFFF" />
+  <circle cx="137.2" cy="101.6" r="1.15" fill="#FFFFFF" />
+
+  <!-- nariz -->
+  <path d="M120 110v6c0 1.8-1.4 2.8-2.8 2.8" fill="none" stroke="var(--navy)"
+    stroke-opacity="0.36" stroke-width="1.8" stroke-linecap="round" />
+
+  <!-- boca: 28 de ancho -->
+  <path d="M110 124c4 6 24 6 28 0" fill="none" stroke="var(--navy)" stroke-opacity="0.62"
+    stroke-width="2.3" stroke-linecap="round" />
+  <path d="M113 125c5 2 17 2 22 0" fill="#FFFFFF" fill-opacity="0.85" />
+</svg>
+
+<style>
+  .dentist { display: block; width: 100%; height: auto; }
+</style>

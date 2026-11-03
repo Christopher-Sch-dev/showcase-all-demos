@@ -1,0 +1,115 @@
+---
+// rol: la sala de espera vacía, el argumento del titular ("sin esperas") hecho
+// imagen. Perspectiva de un punto: las sillas se solapan (~10 unidades) y
+// decrecen hacia el fondo, el mostrador de recepción ubica el lugar y el reloj
+// marca cero de verdad (las dos agujas arriba, distinto largo y mismo color).
+// Valores: estructura navy 0.48 (3.0:1), detalle navy 0.34, relleno ocean 0.18.
+// La pared tiene tono propio y todo el arte vive dentro de un marco, para que la
+// escena no se lea como manchas sueltas sobre el color de la tarjeta.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+// silla de perfil, con el origen en el punto de apoyo. Bases separadas 22 y 18
+// unidades para que los respaldos no queden a la misma altura.
+const chairs = [
+  { x: 80, y: 310, s: 1 },
+  { x: 118, y: 288, s: 0.84 },
+  { x: 150, y: 270, s: 0.72 },
+];
+---
+
+<svg class:list={['waiting-room', className]} viewBox="0 0 380 330" role="img"
+  aria-label="Sala de espera de una clínica dental: sillas vacías, recepción y el reloj en cero">
+  <!-- marco: todo el arte queda dentro, con el mismo margen en los cuatro lados -->
+  <rect x="0" y="0" width="380" height="330" rx="10" fill="#FFFFFF" />
+
+  <!-- pared con tono propio y piso -->
+  <rect x="16" y="16" width="348" height="202" fill="#F2F4F3" />
+  <rect x="16" y="218" width="348" height="96" fill="#FFFFFF" />
+  <line x1="16" y1="218" x2="364" y2="218" stroke="var(--navy)" stroke-opacity="0.45" stroke-width="2" />
+
+  <!-- líneas del piso hacia el punto de fuga -->
+  <g stroke="var(--navy)" stroke-opacity="0.08" stroke-width="1.4">
+    <line x1="16" y1="314" x2="196" y2="218" />
+    <line x1="130" y1="314" x2="204" y2="218" />
+    <line x1="300" y1="314" x2="214" y2="218" />
+    <line x1="364" y1="300" x2="220" y2="218" />
+  </g>
+
+  <!-- ventana con alféizar -->
+  <rect x="42" y="48" width="112" height="80" rx="3" fill="#FFFFFF"
+    stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2" />
+  <rect x="42" y="48" width="112" height="80" rx="3" fill="var(--ocean)" fill-opacity="0.1" />
+  <line x1="98" y1="48" x2="98" y2="128" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2" />
+  <line x1="42" y1="88" x2="154" y2="88" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2" />
+  <rect x="36" y="128" width="124" height="8" rx="2" fill="#E7EFF2"
+    stroke="var(--navy)" stroke-opacity="0.42" stroke-width="1.6" />
+
+  <!-- reloj: marcas horarias + las dos agujas arriba, mismo color y distinto largo -->
+  <circle cx="206" cy="92" r="26" fill="#FFFFFF" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2.2" />
+  <g stroke="var(--navy)" stroke-opacity="0.3" stroke-width="2" stroke-linecap="round">
+    <line x1="206" y1="72" x2="206" y2="67" />
+    <line x1="226" y1="92" x2="231" y2="92" />
+    <line x1="206" y1="112" x2="206" y2="117" />
+    <line x1="186" y1="92" x2="181" y2="92" />
+  </g>
+  <line x1="206" y1="92" x2="206" y2="81" stroke="var(--navy)" stroke-opacity="0.75"
+    stroke-width="3" stroke-linecap="round" />
+  <line x1="206" y1="92" x2="206" y2="75" stroke="var(--navy)" stroke-opacity="0.75"
+    stroke-width="2" stroke-linecap="round" />
+  <circle cx="206" cy="92" r="2.6" fill="var(--navy)" fill-opacity="0.8" />
+  <!-- placa del contador, anclada al reloj -->
+  <rect x="182" y="124" width="48" height="19" rx="9.5" fill="#FFFFFF"
+    stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.8" />
+  <text x="206" y="137.5" text-anchor="middle" font-family="Fraunces, Georgia, serif"
+    font-size="12" fill="var(--navy)">0 min</text>
+
+  <!-- mostrador de recepción: relleno opaco para que la línea del piso no lo cruce -->
+  <g>
+    <rect x="278" y="158" width="86" height="60" rx="2" fill="#E7EFF2"
+      stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2" />
+    <rect x="272" y="151" width="98" height="8" rx="3" fill="#D6E3E8"
+      stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.8" />
+    <rect x="286" y="170" width="24" height="16" rx="2" fill="#FFFFFF"
+      stroke="var(--navy)" stroke-opacity="0.34" stroke-width="1.5" />
+    <!-- cartel de la clínica -->
+    <rect x="296" y="116" width="56" height="22" rx="3" fill="#FFFFFF"
+      stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.8" />
+    <text x="324" y="131" text-anchor="middle" font-family="Fraunces, Georgia, serif"
+      font-size="11" fill="var(--navy)" letter-spacing="0.6">BOX 1</text>
+  </g>
+
+  <!-- sillas vacías, de cerca a lejos: se solapan y los respaldos bajan en escalón -->
+  {chairs.map((c) => (
+    <g transform={`translate(${c.x} ${c.y}) scale(${c.s})`}>
+      <ellipse cx="0" cy="0" rx="32" ry="6" fill="var(--navy)" fill-opacity="0.14" />
+      <rect x="-26" y="-60" width="8" height="42" rx="4"
+        fill="var(--ocean)" fill-opacity="0.55" stroke="var(--navy)" stroke-opacity="0.42" stroke-width="1.5" />
+      <rect x="-26" y="-26" width="52" height="10" rx="5"
+        fill="var(--ocean)" fill-opacity="0.75" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.6" />
+      <line x1="-19" y1="-16" x2="-19" y2="0" stroke="var(--navy)" stroke-opacity="0.5"
+        stroke-width="2.6" stroke-linecap="round" />
+      <line x1="19" y1="-16" x2="19" y2="0" stroke="var(--navy)" stroke-opacity="0.5"
+        stroke-width="2.6" stroke-linecap="round" />
+    </g>
+  ))}
+
+  <!-- planta con contorno legible, delante del mostrador -->
+  <g transform="translate(332 300)">
+    <ellipse cx="0" cy="2" rx="24" ry="5" fill="var(--navy)" fill-opacity="0.14" />
+    <path d="M-13 0h26l-4 22h-18z" fill="#D6E3E8"
+      stroke="var(--navy)" stroke-opacity="0.5" stroke-width="1.8" />
+    <path d="M0 0v-18" stroke="var(--navy)" stroke-opacity="0.5" stroke-width="2" />
+    <g fill="#7FA588" stroke="var(--navy)" stroke-opacity="0.45" stroke-width="1.6">
+      <ellipse cx="-13" cy="-24" rx="12" ry="7" transform="rotate(-30 -13 -24)" />
+      <ellipse cx="13" cy="-26" rx="12" ry="7" transform="rotate(26 13 -26)" />
+      <ellipse cx="0" cy="-38" rx="9" ry="12" />
+    </g>
+  </g>
+</svg>
+
+<style>
+  .waiting-room { display: block; width: 100%; height: auto; }
+</style>
