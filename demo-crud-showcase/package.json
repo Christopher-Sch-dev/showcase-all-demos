@@ -20,6 +20,7 @@
     "@stryker-mutator/core": "^9.6.1",
     "@stryker-mutator/vitest-runner": "^9.6.1",
     "@vitest/coverage-v8": "^4.1.10",
+    "happy-dom": "^20.11.1",
     "tsx": "^4.23.4",
     "typescript": "^5.9.3",
     "vitest": "^4.1.10"
