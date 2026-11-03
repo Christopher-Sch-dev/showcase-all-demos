@@ -1,0 +1,70 @@
+---
+// rol: bloque de contacto. Los datos de la clínica a la izquierda y el
+// formulario (ContactForm) a la derecha.
+import Icon from './Icon.astro';
+import ContactForm from './ContactForm.astro';
+---
+
+<section class="section" id="contacto">
+  <div class="container contact__grid">
+    <div class="contact__intro">
+      <p class="eyebrow">Reserva tu hora</p>
+      <h2 class="h2">Te respondemos<br />en menos de 1 hora.</h2>
+      <p class="lead contact__lead">
+        En horario hábil. Para urgencias, escríbenos por WhatsApp: ahí respondemos
+        en menos de 30 minutos, todos los días.
+      </p>
+
+      <dl class="contact__data">
+        <div>
+          <dt><Icon name="phone" size={14} /> Teléfono</dt>
+          <dd><a href="tel:+56223456789">+56 2 2345 6789</a></dd>
+        </div>
+        <div>
+          <dt><Icon name="pin" size={14} /> Dirección</dt>
+          <dd>Av. Libertador 1234, of. 502<br />Santiago Centro, Chile</dd>
+        </div>
+        <div>
+          <dt><Icon name="clock" size={14} /> Horario</dt>
+          <dd>Lun a vie 09:00 a 20:00<br />Sáb 09:00 a 14:00</dd>
+        </div>
+      </dl>
+    </div>
+
+    <ContactForm />
+  </div>
+</section>
+
+<style>
+  .contact__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .contact__lead { margin-top: 1.1rem; }
+
+  .contact__data {
+    display: grid;
+    gap: 1.35rem;
+    margin-top: 2.4rem;
+    padding-top: 1.9rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  .contact__data dt {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 0.3rem;
+  }
+  .contact__data dd { font-size: 0.92rem; color: var(--navy); line-height: 1.55; }
+  .contact__data a:hover { color: var(--ocean); }
+
+  @media (max-width: 900px) {
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+</style>

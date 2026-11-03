@@ -1,0 +1,116 @@
+---
+// rol: cierre de página. Datos de contacto, horario y urgencias. El crédito
+// apunta al portafolio real, no al dominio muerto de Xgnition.
+import Icon from './Icon.astro';
+---
+
+<footer class="foot">
+  <div class="container foot__grid">
+    <div class="foot__brand">
+      <span class="foot__mark"><Icon name="tooth" size={18} /></span>
+      <p class="foot__name">Sonrisa Vital</p>
+      <p class="foot__desc">
+        Clínica dental en Santiago Centro. Equipos digitales, materiales
+        certificados y profesionales con postgrado.
+      </p>
+    </div>
+
+    <div class="foot__col">
+      <h3 class="foot__h">Contacto</h3>
+      <ul>
+        <li><a href="mailto:hola@sonrisavital.cl">hola@sonrisavital.cl</a></li>
+        <li><a href="tel:+56223456789">+56 2 2345 6789</a></li>
+        <li>Av. Libertador 1234, of. 502</li>
+        <li>Santiago Centro, Chile</li>
+      </ul>
+    </div>
+
+    <div class="foot__col">
+      <h3 class="foot__h">Horario</h3>
+      <ul>
+        <li>Lun a vie · 09:00 a 20:00</li>
+        <li>Sáb · 09:00 a 14:00</li>
+        <li class="foot__urgent">Urgencias 24/7</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container foot__bar">
+    <p>© 2026 Sonrisa Vital</p>
+    <p class="foot__credit">
+      Demo construida por
+      <a href="https://christopher-sch-dev.pages.dev" target="_blank" rel="noopener">Christopher Sch</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    background: var(--navy);
+    color: color-mix(in srgb, var(--white) 68%, transparent);
+    padding-block: clamp(3rem, 6vw, 4.5rem) 1.6rem;
+  }
+  .foot__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.8rem, 4vw, 3.5rem);
+  }
+
+  .foot__mark {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--white) 12%, transparent);
+    color: var(--white);
+    margin-bottom: 0.85rem;
+  }
+  .foot__name {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .foot__desc {
+    margin-top: 0.7rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    max-width: 38ch;
+    color: color-mix(in srgb, var(--white) 55%, transparent);
+  }
+
+  .foot__h {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--white) 88%, transparent);
+    margin-bottom: 0.9rem;
+  }
+  .foot__col ul { list-style: none; display: grid; gap: 0.45rem; font-size: 0.85rem; }
+  .foot__col a:hover { color: var(--white); }
+  .foot__urgent { color: #7FD8A6; }
+
+  .foot__bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    justify-content: space-between;
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    padding-top: 1.4rem;
+    border-top: 1px solid color-mix(in srgb, var(--white) 12%, transparent);
+    font-size: 0.75rem;
+    color: color-mix(in srgb, var(--white) 45%, transparent);
+  }
+  .foot__credit a {
+    color: color-mix(in srgb, var(--white) 80%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--white) 30%, transparent);
+  }
+  .foot__credit a:hover { color: var(--white); }
+
+  @media (max-width: 800px) {
+    .foot__grid { grid-template-columns: 1fr; }
+  }
+</style>

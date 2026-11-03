@@ -1,0 +1,90 @@
+---
+// rol: barra de navegación fija, translúcida, con CTA de agenda siempre visible.
+import Icon from './Icon.astro';
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="#top" aria-label="Sonrisa Vital, ir al inicio">
+      <span class="nav__mark" aria-hidden="true">
+        <Icon name="tooth" size={18} />
+      </span>
+      <span class="nav__name">Sonrisa Vital</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <a class="btn btn--primary nav__cta" href="#contacto">Agendar hora</a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--white) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 76px;
+  }
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--navy);
+  }
+  .nav__mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--ocean);
+    color: var(--white);
+  }
+  .nav__name {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .nav__links {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.86rem;
+    font-weight: 500;
+  }
+  .nav__links a {
+    color: var(--muted);
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav__links a:hover { color: var(--ocean); }
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 1px;
+    background: var(--ocean);
+    transition: width 0.28s var(--ease);
+  }
+  .nav__links a:hover::after { width: 100%; }
+  .nav__cta { min-height: 44px; padding: 0 1.4rem; font-size: 0.72rem; }
+
+  @media (max-width: 900px) {
+    .nav__links { display: none; }
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+// rol: primera pantalla. Tipografía editorial grande; el visual es el panel de
+// reserva (BookingPanel), no una imagen decorativa.
+import Icon from './Icon.astro';
+import BookingPanel from './BookingPanel.astro';
+
+const stats = [
+  { value: '12', suffix: 'años', label: 'en Santiago Centro' },
+  { value: '8.000', suffix: '+', label: 'pacientes atendidos' },
+  { value: '30', suffix: 'min', label: 'de espera máxima' },
+];
+---
+
+<section class="hero" id="top">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow enter">Clínica dental · Santiago Centro</p>
+
+      <h1 class="hero__title enter enter-2">Tu dentista, sin esperas.</h1>
+
+      <p class="hero__lead enter enter-3">
+        Agenda en línea y llega directo al box. Sin llamadas y sin salas de espera
+        eternas. Atendemos urgencias el mismo día.
+      </p>
+
+      <div class="hero__actions enter enter-4">
+        <a class="btn btn--primary" href="#contacto">
+          Reservar hora
+          <Icon name="arrow" size={16} />
+        </a>
+        <a class="btn btn--ghost" href="https://wa.me/56912345678" target="_blank" rel="noopener">
+          <Icon name="phone" size={15} />
+          WhatsApp
+        </a>
+      </div>
+
+      <dl class="hero__stats enter enter-4">
+        {stats.map((s) => (
+          <div class="hero__stat">
+            <dt class="hero__stat-value">
+              {s.value}<span>{s.suffix}</span>
+            </dt>
+            <dd class="hero__stat-label">{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="enter enter-3">
+      <BookingPanel />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3rem, 6vw, 5.5rem) var(--section-y);
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 88% 8%, var(--ocean-soft), transparent 70%),
+      linear-gradient(180deg, var(--canvas), var(--white) 62%);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+  .hero__title {
+    font-size: var(--fs-hero);
+    font-weight: 380;
+    letter-spacing: -0.035em;
+    margin-top: 1.1rem;
+    font-variation-settings: 'opsz' 120;
+  }
+  .hero__lead {
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 1.25vw, 1.12rem);
+    line-height: 1.65;
+    max-width: 46ch;
+    color: var(--muted);
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.1rem; }
+  .hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 3.4vw, 2.8rem);
+    margin-top: 2.9rem;
+    padding-top: 1.9rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  .hero__stat-value {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.9rem;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .hero__stat-value span {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ocean);
+    margin-left: 0.15rem;
+    letter-spacing: 0.04em;
+  }
+  .hero__stat-label { margin-top: 0.4rem; font-size: 0.76rem; letter-spacing: 0.02em; color: var(--muted); }
+
+  @media (max-width: 940px) {
+    .hero__grid { grid-template-columns: 1fr; }
+    .hero__grid > div:last-child { order: -1; }
+    .hero__title { font-size: clamp(2.3rem, 8vw, 3.2rem); }
+  }
+</style>
