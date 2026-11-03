@@ -15,9 +15,9 @@ Hay **3 formas de interactuar**, y las 3 usan el mismo cerebro (Gemini):
 
 | Modo | Qué pasa | Cómo lo hace el código |
 |------|----------|------------------------|
-| 💬 **Chat escrito** | Escribís una pregunta, la IA responde | `POST /api/chat` al backend, respuesta en **JSON directo** (campo `text`) |
-| 🎙️ **Micrófono (chat)** | Hablás, se transcribe y responde por texto | **Web Speech API** del navegador (`SpeechRecognition`) transcribe tu voz y la manda al chat |
-| 📞 **Modo llamada** | Hablás y escuchás en vivo, como una llamada real | **WebSocket → Gemini Live API**. Tu audio viaja en tiempo real y la IA te responde hablando |
+| 💬 **Chat escrito** | Escribes una pregunta, la IA responde | `POST /api/chat` al backend, respuesta en **JSON directo** (campo `text`) |
+| 🎙️ **Micrófono (chat)** | Hablas, se transcribe y responde por texto | **Web Speech API** del navegador (`SpeechRecognition`) transcribe tu voz y la manda al chat |
+| 📞 **Modo llamada** | Hablas y escuchas en vivo, como una llamada real | **WebSocket → Gemini Live API**. Tu audio viaja en tiempo real y la IA te responde hablando |
 
 El flujo de voz en el modo llamada (lo más técnico del proyecto):
 
@@ -31,7 +31,7 @@ Si el backend no está disponible, la demo no se cae: cae en un **modo showcase*
 
 ### El "cerebro"
 
-Un solo `SYSTEM_PROMPT` en `index.astro` define a la recepcionista: su nombre, datos de la clínica (servicios, precios, isapres, horarios, equipo), tono cercano con **tuteo** (español chileno neutro, sin voseo rioplatense), y **reglas duras**: solo habla de la clínica, no da consejos médicos, no se sale del rol, y deriva a WhatsApp cuando no sabe algo.
+Un solo `SYSTEM_PROMPT` en `src/client/prompt.ts` define a la recepcionista: su nombre, datos de la clínica (servicios, precios, isapres, horarios, equipo), tono cercano con **tuteo** (español chileno neutro, sin voseo rioplatense), y **reglas duras**: solo habla de la clínica, no da consejos médicos, no se sale del rol, y deriva a WhatsApp cuando no sabe algo.
 
 > 🔒 **Privacidad:** este repo es solo el frontend, sin claves de API ni credenciales. La autenticación y los secrets viven en un backend de IA separado (no incluido en esta copia). El frontend público nunca ve una API key.
 
@@ -60,15 +60,15 @@ Astro 7 estático             Deno Deploy (Deno.serve + WebSocket)
 
 ## 🚀 Cómo correrlo localmente
 
-Requisitos: **Node 18+** y npm. (Solo el frontend; para el modo llamada necesitás el backend corriendo.)
+Requisitos: **Node 18+** y npm. (Solo el frontend; para el modo llamada necesitas el backend corriendo.)
 
 ```bash
-# 1. Instalá dependencias
+# 1. Instala las dependencias
 npm install
 
-# 2. Levantá el servidor de desarrollo
+# 2. Levanta el servidor de desarrollo
 npm run dev
-# → Abrí http://localhost:4321
+# → Abre http://localhost:4321
 ```
 
 Comandos útiles:
@@ -76,6 +76,7 @@ Comandos útiles:
 ```bash
 npm run build     # build estático a /dist
 npm run preview   # probar el build de producción localmente
+npm test          # 31 tests unitarios (vitest)
 ```
 
 **Deploy a Vercel:**
@@ -92,15 +93,29 @@ npx vercel --prod --yes
 demo-agent-voice/
 ├── src/
 │   ├── pages/
-│   │   └── index.astro      # Toda la UI + lógica del asistente (chat + llamada)
-│   └── lib/
-│       ├── pcmAudio.ts      # Motor de audio en vivo: captura mic + playback + visualizer
-│       └── audioUtils.ts    # Utilidades puras de audio (downsample, PCM, Base64, WAV)
+│   │   └── index.astro      # Shell de la página: identidad de la clínica, chat y datos
+│   ├── components/
+│   │   ├── Assistant.astro  # Avatar de la recepcionista
+│   │   └── Icon.astro       # Iconos SVG inline (mic, teléfono, parlante, enviar, diente)
+│   ├── client/
+│   │   ├── app.ts           # Orquestación de chat, dictado y llamada
+│   │   ├── call.ts          # WebSocket a Gemini Live + Web Audio
+│   │   ├── prompt.ts        # System prompt que define a la recepcionista
+│   │   └── showcaseList.ts  # Tarjetas de preguntas sugeridas
+│   ├── lib/
+│   │   ├── showcase.ts      # Motor local de respaldo (matching por palabras clave)
+│   │   ├── pcmAudio.ts      # Motor de audio en vivo: captura + playback + visualizer
+│   │   └── audioUtils.ts    # Utilidades puras de audio (downsample, PCM, Base64, WAV)
+│   └── styles/
+│       ├── base.css         # Design tokens (navy/ocean) y layout
+│       └── chat.css         # Chat, composer y visualizer de audio
+├── tests/                   # 31 tests de vitest (audio, copy, render, motor de respaldo)
 ├── public/
 │   └── audio-capture-processor.js  # Procesador de captura de audio (AudioWorklet)
 ├── astro.config.mjs         # Config Astro (output estático)
+├── vitest.config.ts         # Config de Vitest
 ├── vercel.json              # Config deploy Vercel
-└── package.json             # Única dep: astro
+└── package.json
 ```
 
 ---
@@ -111,7 +126,7 @@ demo-agent-voice/
 - **Audio en vivo con Gemini Live API.** Captura real del micrófono, streaming bidireccional por WebSocket y respuesta hablada — no es TTS recortado, es una conversación.
 - **Un solo prompt define a un "personaje" de negocio.** Cambias los datos de la clínica en `BUSINESS` y el mismo frontend sirve para cualquier PyME (dental, restaurant, abogado...). *Replicable para tu PyME*.
 - **Resiliencia**: fallback a modo demo si el backend no responde, para que nunca se vea roto en público.
-- **Estética terminal** — tema oscuro con acento verde, badges y visualizer de audio.
+- **Interfaz de producto, no terminal de hacker** — identidad navy/ocean (`--bg #08141c`, `--accent #22a5cc`), iconos SVG inline en vez de emoji, y un visualizer que reacciona a la llamada.
 ## Decisiones y tradeoffs
 
 - **Frontend estático, backend separado en Deno Deploy**: esta copia de solo lectura del frontend deja la llamada de voz real y el chat con IA fuera (corren en un backend de Deno Deploy, org `chschiefelbein`); el chat de demostración funciona con un motor local para que cualquiera pueda probar la interacción sin infraestructura.
