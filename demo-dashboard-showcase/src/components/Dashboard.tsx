@@ -1,5 +1,5 @@
 /**
- * DASHBOARD — orquestador del flujo funcional .
+ * DASHBOARD — orquestador del flujo funcional (AC-1..AC-9).
  * Consume el core determinista (loadState/saveState/resetDemo/reduce) + la config Zod
  * del nicho (getNicheConfig). Presentacional: une las islands (KpiBar, charts, tabla).
  * Badge MODO DEMO siempre visible + botón Reset + CTA Calendly (demo segura).
@@ -15,61 +15,64 @@ import KpiBar from './KpiBar';
 import ChartBar from './ChartBar';
 import ChartDonut from './ChartDonut';
 import PatientTable from './PatientTable';
-import ModeBadge from './ModeBadge';
 import CTACalendly from './ui/CTACalendly';
 import { RotateCcw } from 'lucide-react';
 
 interface Props {
- config: NicheConfig;
- strings: UiStrings;
+  config: NicheConfig;
+  strings: UiStrings;
 }
 
 export default function Dashboard({ config, strings }: Props) {
- const [state, setState] = useState<DemoState>(() => loadState());
+  const [state, setState] = useState<DemoState>(() => loadState());
+  // La tabla guarda su propia página y filtros. Sin remontarla, el reset
+  // devolvía los datos pero dejaba al usuario en una página que ya no existe.
+  const [tableKey, setTableKey] = useState(0);
 
- const handleReset = () => {
- if (window.confirm(strings.reset.confirm)) {
- resetDemo();
- setState(loadState());
- }
- };
+  const handleReset = () => {
+    if (window.confirm(strings.reset.confirm)) {
+      resetDemo();
+      setState(loadState());
+      setTableKey((k) => k + 1);
+    }
+  };
 
- return ( <div className="space-y-6">
- {/* Header: título + badge MODO DEMO + reset */}
- <div className="flex flex-wrap items-center justify-between gap-3">
- <div>
- <p className="text-xs font-medium uppercase tracking-widest text-accent-strong">{strings.dashboard.eyebrow}</p>
- <h2 className="font-display text-2xl font-bold text-text">{strings.dashboard.title}</h2>
- </div>
- <div className="flex items-center gap-3">
- <ModeBadge strings={strings} />
- <button
- onClick={handleReset}
- className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-border px-4 font-medium text-text-secondary transition-colors duration-150 hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
- >
- <RotateCcw className="h-4 w-4" aria-hidden="true" />
- {strings.reset.label}
- </button>
- </div>
- </div>
+  return (
+    <div className="space-y-6">
+      {/* Header: título + badge MODO DEMO + reset */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-widest text-accent-strong">{strings.dashboard.eyebrow}</p>
+          <h2 className="font-display text-2xl font-bold text-text">{strings.dashboard.title}</h2>
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleReset}
+            className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-border px-4 font-medium text-text-secondary transition-colors duration-150 hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            <RotateCcw className="h-4 w-4" aria-hidden="true" />
+            {strings.reset.label}
+          </button>
+        </div>
+      </div>
 
- {/* KPIs derivados */}
- <KpiBar state={state} config={config} strings={strings} />
+      {/* KPIs derivados (AC-1) */}
+      <KpiBar state={state} config={config} strings={strings} />
 
- {/* Charts */}
- <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
- <ChartBar state={state} strings={strings} kind="revenue" />
- <ChartDonut state={state} strings={strings} />
- </div>
+      {/* Charts (AC-2) */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <ChartBar state={state} strings={strings} kind="revenue" />
+        <ChartDonut state={state} strings={strings} />
+      </div>
 
- {/* Tabla paginada + filtros + CRUD */}
- <PatientTable state={state} strings={strings} onStateChange={setState} />
+      {/* Tabla paginada + filtros + CRUD (AC-3, AC-4) */}
+      <PatientTable key={tableKey} state={state} strings={strings} onStateChange={setState} />
 
- {/* CTA cierre (, demo segura) */}
- <div className="flex flex-col items-center gap-3 rounded-card border border-border bg-surface p-6 text-center shadow-sm">
- <p className="font-display text-lg font-semibold text-text">{strings.cta.bookDemo}</p>
- <CTACalendly label={config.cta.label} url={config.cta.url ?? CALENDLY_URL} strings={strings} microTrust={strings.cta.microTrust} />
- </div>
- </div>
-);
+      {/* CTA cierre (AC-8, demo segura) */}
+      <div className="flex flex-col items-center gap-3 rounded-card border border-border bg-surface p-6 text-center shadow-sm">
+        <p className="font-display text-lg font-semibold text-text">{strings.cta.bookDemo}</p>
+        <CTACalendly label={config.cta.label} url={config.cta.url ?? CALENDLY_URL} strings={strings} microTrust={strings.cta.microTrust} />
+      </div>
+    </div>
+  );
 }

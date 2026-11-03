@@ -1,0 +1,66 @@
+---
+// rol: cierre. El personaje vuelve para hacer la pregunta y el CTA es el único foco.
+import type { NicheConfig } from '../../config/schema';
+import type { UiStrings } from '../../i18n/strings';
+import CTACalendly from '../ui/CTACalendly';
+import Assistant from '../illustrations/Assistant.astro';
+
+interface Props {
+  config: NicheConfig;
+  strings: UiStrings;
+}
+
+const { config, strings } = Astro.props;
+---
+
+<section class="final">
+  <div class="mx-auto grid max-w-5xl grid-cols-1 items-center gap-8 px-4 py-20 md:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] md:gap-12 md:py-24">
+    <div class="final__art">
+      <Assistant class="final__character" />
+    </div>
+
+    <div>
+      <h2 class="final__title">See your practice's numbers in a 20-minute walkthrough.</h2>
+      <p class="final__body">
+        No sales pitch. We open the dashboard, plug in your numbers and show you what
+        your no-show rate is costing you, and what recovering it is worth.
+      </p>
+      <div class="final__cta">
+        <CTACalendly
+          label={config.cta.label}
+          url={config.cta.url}
+          strings={strings}
+          microTrust={strings.cta.microTrust}
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final {
+    background: linear-gradient(170deg, var(--accent-soft), var(--lavender-soft) 58%, var(--accent-soft));
+    border-top: 1px solid var(--border);
+  }
+  .final__art { display: flex; justify-content: center; }
+  .final__character {
+    width: clamp(7rem, 16vw, 11rem);
+    filter: drop-shadow(0 18px 28px rgba(26, 31, 38, 0.16));
+  }
+  .final__title {
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .final__body {
+    margin-top: 0.95rem;
+    font-size: 0.96rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+    max-width: 50ch;
+  }
+  .final__cta { margin-top: 1.7rem; }
+</style>

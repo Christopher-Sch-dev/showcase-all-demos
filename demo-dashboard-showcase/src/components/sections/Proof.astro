@@ -1,0 +1,113 @@
+---
+// rol: prueba social honesta. Datos citados, sin testimonios inventados.
+import type { NicheConfig } from '../../config/schema';
+import type { UiStrings } from '../../i18n/strings';
+
+interface Props {
+  config: NicheConfig;
+  strings: UiStrings;
+}
+
+const { config, strings } = Astro.props;
+---
+
+<section class="proof">
+  <div class="mx-auto max-w-6xl px-4 py-20 lg:py-24">
+    <header class="proof__head">
+      <p class="proof__label">Evidence</p>
+      <h2 class="proof__title">Real practices. Real numbers. No invented testimonials.</h2>
+      <p class="proof__body">
+        We do not fabricate quotes. This is what the industry data and named practices show.
+      </p>
+    </header>
+
+    <div class="proof__grid">
+      {config.proof.map((p, i) => (
+        <article class:list={['proof__card', i === 0 && 'proof__card--lead']}>
+          <p class="proof__text">{p.text}</p>
+          {p.source ? (
+            <a class="proof__source" href={p.source} target="_blank" rel="noopener noreferrer">
+              {strings.kpi.source}
+            </a>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof { background: var(--bg); }
+  .proof__head { max-width: 60ch; }
+  .proof__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+  .proof__title {
+    margin-top: 0.85rem;
+    font-size: clamp(1.55rem, 2.7vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .proof__body {
+    margin-top: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.66;
+    color: var(--text-secondary);
+  }
+
+  .proof__grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr;
+    gap: 0.9rem;
+    margin-top: 2.4rem;
+  }
+  .proof__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    border-radius: 18px;
+    padding: 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .proof__card--lead {
+    background: linear-gradient(160deg, var(--accent-soft), var(--surface) 72%);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .proof__text {
+    font-size: 0.88rem;
+    line-height: 1.62;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+  .proof__card--lead .proof__text {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .proof__source {
+    /* área táctil de 44px sin agrandar la tipografía: el link se toca con el dedo */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
+    text-underline-offset: 3px;
+    width: fit-content;
+  }
+  .proof__source:hover { color: var(--accent-strong); }
+
+  @media (max-width: 860px) {
+    .proof__grid { grid-template-columns: 1fr; }
+  }
+</style>

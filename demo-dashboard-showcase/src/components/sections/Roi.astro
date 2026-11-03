@@ -1,0 +1,69 @@
+---
+// rol: calculadora de ROI. La proyección va etiquetada y el número manda.
+import type { NicheConfig } from '../../config/schema';
+import type { UiStrings } from '../../i18n/strings';
+import RoiCalculator from '../RoiCalculator';
+
+interface Props {
+  config: NicheConfig;
+  strings: UiStrings;
+}
+
+const { config, strings } = Astro.props;
+---
+
+<section class="roi">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14">
+    <div>
+      <p class="roi__label">Your numbers</p>
+      <h2 class="roi__title">Cut your no-shows in half. Keep the revenue you already earned.</h2>
+      <p class="roi__body">
+        Automated reminders cut no-shows 22.95% across 1.6 million appointments.
+        Move the slider and see what recovering that is worth with your own schedule.
+      </p>
+      <p class="roi__fine">Every projection here is an estimate from industry averages, not a promise.</p>
+    </div>
+
+    <div class="roi__calc">
+      <RoiCalculator client:load config={config} strings={strings} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .roi {
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+  .roi__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+  .roi__title {
+    margin-top: 0.85rem;
+    font-size: clamp(1.55rem, 2.7vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .roi__body {
+    margin-top: 1rem;
+    font-size: 0.97rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+    max-width: 52ch;
+  }
+  .roi__fine {
+    margin-top: 0.9rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  /* Sin halo absoluto: un pseudo con inset negativo estiraba el documento y
+     generaba scroll horizontal en tablet. La separación la da el propio panel. */
+  .roi__calc { position: relative; }
+</style>

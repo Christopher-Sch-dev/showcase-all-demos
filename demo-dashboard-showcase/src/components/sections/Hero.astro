@@ -1,0 +1,158 @@
+---
+// rol: primera pantalla. Asimétrico: el mensaje a la izquierda y el producto real
+// a la derecha dentro de un marco de aplicación. El personaje acompaña, no decora.
+import type { NicheConfig } from '../../config/schema';
+import type { UiStrings } from '../../i18n/strings';
+import CTACalendly from '../ui/CTACalendly';
+import Dashboard from '../Dashboard';
+import AppFrame from '../ui/AppFrame.astro';
+import Assistant from '../illustrations/Assistant.astro';
+
+interface Props {
+  config: NicheConfig;
+  strings: UiStrings;
+}
+
+const { config, strings } = Astro.props;
+const painMetrics = config.painPoint.metrics;
+---
+
+<section class="hero">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 px-4 pb-16 pt-14 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-12 lg:pt-20">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">{config.hero.eyebrow}</p>
+
+      <h1 class="hero__title">{config.hero.headline}</h1>
+
+      <p class="hero__sub">{config.hero.subheadline}</p>
+
+      <div class="hero__cta">
+        <CTACalendly
+          label={config.hero.ctaLabel}
+          url={config.cta.url}
+          strings={strings}
+          microTrust={strings.cta.microTrust}
+        />
+      </div>
+
+      <dl class="hero__metrics">
+        {painMetrics.map((m) => (
+          <div class="hero__metric">
+            <dt class="hero__metric-value">{m.value}</dt>
+            <dd class="hero__metric-label">{m.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__character">
+        <Assistant bubble="no-show? no more" />
+      </div>
+
+      <AppFrame>
+        <Dashboard client:load config={config} strings={strings} />
+      </AppFrame>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    overflow-x: clip;
+    background:
+      radial-gradient(ellipse 70% 55% at 78% 0%, var(--lavender-soft), transparent 62%),
+      radial-gradient(ellipse 55% 45% at 8% 12%, var(--accent-soft), transparent 66%),
+      var(--bg);
+  }
+  .hero::after {
+    /* grano sutil: rompe el plano digital sin ensuciar */
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: radial-gradient(currentColor 0.5px, transparent 0.5px);
+    background-size: 22px 22px;
+    color: color-mix(in srgb, var(--text) 7%, transparent);
+    mask-image: linear-gradient(to bottom, black, transparent 70%);
+  }
+
+  .hero__eyebrow {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+  }
+
+  .hero__title {
+    margin-top: 1.15rem;
+    font-size: clamp(2.1rem, 3.9vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .hero__sub {
+    margin-top: 1.15rem;
+    font-size: 1.02rem;
+    line-height: 1.62;
+    color: var(--text-secondary);
+    max-width: 46ch;
+  }
+
+  .hero__cta { margin-top: 1.9rem; }
+
+  .hero__metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem 2.4rem;
+    margin-top: 2.4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  }
+  .hero__metric-value {
+    font-family: var(--font-display), sans-serif;
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent-strong);
+  }
+  .hero__metric-label {
+    margin-top: 0.35rem;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    max-width: 16ch;
+  }
+
+  /* min-width:0 en el item del grid: sin esto la tabla de 640px estira
+     la columna y el documento gana scroll horizontal. */
+  .hero__visual { position: relative; min-width: 0; }
+  .hero__character {
+    position: absolute;
+    left: -3.2rem;
+    bottom: -0.5rem;
+    width: 9.5rem;
+    z-index: 2;
+    filter: drop-shadow(0 14px 20px rgba(26, 31, 38, 0.14));
+  }
+
+  /* el SVG de la ilustración declara overflow visible (sombras); el personaje
+     se sale del marco a propósito en desktop, así que el hero lo recorta. */
+  @media (max-width: 1023px) {
+    .hero__character { display: none; }
+    .hero__title { font-size: clamp(1.95rem, 7.2vw, 2.6rem); }
+  }
+</style>

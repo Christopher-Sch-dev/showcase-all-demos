@@ -1,5 +1,5 @@
 /**
- * TEST HELPERS — render de islands con estado real.
+ * TEST HELPERS — render de islands con estado real (patrón demo-lead-qualifier).
  * Config Zod real (getNicheConfig('dental')) + strings i18n + seed real (createSeedState).
  */
 import { render } from '@testing-library/react';
@@ -18,18 +18,18 @@ export const seedState = createSeedState();
 
 /** Render helper tipado. */
 export function renderWith(ui: React.ReactElement) {
- return render(ui);
+  return render(ui);
 }
 
 /** Mock de localStorage (jsdom no lo provee por defecto en este setup). */
 export function mockLocalStorage() {
- const store = new Map<string, string>();
- const ls = {
- getItem: (k: string) => store.get(k) ?? null,
- setItem: (k: string, v: string) => void store.set(k, v),
- removeItem: (k: string) => void store.delete(k),
- clear: () => store.clear(),
- };
- Object.defineProperty(window, 'localStorage', { value: ls, configurable: true });
- return ls;
+  const store = new Map<string, string>();
+  const ls = {
+    getItem: (k: string) => store.get(k) ?? null,
+    setItem: (k: string, v: string) => void store.set(k, v),
+    removeItem: (k: string) => void store.delete(k),
+    clear: () => store.clear(),
+  };
+  Object.defineProperty(window, 'localStorage', { value: ls, configurable: true });
+  return ls;
 }
