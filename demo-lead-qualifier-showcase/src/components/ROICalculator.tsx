@@ -6,25 +6,20 @@
 import { useState } from 'react';
 import type { UIStrings } from '@/i18n/strings';
 import type { NicheConfig } from '@/config/schema';
+import { computeAnnual, formatUSDCompact } from '@/lib/roi';
 import CTACalendly from './ui/CTACalendly';
 
 export interface ROICalculatorProps {
   t: UIStrings;
-  /** Config del nicho: roiFormula (inputKey/inputMin/inputMax/inputStep/inputDefault/compute/note). */
+  /** Config del nicho: roiFormula (inputKey/inputMin/inputMax/inputStep/inputDefault/multiplier/note). */
   config: NicheConfig;
-}
-
-// rol: formatear valor monetario USD compacto.
-function fmtUSD(v: number): string {
-  if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(1)}M`;
-  if (v >= 1_000) return `$${(v / 1_000).toFixed(0)}K`;
-  return `$${Math.round(v).toLocaleString()}`;
 }
 
 export default function ROICalculator({ t, config }: ROICalculatorProps) {
   const roi = config.roiFormula;
   const [value, setValue] = useState<number>(roi.inputDefault);
-  const annual = roi.compute(value);
+  // rol: la fórmula es dato serializable (multiplier), no una función del config.
+  const annual = computeAnnual(roi.multiplier, value);
 
   return (
     <div data-testid="roi-calculator" className="rounded-lg border p-5">
@@ -53,7 +48,7 @@ export default function ROICalculator({ t, config }: ROICalculatorProps) {
         <div>
           <div className="text-xs text-muted">{t.roiAnnualValue}</div>
           <div className="text-3xl font-bold" style={{ color: config.aesthetic.accent }}>
-            {fmtUSD(annual)}
+            {formatUSDCompact(annual)}
           </div>
           <p className="mt-1 text-xs italic text-muted">{roi.note}</p>
         </div>

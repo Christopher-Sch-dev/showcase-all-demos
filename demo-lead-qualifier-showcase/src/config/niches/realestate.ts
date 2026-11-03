@@ -83,8 +83,8 @@ export const realestateConfig = NicheConfigSchema.parse({
     inputMax: 500,
     inputStep: 10,
     inputDefault: 50,
-    // compute: (leads/mo) × 21% (calificables extra por responder en 5min) × deal avg $20K × 12
-    compute: (leadsPerMonth: number) => leadsPerMonth * 0.21 * 20000 * 12,
+    // (leads/mo) × 21% (calificables extra por responder en 5min) × deal avg $20K × 12
+    multiplier: 0.21 * 20000 * 12,
     note: 'Estimated based on industry averages',
   },
 
