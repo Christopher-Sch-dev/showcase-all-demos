@@ -1,0 +1,63 @@
+---
+// rol: marco de aplicación. Muestra el producto como una pantalla real en vez de
+// una maqueta flotante: barra de ventana, ruta y sombra en capas (shadow-elevated).
+interface Props {
+  class?: string;
+  route?: string;
+}
+const { class: className = '', route = 'demo-hvac.app/dispatch' } = Astro.props;
+---
+
+<div class:list={['app-frame', className]}>
+  <div class="app-frame__bar">
+    <span class="app-frame__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="app-frame__route">
+      <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="4" y="10" width="16" height="10" rx="2.5" />
+        <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+      </svg>
+      {route}
+    </span>
+  </div>
+  <div class="app-frame__body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .app-frame {
+    min-width: 0;
+    border-radius: 14px;
+    background: var(--tw-surface, #fff);
+    border: 1px solid #D8DEE6; /* hvac-border-real */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10), 0 12px 32px rgba(0,0,0,0.08); /* hvac shadow-elevated */
+    overflow: hidden;
+  }
+  .app-frame__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.85rem;
+    background: #F5F6F8; /* hvac-neutral */
+    border-bottom: 1px solid #D8DEE6;
+  }
+  .app-frame__dots { display: inline-flex; gap: 5px; }
+  .app-frame__dots i { width: 8px; height: 8px; border-radius: 50%; background: #D8DEE6; }
+  .app-frame__dots i:first-child { background: #FF5C33; }
+  .app-frame__dots i:nth-child(2) { background: #FF7A1A; }
+  .app-frame__dots i:last-child { background: #16A34A; }
+  .app-frame__route {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+    color: #5B6B7C; /* hvac-muted */
+    background: #fff;
+    border: 1px solid #D8DEE6;
+    border-radius: 999px;
+    padding: 0.15rem 0.55rem;
+  }
+  .app-frame__body { min-width: 0; padding: clamp(0.7rem, 1.5vw, 1.1rem); }
+</style>

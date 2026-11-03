@@ -1,0 +1,35 @@
+---
+// rol: la calculadora de ROI. El número manda y la proyección va etiquetada.
+import { getNiche } from '../../config/niches';
+import { ui } from '../../i18n/strings';
+import { ROICalculator } from '../ROICalculator';
+
+interface Props { locale?: 'en' | 'es' }
+const { locale = 'en' } = Astro.props;
+const entry = getNiche('a', 'hvac')!;
+const config = entry.config;
+const t = ui[locale];
+
+const COPY = {
+  en: { body: '$2,200 per missed job. Here is what that adds up to on your own numbers.', fine: 'Projection from industry averages, not a promise.' },
+  es: { body: '$2,200 por trabajo perdido. Esto es lo que suma con tus propios números.', fine: 'Proyección con promedios de la industria, no una promesa.' },
+};
+const c = COPY[locale];
+---
+
+<section class="border-b border-hvac-border-real bg-hvac-surface">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-14 lg:py-20">
+    <div>
+      <p class="font-mono text-xs uppercase tracking-widest text-hvac-brand">{t.sections.roi.eyebrow}</p>
+      <h2 class="mt-3 max-w-2xl font-display text-4xl font-bold leading-tight text-hvac-text md:text-5xl">
+        {t.sections.roi.headline}
+      </h2>
+      <p class="mt-4 max-w-xl text-base leading-relaxed text-hvac-muted">{c.body}</p>
+      <p class="mt-3 font-mono text-[11px] uppercase tracking-wide text-hvac-muted">{c.fine}</p>
+    </div>
+
+    <div class="min-w-0">
+      <ROICalculator client:load />
+    </div>
+  </div>
+</section>

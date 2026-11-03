@@ -1,0 +1,54 @@
+---
+// rol: el problema, contado con la ilustración. La llamada que nadie contesta es
+// el argumento: el trabajo se va a la competencia y la cifra viaja con ella.
+import { getNiche } from '../../config/niches';
+import { esCopy } from '../../i18n/strings';
+import MissedCall from '../illustrations/MissedCall.astro';
+
+interface Props { locale?: 'en' | 'es' }
+const { locale = 'en' } = Astro.props;
+
+const entry = getNiche('a', 'hvac')!;
+const config = entry.config;
+const copy = locale === 'es' ? esCopy : config;
+
+const COPY = {
+  en: { problem: 'The problem', caption: 'While your crew is on the road', source: 'Source' },
+  es: { problem: 'El problema', caption: 'Mientras tu equipo está en ruta', source: 'Fuente' },
+};
+const c = COPY[locale];
+---
+
+<section class="border-b border-hvac-border-real bg-hvac-surface">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16 lg:py-24">
+    <div>
+      <p class="font-mono text-xs uppercase tracking-widest text-hvac-urgent">{c.problem}</p>
+      <h2 class="mt-3 max-w-2xl font-display text-4xl font-bold leading-tight text-hvac-text md:text-5xl">
+        {copy.painPoint.headline}
+      </h2>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-hvac-muted">{copy.painPoint.body}</p>
+
+      <ul class="mt-8 grid gap-0 border-t border-hvac-border-real">
+        {copy.painPoint.metrics.map((m) => (
+          <li class="flex items-baseline gap-5 border-b border-hvac-border-real py-3.5">
+            <span class="w-24 shrink-0 font-display text-3xl font-bold leading-none text-hvac-urgent">{m.value}</span>
+            <span class="grid gap-0.5">
+              <span class="text-sm leading-snug text-hvac-text">{m.label}</span>
+              <a
+                href={m.source}
+                target="_blank"
+                rel="noreferrer"
+                class="w-fit font-mono text-[11px] uppercase tracking-wide text-hvac-muted underline-offset-2 hover:text-hvac-brand hover:underline"
+              >{c.source}</a>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="rounded-2xl border border-hvac-border-real bg-hvac-base p-6 shadow-card md:p-8">
+      <MissedCall />
+      <p class="mt-3 text-center text-xs font-semibold uppercase tracking-wide text-hvac-muted">{c.caption}</p>
+    </div>
+  </div>
+</section>
