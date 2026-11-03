@@ -102,7 +102,7 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
       aria-label="lead form"
     >
       <div>
-        <label htmlFor="lf-name" className="mb-1 block text-sm font-medium">
+        <label htmlFor="lf-name" className="lq-field-label">
           {t.nameLabel}
         </label>
         <input
@@ -114,14 +114,14 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
           onBlur={() => handleBlur('name')}
           placeholder={t.namePlaceholder}
           aria-invalid={!!errors.name}
-          className="min-h-[44px] w-full rounded-lg border px-3 text-base"
+          className="lq-input min-h-[44px]"
         />
         {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="lf-email" className="mb-1 block text-sm font-medium">
+          <label htmlFor="lf-email" className="lq-field-label">
             {t.emailLabel}
           </label>
           <input
@@ -133,12 +133,12 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
             onBlur={() => handleBlur('email')}
             placeholder={t.emailPlaceholder}
             aria-invalid={!!errors.email}
-            className="min-h-[44px] w-full rounded-lg border px-3 py-2"
+            className="lq-input"
           />
           {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
         </div>
         <div>
-          <label htmlFor="lf-phone" className="mb-1 block text-sm font-medium">
+          <label htmlFor="lf-phone" className="lq-field-label">
             {t.phoneLabel}
           </label>
           <input
@@ -150,14 +150,14 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
             onBlur={() => handleBlur('phone')}
             placeholder={t.phonePlaceholder}
             aria-invalid={!!errors.phone}
-            className="min-h-[44px] w-full rounded-lg border px-3 text-base"
+            className="lq-input"
           />
           {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
         </div>
       </div>
 
       <div>
-        <label htmlFor="lf-topic" className="mb-1 block text-sm font-medium">
+        <label htmlFor="lf-topic" className="lq-field-label">
           {t.topicLabel}
         </label>
         <input
@@ -169,13 +169,13 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
           onBlur={() => handleBlur('topic')}
           placeholder={t.topicPlaceholder}
           aria-invalid={!!errors.topic}
-          className="min-h-[44px] w-full rounded-lg border px-3 text-base"
+          className="lq-input"
         />
         {errors.topic && <p className="mt-1 text-sm text-red-600">{errors.topic}</p>}
       </div>
 
       <div>
-        <label htmlFor="lf-budget" className="mb-1 block text-sm font-medium">
+        <label htmlFor="lf-budget" className="lq-field-label">
           {t.budgetLabel}
         </label>
         <input
@@ -186,15 +186,19 @@ export default function LeadForm({ t, niche, demo, onCaptured }: LeadFormProps) 
           onChange={(e) => setBudget(e.target.value)}
           placeholder={t.budgetPlaceholder}
           min={0}
-          className="min-h-[44px] w-full rounded-lg border px-3 text-base"
+          className="lq-input"
         />
       </div>
 
       <button
         type="submit"
         data-testid="lf-submit"
-        className="inline-flex min-h-[44px] items-center justify-center rounded-lg px-6 py-3 font-semibold transition"
-        style={{ backgroundColor: '#C9A24B', color: '#ffffff' }}
+        className="inline-flex min-h-[50px] items-center justify-center px-6 py-3 text-[0.78rem] font-medium uppercase tracking-[0.16em] transition-transform duration-300 hover:-translate-y-0.5"
+        style={{
+          backgroundColor: 'var(--brand-accent)',
+          color: 'var(--brand-bg)',
+          borderRadius: 'var(--brand-radius)',
+        }}
       >
         {t.submit}
       </button>

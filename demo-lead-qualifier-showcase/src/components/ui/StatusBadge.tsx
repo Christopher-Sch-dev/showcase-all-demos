@@ -19,11 +19,13 @@ export interface StatusBadgeProps {
 function colorFor(status: LeadStatus, accent: string): { bg: string; fg: string } {
   switch (status) {
     case 'booked':
-      return { bg: '#22c55e', fg: '#06281a' }; // verde éxito
+      return { bg: '#3f9d6b', fg: '#04150d' }; // verde éxito, apagado para no romper la paleta
     case 'qualified':
-      return { bg: accent, fg: '#ffffff' }; // acento de marca
+      // sobre el acento manda el fondo de marca: champagne y burdeos piden texto oscuro/claro
+      // opuesto al fondo, y var(--brand-bg) es exactamente eso en ambos nichos.
+      return { bg: accent, fg: 'var(--brand-bg)' };
     default:
-      return { bg: '#8A8F98', fg: '#FFFFFF' }; // neutro (new)
+      return { bg: '#8A8F98', fg: '#0B0C0F' }; // neutro (semántico, no de nicho)
   }
 }
 
@@ -45,7 +47,7 @@ export default function StatusBadge({ status, accent, label }: StatusBadgeProps)
   return (
     <span
       data-testid="status-badge"
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold"
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-medium uppercase tracking-[0.1em]"
       style={{ backgroundColor: bg, color: fg }}
     >
       <Icon className="h-3.5 w-3.5" aria-hidden="true" />

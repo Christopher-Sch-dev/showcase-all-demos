@@ -22,8 +22,8 @@ export default function ROICalculator({ t, config }: ROICalculatorProps) {
   const annual = computeAnnual(roi.multiplier, value);
 
   return (
-    <div data-testid="roi-calculator" className="rounded-lg border p-5">
-      <label htmlFor="roi-input" className="mb-2 block text-sm font-medium">
+    <div data-testid="roi-calculator" className="lq-panel p-7">
+      <label htmlFor="roi-input" className="lq-field-label">
         {roi.inputLabel}
       </label>
       <input
@@ -35,26 +35,33 @@ export default function ROICalculator({ t, config }: ROICalculatorProps) {
         step={roi.inputStep}
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
-        className="w-full"
+        className="mt-2 w-full accent-[var(--brand-accent)]"
+        style={{ accentColor: 'var(--brand-accent)' }}
         aria-label={roi.inputLabel}
       />
-      <div className="mt-1 flex justify-between text-xs text-muted">
+      <div className="lq-label mt-2 flex justify-between">
         <span>{roi.inputMin}</span>
-        <span className="font-semibold">{value}</span>
+        <span style={{ color: 'var(--brand-accent)' }}>{value}</span>
         <span>{roi.inputMax}</span>
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <div className="text-xs text-muted">{t.roiAnnualValue}</div>
-          <div className="text-3xl font-bold" style={{ color: config.aesthetic.accent }}>
+          <div className="lq-label">{t.roiAnnualValue}</div>
+          <div
+            className="lq-num mt-2"
+            style={{
+              color: 'var(--brand-accent)',
+              fontSize: 'clamp(2.6rem, 5vw, 3.6rem)',
+            }}
+          >
             {formatUSDCompact(annual)}
           </div>
-          <p className="mt-1 text-xs italic text-muted">{roi.note}</p>
+          <p className="mt-2 text-xs italic text-muted">{roi.note}</p>
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-6">
         <CTACalendly
           href={config.cta.url}
           label={t.roiCta}

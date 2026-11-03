@@ -22,9 +22,9 @@ describe('StatusBadge', () => {
 
   it('booked usa verde éxito independiente del nicho', () => {
     const { rerender } = render(<StatusBadge status="booked" accent={law.aesthetic.accent} label={t().statusBooked} />);
-    expect(screen.getByTestId('status-badge')).toHaveStyle({ backgroundColor: '#22c55e' });
+    expect(screen.getByTestId('status-badge')).toHaveStyle({ backgroundColor: '#3f9d6b' });
     rerender(<StatusBadge status="booked" accent={re.aesthetic.accent} label={t().statusBooked} />);
-    expect(screen.getByTestId('status-badge')).toHaveStyle({ backgroundColor: '#22c55e' });
+    expect(screen.getByTestId('status-badge')).toHaveStyle({ backgroundColor: '#3f9d6b' });
   });
 
   it('new usa neutro y el label i18n', () => {

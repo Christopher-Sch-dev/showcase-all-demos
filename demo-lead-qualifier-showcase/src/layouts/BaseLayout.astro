@@ -80,16 +80,11 @@ const vars = [
       </>
     )}
     <style is:global>
-      /* ── Tokens: color del nicho + escala tipográfica + ritmo ── */
+      /* ── Tokens derivados: escala tipográfica + ritmo ──
+         Los --brand-* viven en el atributo style del <html> (arriba), que es la única
+         fuente de verdad: Astro NO interpola expresiones dentro de <style>, así que
+         declararlos aquí los dejaba como texto literal e inválido. */
       :root {
-        --brand-bg: {a.background};
-        --brand-surface: {a.surface};
-        --brand-accent: {a.accent};
-        --brand-text: {a.text};
-        --brand-muted: {a.muted};
-        --brand-display: {a.displayFont};
-        --brand-body: {a.bodyFont};
-
         --lq-border: color-mix(in srgb, var(--brand-text) 14%, transparent);
         --lq-border-soft: color-mix(in srgb, var(--brand-text) 8%, transparent);
         --lq-accent-soft: color-mix(in srgb, var(--brand-accent) 14%, transparent);
@@ -210,6 +205,81 @@ const vars = [
         height: 1px;
         background: var(--lq-border-soft);
         border: 0;
+      }
+
+      /* Panel: superficie elevada del demo (reemplaza las cajas grises de scaffold). */
+      .lq-panel {
+        border-radius: 16px;
+        border: 1px solid var(--lq-border-soft);
+        background: linear-gradient(
+          165deg,
+          color-mix(in srgb, var(--brand-surface) 94%, var(--brand-text) 4%),
+          var(--brand-surface)
+        );
+        box-shadow: 0 24px 60px -48px rgba(0, 0, 0, 0.9);
+      }
+
+      /* Métrica: celda compacta de KPI. */
+      .lq-metric {
+        border-radius: 12px;
+        border: 1px solid var(--lq-border-soft);
+        background: color-mix(in srgb, var(--brand-text) 3%, transparent);
+        padding: 0.9rem 1rem;
+      }
+
+      /* Número editorial: serif, tracking cerrado, línea ajustada. */
+      .lq-num {
+        font-family: var(--brand-display), Georgia, serif;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Campo de formulario del demo. */
+      .lq-input {
+        min-height: 46px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid var(--lq-border);
+        background-color: color-mix(in srgb, var(--brand-text) 4%, transparent);
+        color: var(--brand-text);
+        padding: 0.6rem 0.85rem;
+        font-family: var(--brand-body), sans-serif;
+        font-size: 0.95rem;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+      }
+
+      .lq-input::placeholder {
+        color: color-mix(in srgb, var(--brand-muted) 75%, transparent);
+      }
+
+      .lq-input:focus {
+        outline: none;
+        border-color: var(--brand-accent);
+        background-color: color-mix(in srgb, var(--brand-accent) 7%, transparent);
+      }
+
+      .lq-input[aria-invalid='true'] {
+        border-color: #d16a6a;
+      }
+
+      .lq-field-label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brand-muted);
+      }
+
+      /* Etiqueta pequeña en versalitas. */
+      .lq-label {
+        font-size: 0.63rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--brand-muted);
+        font-weight: 500;
       }
 
       /* ── Revelado al entrar en viewport: nativo (animation-timeline), cero JS ──
