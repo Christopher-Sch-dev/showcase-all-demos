@@ -31,7 +31,7 @@ If the backend isn't available, the demo doesn't break: it falls back to a local
 
 ### The "brain"
 
-A single `SYSTEM_PROMPT` in `index.astro` defines the receptionist: its name, the clinic's data (services, prices, isapres, hours, team), a warm tone with **tuteo** (neutral Chilean Spanish, no Rioplatense voseo), and **hard rules**: it only talks about the clinic, gives no medical advice, doesn't leave its role, and refers to WhatsApp when it doesn't know something.
+A single `SYSTEM_PROMPT` in `src/client/prompt.ts` defines the receptionist: its name, the clinic's data (services, prices, isapres, hours, team), a warm tone with **tuteo** (neutral Chilean Spanish, no Rioplatense voseo), and **hard rules**: it only talks about the clinic, gives no medical advice, doesn't leave its role, and refers to WhatsApp when it doesn't know something.
 
 > 🔒 **Privacy:** this repo is only the frontend, with no API keys or credentials. Authentication and secrets live in a separate AI backend (not included in this copy). The public frontend never sees an API key.
 
@@ -76,6 +76,7 @@ Useful commands:
 ```bash
 npm run build     # static build to /dist
 npm run preview   # test the production build locally
+npm test          # 31 unit tests (vitest)
 ```
 
 **Deploy to Vercel:**
@@ -92,15 +93,29 @@ npx vercel --prod --yes
 demo-agent-voice/
 ├── src/
 │   ├── pages/
-│   │   └── index.astro      # The whole UI + assistant logic (chat + call)
-│   └── lib/
-│       ├── pcmAudio.ts      # Live audio engine: mic capture + playback + visualizer
-│       └── audioUtils.ts    # Pure audio utilities (downsample, PCM, Base64, WAV)
+│   │   └── index.astro      # Page shell: clinic identity, chat markup, business data
+│   ├── components/
+│   │   ├── Assistant.astro  # Receptionist avatar
+│   │   └── Icon.astro       # Inline SVG icons (mic, phone, speaker, send, tooth, hangup)
+│   ├── client/
+│   │   ├── app.ts           # Chat, dictation and call orchestration
+│   │   ├── call.ts          # WebSocket to Gemini Live + Web Audio
+│   │   ├── prompt.ts        # System prompt that defines the receptionist
+│   │   └── showcaseList.ts  # Suggested-question cards
+│   ├── lib/
+│   │   ├── showcase.ts      # Local fallback engine (keyword matching)
+│   │   ├── pcmAudio.ts      # Live audio engine: mic capture + playback + visualizer
+│   │   └── audioUtils.ts    # Pure audio utilities (downsample, PCM, Base64, WAV)
+│   └── styles/
+│       ├── base.css         # Design tokens (navy/ocean) and layout
+│       └── chat.css         # Chat, composer and audio visualizer
+├── tests/                   # 31 vitest tests (audio, copy, render, fallback engine)
 ├── public/
 │   └── audio-capture-processor.js  # Audio capture processor (AudioWorklet)
 ├── astro.config.mjs         # Astro config (static output)
+├── vitest.config.ts         # Vitest config
 ├── vercel.json              # Vercel deploy config
-└── package.json             # Only dep: astro
+└── package.json
 ```
 
 ---
@@ -111,7 +126,7 @@ demo-agent-voice/
 - **Live audio with the Gemini Live API.** Real microphone capture, bidirectional streaming over WebSocket and spoken response — it's not clipped TTS, it's a conversation.
 - **A single prompt defines a business "character".** You change the clinic's data in `BUSINESS` and the same frontend works for any SME (dental, restaurant, lawyer...). *Replicable for your SME*.
 - **Resilience**: fallback to demo mode if the backend doesn't respond, so it never looks broken in public.
-- **Terminal aesthetic** — dark theme with green accent, badges and audio visualizer.
+- **Product UI, not a hacker terminal** — navy/ocean identity (`--bg #08141c`, `--accent #22a5cc`), inline SVG icons instead of emoji, and an audio visualizer that reacts to the call.
 
 ## Decisions and tradeoffs
 
