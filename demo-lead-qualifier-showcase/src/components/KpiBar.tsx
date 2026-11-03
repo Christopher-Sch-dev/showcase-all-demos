@@ -36,7 +36,9 @@ export default function KpiBar({ t, kpi, config }: KpiBarProps) {
       {/* KPIs derivados del demo en vivo */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {staticCards.map((c) => (
-          <div key={c.label} className="lq-metric">
+          // data-kpi-label/value: el texto visible va en uppercase por CSS (innerText lo
+          // refleja), así que el dato plano se expone acá para que el e2e no dependa del estilo.
+          <div key={c.label} className="lq-metric" data-kpi-label={c.label} data-kpi-value={c.value}>
             <div className="lq-label">{c.label}</div>
             <div className="lq-num mt-2 text-[1.85rem]" style={{ color: 'var(--brand-text)' }}>
               {c.value}

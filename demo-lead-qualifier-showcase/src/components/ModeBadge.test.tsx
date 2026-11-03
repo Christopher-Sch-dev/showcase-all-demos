@@ -4,14 +4,17 @@ import ModeBadge from '@/components/ModeBadge';
 import { t } from '../../tests/helpers/fixture';
 
 describe('ModeBadge', () => {
-  it('muestra MODO DEMO siempre visible', () => {
+  it('muestra el badge i18n siempre visible (EN)', () => {
     render(<ModeBadge t={t()} onReset={() => {}} />);
-    expect(screen.getByTestId('mode-badge')).toHaveTextContent('MODO DEMO');
+    // Se lee del diccionario, no de un literal: la landing inglesa no lleva texto en español.
+    expect(screen.getByTestId('mode-badge')).toHaveTextContent(t().modeBadge);
+    expect(t().modeBadge).toBe('DEMO MODE');
   });
 
   it('muestra el label i18n del badge en español', () => {
     render(<ModeBadge t={t('es')} onReset={() => {}} />);
-    expect(screen.getByTestId('mode-badge')).toHaveTextContent('MODO DEMO');
+    expect(screen.getByTestId('mode-badge')).toHaveTextContent(t('es').modeBadge);
+    expect(t('es').modeBadge).toBe('MODO DEMO');
   });
 
   it('botón reset llama onReset (resetDemo del core)', () => {
