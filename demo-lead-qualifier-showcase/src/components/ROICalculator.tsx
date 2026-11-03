@@ -6,29 +6,24 @@
 import { useState } from 'react';
 import type { UIStrings } from '@/i18n/strings';
 import type { NicheConfig } from '@/config/schema';
+import { computeAnnual, formatUSDCompact } from '@/lib/roi';
 import CTACalendly from './ui/CTACalendly';
 
 export interface ROICalculatorProps {
   t: UIStrings;
-  /** Config del nicho: roiFormula (inputKey/inputMin/inputMax/inputStep/inputDefault/compute/note). */
+  /** Config del nicho: roiFormula (inputKey/inputMin/inputMax/inputStep/inputDefault/multiplier/note). */
   config: NicheConfig;
-}
-
-// rol: formatear valor monetario USD compacto.
-function fmtUSD(v: number): string {
-  if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(1)}M`;
-  if (v >= 1_000) return `$${(v / 1_000).toFixed(0)}K`;
-  return `$${Math.round(v).toLocaleString()}`;
 }
 
 export default function ROICalculator({ t, config }: ROICalculatorProps) {
   const roi = config.roiFormula;
   const [value, setValue] = useState<number>(roi.inputDefault);
-  const annual = roi.compute(value);
+  // rol: la fórmula es dato serializable (multiplier), no una función del config.
+  const annual = computeAnnual(roi.multiplier, value);
 
   return (
-    <div data-testid="roi-calculator" className="rounded-lg border p-5">
-      <label htmlFor="roi-input" className="mb-2 block text-sm font-medium">
+    <div data-testid="roi-calculator" className="lq-panel p-7">
+      <label htmlFor="roi-input" className="lq-field-label">
         {roi.inputLabel}
       </label>
       <input
@@ -40,26 +35,33 @@ export default function ROICalculator({ t, config }: ROICalculatorProps) {
         step={roi.inputStep}
         value={value}
         onChange={(e) => setValue(Number(e.target.value))}
-        className="w-full"
+        className="mt-2 w-full accent-[var(--brand-accent)]"
+        style={{ accentColor: 'var(--brand-accent)' }}
         aria-label={roi.inputLabel}
       />
-      <div className="mt-1 flex justify-between text-xs text-muted">
+      <div className="lq-label mt-2 flex justify-between">
         <span>{roi.inputMin}</span>
-        <span className="font-semibold">{value}</span>
+        <span style={{ color: 'var(--brand-accent)' }}>{value}</span>
         <span>{roi.inputMax}</span>
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <div className="text-xs text-muted">{t.roiAnnualValue}</div>
-          <div className="text-3xl font-bold" style={{ color: config.aesthetic.accent }}>
-            {fmtUSD(annual)}
+          <div className="lq-label">{t.roiAnnualValue}</div>
+          <div
+            className="lq-num mt-2"
+            style={{
+              color: 'var(--brand-accent)',
+              fontSize: 'clamp(2.6rem, 5vw, 3.6rem)',
+            }}
+          >
+            {formatUSDCompact(annual)}
           </div>
-          <p className="mt-1 text-xs italic text-muted">{roi.note}</p>
+          <p className="mt-2 text-xs italic text-muted">{roi.note}</p>
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-6">
         <CTACalendly
           href={config.cta.url}
           label={t.roiCta}

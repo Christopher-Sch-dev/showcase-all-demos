@@ -2,7 +2,8 @@
  * USEDEMOSTATE — hook que orquesta la demo determinista (core src/lib) desde React.
  * Consume el core (reduce, loadState/saveState/resetDemo, scoreLead, deriveKpi) SIN modificarlo.
  * Encapsula: estado global + FSM + persistencia + reset + calificación determinista.
- * SSR-safe: en servidor devuelve seed (no localStorage); en cliente hidrata y persiste.
+ * SSR-safe: el primer render es idéntico en server y cliente (SSR_STATE vacío); el estado
+ * persistido se aplica en un effect, y el UI hidratado se expone mediante `ready`.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { reduce } from '@/lib/state';
@@ -37,7 +38,10 @@ export interface UseDemoState {
 export function useDemoState(): UseDemoState {
   // rol: detectar entorno cliente (jsdom/browser) para evitar crash SSR de localStorage.
   const isBrowser = typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-  const [state, setState] = useState<DemoState>(() => (isBrowser ? loadState() : SSR_STATE));
+  // rol: el primer render usa SSR_STATE en AMBOS entornos para que la hidratación coincida.
+  // Inicializar con loadState() en el cliente renderiza 5 leads sobre un HTML de servidor
+  // con 0 leads → hydration mismatch (React #418/#423). El storage se aplica en el effect.
+  const [state, setState] = useState<DemoState>(SSR_STATE);
   const [ready, setReady] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;

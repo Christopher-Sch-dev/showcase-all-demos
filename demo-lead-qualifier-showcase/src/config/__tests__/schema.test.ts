@@ -52,7 +52,7 @@ const validConfig = {
     inputMax: 500,
     inputStep: 10,
     inputDefault: 50,
-    compute: (leadsPerMonth: number) => leadsPerMonth * 0.21 * 20000 * 12,
+    multiplier: 0.21 * 20000 * 12,
     note: 'Estimated based on industry averages',
   },
   integrations: [

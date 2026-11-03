@@ -87,8 +87,8 @@ export const lawConfig = NicheConfigSchema.parse({
     inputMax: 200,
     inputStep: 5,
     inputDefault: 20,
-    // compute: (missed calls/mo) × 51% (recuperables con intake tech) × avg matter $5K × 12
-    compute: (missedPerMonth: number) => missedPerMonth * 0.51 * 5000 * 12,
+    // (missed calls/mo) × 51% (recuperables con intake tech) × avg matter $5K × 12
+    multiplier: 0.51 * 5000 * 12,
     note: 'Estimated based on industry averages',
   },
 

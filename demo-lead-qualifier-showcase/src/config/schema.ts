@@ -58,8 +58,12 @@ export const RoiFormulaSchema = z.object({
   inputMax: z.number().positive(),
   inputStep: z.number().positive(),
   inputDefault: z.number(),
-  /** Cálculo: recibe el input y devuelve el valor anual recuperado. */
-  compute: z.function().args(z.number()).returns(z.number()),
+  /**
+   * Multiplicador lineal: valor anual = input × multiplier.
+   * Es un DATO, no una función: las props de un island `client:*` se serializan
+   * a JSON y una función no sobrevive el boundary server→client.
+   */
+  multiplier: z.number().positive('multiplier debe ser positivo'),
   /** Nota de honestidad: SIEMPRE etiquetar proyecciones. */
   note: z.literal('Estimated based on industry averages'),
 });

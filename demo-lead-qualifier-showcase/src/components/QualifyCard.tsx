@@ -75,17 +75,21 @@ export default function QualifyCard({ t, lead, accent, radius, bookingUrl, demo,
   const under60 = qualified && respondedMs !== undefined && respondedMs < 60000;
 
   return (
-    <div data-testid="qualify-card" className="rounded-lg border p-5" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
+    <div data-testid="qualify-card" className="lq-panel p-6">
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+        <div className="flex items-center gap-2 text-[0.95rem] font-medium" style={{ color: 'var(--brand-text)' }}>
+          <ShieldCheck className="h-4 w-4" style={{ color: accent }} aria-hidden="true" />
           {lead.name}
         </div>
         <StatusBadge status={lead.status} accent={accent} label={statusLabel(t, lead.status)} />
       </div>
 
       {/* Timer / speed-to-lead */}
-      <div className="mt-4 flex items-center gap-2 text-sm" data-testid="timer">
+      <div
+        className="mt-4 flex items-center gap-2 rounded-lg px-3 py-2 text-sm"
+        data-testid="timer"
+        style={{ backgroundColor: 'var(--lq-accent-soft)', color: 'var(--brand-accent)' }}
+      >
         <Timer className="h-4 w-4" aria-hidden="true" />
         {qualified ? (
           <span>
@@ -106,12 +110,16 @@ export default function QualifyCard({ t, lead, accent, radius, bookingUrl, demo,
         <div className="mt-4 space-y-2">
           <div className="flex items-center gap-2">
             <BadgeCheck className="h-4 w-4" aria-hidden="true" />
-            <span className="text-sm text-muted">{t.scoreLabel}</span>
-            <span className="ml-auto text-2xl font-bold" data-testid="score">
+            <span className="lq-label">{t.scoreLabel}</span>
+            <span
+              className="lq-num ml-auto text-[2.25rem]"
+              style={{ color: 'var(--brand-accent)' }}
+              data-testid="score"
+            >
               {lead.qualification.score}
             </span>
           </div>
-          <p className="text-sm text-muted" data-testid="reason">
+          <p className="text-sm leading-relaxed text-muted" data-testid="reason">
             {lead.qualification.reason}
           </p>
         </div>

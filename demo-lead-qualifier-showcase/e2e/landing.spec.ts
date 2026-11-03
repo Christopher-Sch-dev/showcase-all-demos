@@ -1,6 +1,6 @@
 /**
  * E2E LANDING — producción real servida (NUNCA mock).
- * Verifica la landing EN / y ES /es/: hero de venta, badge MODO DEMO, CTA Calendly,
+ * Verifica la landing EN / y ES /es/: hero de venta, badge de demo, CTA Calendly,
  * pain point con métricas con source, y sin overflow horizontal en mobile 375.
  */
 import { test, expect } from '@playwright/test';
@@ -17,11 +17,12 @@ test.describe('Landing EN /', () => {
     await expect(page.getByText('21x', { exact: false }).first()).toBeVisible();
   });
 
-  test('badge MODO DEMO siempre visible', async ({ page }) => {
+  test('demo badge always visible', async ({ page }) => {
     await page.goto(BASE_URL + '/');
-    await expect(page.getByTestId('mode-badge')).toContainText('MODO DEMO');
+    // La landing inglesa no puede tener texto en español (bug: modeBadge decía MODO DEMO).
+    await expect(page.getByTestId('mode-badge')).toContainText('DEMO MODE');
     // footer también lo repite
-    await expect(page.locator('footer')).toContainText('MODO DEMO');
+    await expect(page.locator('footer')).toContainText('DEMO MODE');
   });
 
   test('CTA final apunta a Calendly (nunca mailto)', async ({ page }) => {

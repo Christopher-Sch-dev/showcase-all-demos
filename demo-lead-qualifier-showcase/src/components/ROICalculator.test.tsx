@@ -1,14 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ROICalculator from '@/components/ROICalculator';
+import { computeAnnual } from '@/lib/roi';
 import { t, cfg, CALENDLY } from '../../tests/helpers/fixture';
 
 describe('ROICalculator', () => {
   const re = cfg('realestate');
 
-  it('computa el valor anual con config.roiFormula.compute', () => {
+  it('computa el valor anual con config.roiFormula.multiplier', () => {
     const roi = re.roiFormula;
-    const expected = roi.compute(roi.inputDefault);
+    const expected = computeAnnual(roi.multiplier, roi.inputDefault);
     render(<ROICalculator t={t()} config={re} />);
     // valor anual formateado (ej. $1.3M)
     expect(screen.getByTestId('roi-calculator').textContent).toContain('Estimated based on industry averages');
@@ -21,7 +22,7 @@ describe('ROICalculator', () => {
     const newVal = 100;
     render(<ROICalculator t={t()} config={re} />);
     fireEvent.change(screen.getByTestId('roi-input'), { target: { value: String(newVal) } });
-    const expected = roi.compute(newVal); // 100 * 0.21 * 20000 * 12 = $5.0M
+    const expected = computeAnnual(roi.multiplier, newVal); // 100 * 0.21 * 20000 * 12 = $5.0M
     expect(screen.getByText(/5\.0M/)).toBeTruthy();
   });
 

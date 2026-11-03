@@ -2,8 +2,9 @@
 /**
  * LANDING EN default (`/`) — demo-lead-qualifier, nicho Real Estate (dark luxury).
  * Consume la config Zod (getNicheConfig('realestate')) + el demo en vivo (DemoShell island).
- * Estructura: Hero → PainPoint → Solution (demo) → ROI → Proof → CTA Calendly.
- * El island DemoShell se hidrata con client:load para el demo funcional.
+ * Composición editorial: Hero → métricas del sector → PainPoint → Solution (demo en vivo)
+ * → ROI → Proof → CTA Calendly. Ninguna sección hardcodea color, fuente ni copy de nicho:
+ * todo viene de config.aesthetic / config.hero / config.painPoint / i18n.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getNicheConfig } from '../config';
@@ -14,157 +15,387 @@ import CTACalendly from '../components/ui/CTACalendly';
 
 const config = getNicheConfig('realestate')!;
 const t = strings.en;
-const a = config.aesthetic;
+
+// rol: pasos del funnel que muestra el marco del hero (reflejo del flujo real del demo).
+const flow = [
+  { label: 'Captured', at: '0.0s' },
+  { label: 'Scored', at: '0.4s' },
+  { label: 'Qualified', at: '1.2s' },
+  { label: 'Booked', at: '43s' },
+];
 ---
 
 <BaseLayout
   title="Real Estate AI Lead Response — under 60s"
-  description="Demo funcional: un lead se captura, califica y agenda en menos de 60 segundos. 100x más probable contactar en 5 min vs 30. CTA Calendly."
+  description="A lead lands, gets answered, qualified and booked in under 60 seconds. 100x more likely to reach a lead in 5 minutes than in 30. See the live system."
   config={config}
   lang="en"
   canonical="/"
 >
-  {/* Hero */}
-  <section class="py-20 sm:py-28">
-    <div class="max-w-3xl">
-      <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
-        {config.hero.eyebrow}
-      </p>
-      <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-6xl" style={{ color: a.text }}>
-        {config.hero.headline}
-      </h1>
-      <p class="mt-5 max-w-2xl text-lg" style={{ color: a.muted }}>
-        {config.hero.subheadline}
-      </p>
-      <div class="mt-8">
-        <a
-          href="#solution"
-          class="inline-flex min-h-[44px] items-center justify-center rounded-full px-6 py-3 font-semibold"
-          style={{ backgroundColor: a.accent, color: '#0E0F13' }}
-        >
-          {config.hero.ctaLabel} ↓
-        </a>
+  {/* ── HERO ── */}
+  <section class="relative overflow-hidden pb-24 pt-16 sm:pb-32 sm:pt-24">
+    {/* Halo del acento: profundidad sin imagen. Decorativo, fuera del flujo. */}
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 -top-40 h-[38rem]"
+      style={{
+        background:
+          'radial-gradient(ellipse 60% 50% at 50% 0%, color-mix(in srgb, var(--brand-accent) 16%, transparent), transparent 70%)',
+      }}
+    >
+    </div>
+
+    <div class="lq-container relative">
+      <div class="grid items-center gap-x-20 gap-y-16 lg:grid-cols-[1.08fr_0.92fr]">
+        {/* Columna de mensaje */}
+        <div>
+          <p class="lq-eyebrow lq-enter">{config.hero.eyebrow}</p>
+
+          <h1
+            class="lq-enter lq-enter-2 mt-7"
+            style={{
+              fontFamily: 'var(--brand-display), Georgia, serif',
+              fontSize: 'var(--lq-fs-hero)',
+              lineHeight: 0.94,
+              letterSpacing: '-0.035em',
+              fontWeight: 400,
+              color: 'var(--brand-text)',
+            }}
+          >
+            {config.hero.headline}
+          </h1>
+
+          <p class="lq-lead lq-enter lq-enter-3 mt-8">{config.hero.subheadline}</p>
+
+          <div class="lq-enter lq-enter-4 mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a
+              href="#solution"
+              class="inline-flex min-h-[52px] items-center justify-center px-8 text-[0.78rem] font-medium uppercase tracking-[0.16em] transition-transform duration-300 hover:-translate-y-0.5"
+              style={{
+                backgroundColor: 'var(--brand-accent)',
+                color: 'var(--brand-bg)',
+                borderRadius: 'var(--brand-radius)',
+                fontFamily: 'var(--brand-body), sans-serif',
+              }}
+            >
+              {config.hero.ctaLabel}
+            </a>
+            <a
+              href="#roi"
+              class="group inline-flex min-h-[52px] items-center gap-2 text-[0.78rem] font-medium uppercase tracking-[0.16em] transition-opacity hover:opacity-70"
+              style={{ color: 'var(--brand-muted)', fontFamily: 'var(--brand-body), sans-serif' }}
+            >
+              {t.heroCtaSecondary}
+              <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true"
+                >→</span
+              >
+            </a>
+          </div>
+        </div>
+
+        {/* Marco del producto: el funnel del demo, no una ilustración genérica */}
+        <div class="lq-enter lq-enter-3 relative">
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute -inset-8 rounded-[3rem] opacity-60 blur-3xl"
+            style={{ background: 'radial-gradient(circle, var(--lq-accent-soft), transparent 65%)' }}
+          >
+          </div>
+
+          <div
+            class="relative overflow-hidden p-6 sm:p-7"
+            style={{
+              borderRadius: '20px',
+              border: '1px solid var(--lq-border)',
+              background:
+                'linear-gradient(160deg, color-mix(in srgb, var(--brand-surface) 92%, var(--brand-text) 5%), var(--brand-surface))',
+              boxShadow: '0 30px 80px -40px rgba(0,0,0,0.8)',
+            }}
+          >
+            {/* Cabecera del marco */}
+            <div class="flex items-center justify-between">
+              <span
+                class="inline-flex items-center gap-2 text-[0.6rem] font-medium uppercase tracking-[0.2em]"
+                style={{ color: 'var(--brand-muted)' }}
+              >
+                <span
+                  class="lq-pulse inline-block h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: 'var(--brand-accent)' }}
+                  aria-hidden="true"
+                ></span>
+                {t.heroFlowLabel}
+              </span>
+              <span class="text-[0.6rem] uppercase tracking-[0.2em]" style={{ color: 'var(--brand-accent)' }}>
+                &lt; 60s
+              </span>
+            </div>
+
+            <div class="my-5" style={{ borderTop: '1px solid var(--lq-border-soft)' }}></div>
+
+            {/* Lead entrante */}
+            <div class="flex items-center gap-3">
+              <span
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[0.7rem] font-medium tracking-wide"
+                style={{ backgroundColor: 'var(--lq-accent-soft)', color: 'var(--brand-accent)' }}
+              >
+                MG
+              </span>
+              <div class="min-w-0">
+                <p class="truncate text-sm font-medium" style={{ color: 'var(--brand-text)' }}>
+                  María González
+                </p>
+                <p class="truncate text-xs" style={{ color: 'var(--brand-muted)' }}>
+                  4-bed house · North Dallas
+                </p>
+              </div>
+              <span
+                class="ml-auto shrink-0 text-2xl"
+                style={{
+                  fontFamily: 'var(--brand-display), serif',
+                  color: 'var(--brand-accent)',
+                  lineHeight: 1,
+                }}
+              >
+                94
+              </span>
+            </div>
+
+            {/* Timeline del funnel */}
+            <ol class="mt-6">
+              {flow.map((step, i) => (
+                <li class="flex items-center gap-3 py-2.5 text-xs" style={{ color: 'var(--brand-muted)' }}>
+                  <span
+                    class="flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[0.5rem]"
+                    style={{
+                      border: '1px solid var(--lq-border)',
+                      backgroundColor: i === flow.length - 1 ? 'var(--brand-accent)' : 'transparent',
+                      color: i === flow.length - 1 ? 'var(--brand-bg)' : 'var(--brand-muted)',
+                    }}
+                    aria-hidden="true"
+                  >
+                    ✓
+                  </span>
+                  <span style={{ color: i === flow.length - 1 ? 'var(--brand-text)' : undefined }}>
+                    {step.label}
+                  </span>
+                  <span class="ml-auto tabular-nums" style={{ color: 'var(--brand-accent)' }}>
+                    {step.at}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <div
+              class="mt-5 px-4 py-3 text-center text-[0.65rem] uppercase tracking-[0.18em]"
+              style={{
+                borderRadius: '10px',
+                border: '1px solid var(--lq-accent-soft)',
+                color: 'var(--brand-accent)',
+                backgroundColor: 'var(--lq-accent-soft)',
+              }}
+            >
+              {t.responseLine}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  {/* PainPoint */}
-  <section class="py-16" style={{ backgroundColor: a.surface }}>
-    <div class="grid gap-8 lg:grid-cols-2">
-      <div>
-        <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
-          {t.painEyebrow}
-        </p>
-        <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
-          {config.painPoint.headline}
-        </h2>
-        <p class="mt-4 text-base" style={{ color: a.muted }}>
-          {config.painPoint.body}
-        </p>
+  {/* ── FRANJA DE MÉTRICAS — números del sector con fuente auditable ── */}
+  <section
+    style={{
+      borderTop: '1px solid var(--lq-border-soft)',
+      borderBottom: '1px solid var(--lq-border-soft)',
+    }}
+  >
+    <div class="lq-container grid gap-y-10 py-12 sm:grid-cols-3 sm:gap-x-12">
+      {config.metrics.map((m, i) => (
+        <div
+          class={i > 0 ? 'sm:border-l sm:pl-12' : ''}
+          style={i > 0 ? { borderColor: 'var(--lq-border-soft)' } : {}}
+        >
+          <p
+            style={{
+              fontFamily: 'var(--brand-display), serif',
+              fontSize: 'clamp(2.4rem, 4vw, 3.4rem)',
+              lineHeight: 1,
+              letterSpacing: '-0.03em',
+              color: 'var(--brand-accent)',
+            }}
+          >
+            {m.value}
+          </p>
+          <p class="mt-3 max-w-[24ch] text-sm leading-snug" style={{ color: 'var(--brand-muted)' }}>
+            {m.label}
+          </p>
+          <a
+            href={m.source}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-3 inline-flex min-h-[32px] items-center text-[0.6rem] uppercase tracking-[0.18em] underline decoration-1 underline-offset-4 transition-opacity hover:opacity-60"
+            style={{ color: 'var(--brand-muted)' }}
+          >
+            {t.kpiSource} ↗
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {/* ── PAIN POINT ── */}
+  <section class="lq-section">
+    <div class="lq-container grid gap-x-20 gap-y-12 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="lq-reveal">
+        <p class="lq-eyebrow">{t.painEyebrow}</p>
+        <h2 class="lq-h2">{config.painPoint.headline}</h2>
+        <p class="lq-lead mt-6">{config.painPoint.body}</p>
       </div>
-      <div class="space-y-3">
-        {config.painPoint.metrics.map((m, i) => (
-          <div key={i} class="rounded-lg border p-4" style={{ borderColor: a.muted }}>
-            <div class="text-3xl font-bold" style={{ color: a.accent }}>
-              {m.value}
-            </div>
-            <div class="mt-1 text-sm" style={{ color: a.muted }}>
-              {m.label}
-            </div>
-            <a
-              href={m.source}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-1 inline-flex min-h-[44px] items-center text-xs underline"
-              style={{ color: a.muted }}
+
+      <div class="lq-reveal" style={{ backgroundColor: 'var(--lq-border-soft)' }}>
+        {config.painPoint.metrics.map((m) => (
+          <div
+            class="flex items-baseline gap-6 px-1 py-6 sm:px-8"
+            style={{
+              backgroundColor: 'var(--brand-bg)',
+              borderBottom: '1px solid var(--brand-bg)',
+            }}
+          >
+            <span
+              class="shrink-0"
+              style={{
+                fontFamily: 'var(--brand-display), serif',
+                fontSize: 'clamp(1.9rem, 3vw, 2.6rem)',
+                lineHeight: 1,
+                letterSpacing: '-0.03em',
+                color: 'var(--brand-text)',
+                minWidth: '4rem',
+              }}
             >
-              {t.kpiSource} ↗
-            </a>
+              {m.value}
+            </span>
+            <div>
+              <p class="text-sm leading-snug" style={{ color: 'var(--brand-muted)' }}>
+                {m.label}
+              </p>
+              <a
+                href={m.source}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-1 inline-block text-[0.6rem] uppercase tracking-[0.18em] underline decoration-1 underline-offset-4 transition-opacity hover:opacity-60"
+                style={{ color: 'var(--brand-muted)' }}
+              >
+                {t.kpiSource} ↗
+              </a>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  {/* Solution (demo en vivo) */}
-  <section id="solution" class="py-16">
-    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
-      {t.solutionEyebrow}
-    </p>
-    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
-      {t.solutionHeadline}
-    </h2>
-    <p class="mt-3 max-w-2xl text-base" style={{ color: a.muted }}>
-      {t.solutionBody}
-    </p>
-    <div class="mt-8">
-      <DemoShell client:load t={t} niche="realestate" />
-    </div>
-  </section>
+  {/* ── SOLUTION: el demo en vivo es el protagonista ── */}
+  <section id="solution" class="lq-section" style={{ backgroundColor: 'var(--brand-surface)' }}>
+    <div class="lq-container">
+      <div class="lq-reveal max-w-3xl">
+        <p class="lq-eyebrow">{t.solutionEyebrow}</p>
+        <h2 class="lq-h2">{t.solutionHeadline}</h2>
+        <p class="lq-lead mt-6">{t.solutionBody}</p>
+      </div>
 
-  {/* ROI */}
-  <section class="py-16" style={{ backgroundColor: a.surface }}>
-    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
-      {t.roiEyebrow}
-    </p>
-    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
-      {t.roiHeadline}
-    </h2>
-    <p class="mt-3 max-w-2xl text-base" style={{ color: a.muted }}>
-      {t.roiBodyNote}
-    </p>
-    <div class="mt-6 grid gap-6 lg:grid-cols-2">
-      <ROICalculator client:load t={t} config={config} />
-      <div class="rounded-lg border p-5">
-        <div class="text-sm font-semibold" style={{ color: a.text }}>{t.kpiSource}</div>
-        <ul class="mt-3 space-y-2">
-          {config.metrics.map((m, i) => (
-            <li key={i} class="flex flex-wrap items-center gap-2 text-sm">
-              <span class="font-bold" style={{ color: a.accent }}>{m.value}</span>
-              <span style={{ color: a.muted }}>{m.label}</span>
-              <a href={m.source} target="_blank" rel="noopener noreferrer" class="text-xs underline" style={{ color: a.muted }}>
-                {t.kpiSource} ↗
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div class="mt-14">
+        <DemoShell client:load t={t} niche="realestate" />
       </div>
     </div>
   </section>
 
-  {/* Proof */}
-  <section class="py-16">
-    <p class="font-mono text-xs uppercase tracking-widest" style={{ color: a.accent }}>
-      {t.proofEyebrow}
-    </p>
-    <h2 class="mt-3 font-display text-3xl font-bold" style={{ color: a.text }}>
-      {t.proofHeadline}
-    </h2>
-    <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      {config.proof.map((p, i) => (
-        <div key={i} class="rounded-lg border p-5" style={{ borderColor: a.muted }}>
-          <p class="text-sm italic" style={{ color: a.muted }}>{p.text}</p>
-          {p.source && (
-            <a href={p.source} target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex min-h-[44px] items-center text-xs underline" style={{ color: a.accent }}>
-              {t.kpiSource} ↗
-            </a>
-          )}
-        </div>
-      ))}
+  {/* ── ROI ── */}
+  <section id="roi" class="lq-section">
+    <div class="lq-container grid gap-x-20 gap-y-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="lq-reveal">
+        <p class="lq-eyebrow">{t.roiEyebrow}</p>
+        <h2 class="lq-h2">{t.roiHeadline}</h2>
+        <p class="lq-lead mt-6">{t.roiBodyNote}</p>
+      </div>
+      <div class="lq-reveal">
+        <ROICalculator client:load t={t} config={config} />
+      </div>
     </div>
   </section>
 
-  {/* CTA final Calendly */}
-  <section class="py-16 text-center" style={{ backgroundColor: a.surface }}>
-    <h2 class="font-display text-3xl font-bold" style={{ color: a.text }}>
-      See your funnel run in real time.
-    </h2>
-    <p class="mx-auto mt-3 max-w-xl text-base" style={{ color: a.muted }}>
-      Book a free 20-minute walkthrough on Calendly. No commitment.
-    </p>
-    <div class="mt-6 flex justify-center">
-      <CTACalendly client:load href={config.cta.url} label="Book a free 20-min demo" radius={config.aesthetic.radius} accent={config.aesthetic.accent} />
+  {/* ── PROOF ── */}
+  <section class="lq-section" style={{ backgroundColor: 'var(--brand-surface)' }}>
+    <div class="lq-container">
+      <div class="lq-reveal">
+        <p class="lq-eyebrow">{t.proofEyebrow}</p>
+        <h2 class="lq-h2">{t.proofHeadline}</h2>
+      </div>
+
+      <div class="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2">
+        {config.proof.map((p) => (
+          <figure
+            class="lq-reveal"
+            style={{ borderTop: '1px solid var(--lq-border)', paddingTop: '1.75rem' }}
+          >
+            <blockquote
+              style={{
+                fontFamily: 'var(--brand-display), serif',
+                color: 'var(--brand-text)',
+                fontSize: 'clamp(1.15rem, 1.6vw, 1.4rem)',
+                fontStyle: 'italic',
+                lineHeight: 1.5,
+              }}
+            >
+              {p.text}
+            </blockquote>
+            {p.source && (
+              <figcaption class="mt-4">
+                <a
+                  href={p.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex min-h-[32px] items-center text-[0.6rem] uppercase tracking-[0.18em] underline decoration-1 underline-offset-4 transition-opacity hover:opacity-60"
+                  style={{ color: 'var(--brand-muted)' }}
+                >
+                  {t.kpiSource} ↗
+                </a>
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* ── CTA FINAL ── */}
+  <section class="lq-section relative overflow-hidden">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 bottom-0 h-[26rem]"
+      style={{
+        background:
+          'radial-gradient(ellipse 55% 60% at 50% 100%, color-mix(in srgb, var(--brand-accent) 14%, transparent), transparent 70%)',
+      }}
+    >
+    </div>
+
+    <div class="lq-container relative text-center">
+      <p class="lq-eyebrow" style={{ justifyContent: 'center' }}>NEXT STEP</p>
+      <h2 class="lq-h2 mx-auto mt-6 max-w-2xl" style={{ fontSize: 'clamp(2.1rem, 4vw, 3.4rem)' }}>
+        See your funnel run in real time.
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-base" style={{ color: 'var(--brand-muted)' }}>
+        Book a free 20-minute walkthrough on Calendly. No commitment.
+      </p>
+      <div class="mt-9 flex justify-center">
+        <CTACalendly
+          client:load
+          href={config.cta.url}
+          label="Book a free 20-min demo"
+          radius={config.aesthetic.radius}
+          accent={config.aesthetic.accent}
+        />
+      </div>
     </div>
   </section>
 </BaseLayout>
-

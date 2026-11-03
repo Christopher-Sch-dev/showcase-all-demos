@@ -36,39 +36,41 @@ export default function LeadDashboard({ t, state, config }: LeadDashboardProps) 
 
   if (leads.length === 0) {
     return (
-      <div data-testid="dashboard" className="rounded-lg border p-6 text-center text-muted">
+      <div data-testid="dashboard" className="lq-panel p-6 text-center text-muted">
         {t.emptyDashboard}
       </div>
     );
   }
 
   return (
-    <div data-testid="dashboard" className="overflow-x-auto">
-      <table className="w-full min-w-[560px] border-collapse text-sm">
+    <div data-testid="dashboard" className="lq-panel overflow-x-auto">
+      <table className="w-full min-w-[600px] border-collapse text-sm">
         <thead>
-          <tr className="border-b text-left text-muted">
-            <th className="py-2 pr-4 font-semibold">{t.colLead}</th>
-            <th className="px-4 py-2 font-semibold">{t.colStatus}</th>
-            <th className="px-4 py-2 font-semibold">{t.colScore}</th>
-            <th className="px-4 py-2 font-semibold">{t.colTopic}</th>
-            <th className="px-4 py-2 font-semibold">{t.colAction}</th>
+          <tr style={{ borderBottom: '1px solid var(--lq-border-soft)' }}>
+            <th className="lq-label px-6 py-4 text-left">{t.colLead}</th>
+            <th className="lq-label px-4 py-4 text-left">{t.colStatus}</th>
+            <th className="lq-label px-4 py-4 text-left">{t.colScore}</th>
+            <th className="lq-label px-4 py-4 text-left">{t.colTopic}</th>
+            <th className="lq-label px-6 py-4 text-left">{t.colAction}</th>
           </tr>
         </thead>
         <tbody>
           {leads.map((lead) => (
-            <tr key={lead.id} className="border-b">
-              <td className="py-3 pr-4">
-                <div className="font-medium">{lead.name}</div>
+            <tr key={lead.id} style={{ borderBottom: '1px solid var(--lq-border-soft)' }}>
+              <td className="px-6 py-4">
+                <div className="font-medium" style={{ color: 'var(--brand-text)' }}>{lead.name}</div>
                 <div className="text-xs text-muted">{lead.email}</div>
               </td>
               <td className="px-4 py-3">
                 <StatusBadge status={lead.status} accent={accent} label={statusLabel(t, lead.status)} />
               </td>
-              <td className="px-4 py-3" data-testid={`score-${lead.id}`}>
-                {lead.qualification ? lead.qualification.score : '—'}
+              <td className="px-4 py-4" data-testid={`score-${lead.id}`}>
+                <span className="lq-num text-lg" style={{ color: accent }}>
+                  {lead.qualification ? lead.qualification.score : '—'}
+                </span>
               </td>
-              <td className="max-w-[220px] truncate px-4 py-3 text-muted">{lead.topic}</td>
-              <td className="px-4 py-3">
+              <td className="max-w-[220px] truncate px-4 py-4 text-muted">{lead.topic}</td>
+              <td className="px-6 py-4">
                 {lead.status === 'qualified' && (
                   <CTACalendly
                     href={config.cta.url}

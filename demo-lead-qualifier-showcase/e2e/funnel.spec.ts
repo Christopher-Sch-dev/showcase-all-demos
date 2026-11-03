@@ -8,16 +8,19 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL, CALENDLY, STORAGE_KEY, fillLeadForm, capturePopup } from './helpers';
 
-/** Devuelve {label: value} de las cards de KPIs derivados (solo las 6 del grid de KPIs). */
+/**
+ * Devuelve {label: value} de las cards de KPIs derivados.
+ * Lee los atributos data-kpi-label / data-kpi-value: el texto visible pasa a uppercase por
+ * CSS (y innerText lo refleja), así que atarse a clases o al casing rompe el test ante
+ * cualquier cambio de estilo.
+ */
 async function readKpis(page: import('@playwright/test').Page) {
-  // las 6 KPIs viven en el primer grid; el panel "Source" (métricas) NO tiene .text-2xl
-  const grid = page.getByTestId('kpi-bar').locator('.grid');
-  const cards = grid.locator('.rounded-lg.border');
+  const cards = page.getByTestId('kpi-bar').locator('[data-kpi-label]');
   const out: Record<string, string> = {};
   for (let i = 0; i < (await cards.count()); i++) {
     const card = cards.nth(i);
-    const label = (await card.locator('.text-xs').first().textContent())?.trim() ?? '';
-    const value = (await card.locator('.text-2xl').first().textContent())?.trim() ?? '';
+    const label = (await card.getAttribute('data-kpi-label')) ?? '';
+    const value = (await card.getAttribute('data-kpi-value')) ?? '';
     out[label] = value;
   }
   return out;

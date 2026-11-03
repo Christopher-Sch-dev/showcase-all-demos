@@ -36,12 +36,20 @@ export default function DemoShell({ t, niche }: DemoShellProps) {
   const radius = config.aesthetic.radius;
 
   return (
-    <div data-testid="demo-shell" className="space-y-6">
+    <div data-testid="demo-shell" className="space-y-8">
       <ModeBadge t={t} onReset={reset} />
 
       {/* Solution: form + cualificación en vivo */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <LeadForm t={t} niche={niche} demo={demo} />
+      <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr]">
+        <div className="lq-panel p-6">
+          <h3 className="text-[1.35rem]" style={{ color: 'var(--brand-text)' }}>
+            {t.formHeadline}
+          </h3>
+          <p className="mt-2 mb-6 text-sm leading-relaxed" style={{ color: 'var(--brand-muted)' }}>
+            {t.formSubtitle}
+          </p>
+          <LeadForm t={t} niche={niche} demo={demo} />
+        </div>
         {activeLead && (
           <QualifyCard
             t={t}
@@ -67,7 +75,7 @@ export default function DemoShell({ t, niche }: DemoShellProps) {
 
       {/* Ética de bar: solo si el nicho lo requiere (Law). La config lo decide, no hardcode. */}
       {config.integrations.some((i) => i.name.includes('Conflict')) && (
-        <p data-testid="ai-ethics" className="rounded-lg border p-4 text-sm italic text-muted">
+        <p data-testid="ai-ethics" className="lq-panel p-5 text-sm italic text-muted">
           {t.aiEthicsNote}
         </p>
       )}

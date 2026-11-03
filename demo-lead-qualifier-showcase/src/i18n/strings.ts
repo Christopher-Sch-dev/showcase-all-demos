@@ -14,6 +14,8 @@ export interface UIStrings {
   reset: string;
   proofHeadline: string;
   proofEyebrow: string;
+  heroCtaSecondary: string;
+  heroFlowLabel: string;
   solutionEyebrow: string;
   solutionHeadline: string;
   solutionBody: string;
@@ -80,10 +82,12 @@ const en: UIStrings = {
   lang: 'en',
   navDemoLabel: 'Lead Qualifier AI',
   toggleLabel: 'EN · ES',
-  modeBadge: 'MODO DEMO',
+  modeBadge: 'DEMO MODE',
   reset: 'Reset demo',
   proofHeadline: 'Trusted, auditable numbers',
   proofEyebrow: 'PROOF',
+  heroCtaSecondary: 'Run the numbers',
+  heroFlowLabel: 'Live intake',
   solutionEyebrow: 'SOLUTION · LIVE',
   solutionHeadline: 'See it run on a real lead.',
   solutionBody:
@@ -158,6 +162,8 @@ const es: UIStrings = {
   reset: 'Reiniciar demo',
   proofHeadline: 'Números confiables y auditables',
   proofEyebrow: 'PRUEBA',
+  heroCtaSecondary: 'Calcular el impacto',
+  heroFlowLabel: 'Intake en vivo',
   solutionEyebrow: 'SOLUCIÓN',
   solutionHeadline: 'Míralo correr con un lead real.',
   solutionBody:
@@ -249,6 +255,13 @@ export const esNarrative = {
   roiTitle: 'Tu intake vale lo que tu velocidad de respuesta hace de él.',
   roiBody:
     'Con un SLA de 60 segundos compites contra el top que responde así de rápido — el resto es tu ventana para ganar. Multiplica los leads que pierdes fuera de horario × tu ticket promedio.',
+  // rol: labels de las métricas del sector en es-CL. El contrato Zod guarda label en inglés
+  // (es la fuente única de los valores y su source); el label visible se traduce por índice.
+  metricLabels: [
+    'Más probable contactar un lead en 5 min vs 30 min',
+    'Más probable calificar un lead en 5 min vs 30 min',
+    'Tiempo promedio de primera respuesta a un lead web',
+  ],
   proofTitle: 'Números confiables y auditables.',
   proofBody:
     'Sin testimonios inventados. Cada cifra está citada de estudios públicos (MIT/InsideSales, HBR, Clio, Hennessey Digital) — auditables. Demo de producto-real, construida sobre un sistema determinista que una IA externa puede operar.',

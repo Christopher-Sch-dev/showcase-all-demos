@@ -34,9 +34,9 @@ describe('DemoShell (integración: form → qualify → dashboard compartido)', 
     expect(screen.getByTestId('kpi-bar')).toBeTruthy();
   });
 
-  it('muestra el badge MODO DEMO y botón reset', () => {
+  it('muestra el badge de demo y botón reset', () => {
     render(<DemoShell t={t()} niche="realestate" />);
-    expect(screen.getByTestId('mode-badge')).toHaveTextContent('MODO DEMO');
+    expect(screen.getByTestId('mode-badge')).toHaveTextContent(t().modeBadge);
     expect(screen.getByRole('button', { name: /reset demo/i })).toBeTruthy();
   });
 

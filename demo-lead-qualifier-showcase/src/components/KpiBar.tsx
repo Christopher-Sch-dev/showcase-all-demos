@@ -36,9 +36,11 @@ export default function KpiBar({ t, kpi, config }: KpiBarProps) {
       {/* KPIs derivados del demo en vivo */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {staticCards.map((c) => (
-          <div key={c.label} className="rounded-lg border p-3">
-            <div className="text-xs text-muted">{c.label}</div>
-            <div className="mt-1 text-2xl font-bold" style={{ color: accent }}>
+          // data-kpi-label/value: el texto visible va en uppercase por CSS (innerText lo
+          // refleja), así que el dato plano se expone acá para que el e2e no dependa del estilo.
+          <div key={c.label} className="lq-metric" data-kpi-label={c.label} data-kpi-value={c.value}>
+            <div className="lq-label">{c.label}</div>
+            <div className="lq-num mt-2 text-[1.85rem]" style={{ color: 'var(--brand-text)' }}>
               {c.value}
             </div>
           </div>
@@ -46,12 +48,12 @@ export default function KpiBar({ t, kpi, config }: KpiBarProps) {
       </div>
 
       {/* Métricas del sector con source visible (AC-7) */}
-      <div className="rounded-lg border p-4">
-        <div className="mb-3 text-sm font-semibold">{t.kpiSource}</div>
+      <div className="lq-panel p-5">
+        <div className="lq-label mb-4">{t.kpiSource}</div>
         <ul className="space-y-2">
           {config.metrics.map((m, i) => (
-            <li key={i} className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-              <span className="font-medium">{m.value}</span>
+            <li key={i} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-1 text-sm">
+              <span className="lq-num text-base" style={{ color: accent }}>{m.value}</span>
               <span className="text-muted">{m.label}</span>
               <a
                 href={m.source}

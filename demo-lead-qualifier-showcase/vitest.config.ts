@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitest/config';
+import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
@@ -14,7 +15,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': new URL('./src', import.meta.url).pathname,
+      // fileURLToPath decodifica percent-encoding: el repo vive en un path con espacios,
+      // y URL.pathname devuelve "DEMOS%20-showcase-chris%20dev" que Vite no resuelve.
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 });
