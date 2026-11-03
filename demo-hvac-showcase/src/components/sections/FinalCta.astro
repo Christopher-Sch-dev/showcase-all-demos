@@ -1,0 +1,46 @@
+---
+// rol: cierre. El técnico vuelve para cerrar el argumento y el CTA queda solo.
+import { getNiche } from '../../config/niches';
+import { ui } from '../../i18n/strings';
+import Technician from '../illustrations/Technician.astro';
+
+interface Props { locale?: 'en' | 'es' }
+const { locale = 'en' } = Astro.props;
+const entry = getNiche('a', 'hvac')!;
+const config = entry.config;
+const t = ui[locale];
+
+const COPY = {
+  en: { fine: 'Estimated from industry averages.' },
+  es: { fine: 'Estimado con promedios de la industria.' },
+};
+const c = COPY[locale];
+const ctaLabel = locale === 'es' ? t.ctaLabel : config.cta.label;
+---
+
+<section class="bg-hvac-base">
+  <div class="mx-auto max-w-7xl px-4 py-16 lg:py-20">
+    <div class="grid grid-cols-1 items-center gap-8 rounded-2xl border border-hvac-brand bg-gradient-to-br from-hvac-surface to-hvac-brand/10 p-8 md:grid-cols-[minmax(0,0.42fr)_minmax(0,1fr)] md:p-12">
+      <div class="mx-auto w-40 md:w-full md:max-w-[13rem]">
+        <Technician />
+      </div>
+
+      <div>
+        <p class="font-mono text-xs uppercase tracking-widest text-hvac-brand">{t.sections.cta.eyebrow}</p>
+        <h2 class="mt-3 font-display text-4xl font-bold leading-tight text-hvac-text md:text-5xl">
+          {t.sections.cta.headline}
+        </h2>
+        <p class="mt-3 max-w-xl text-base leading-relaxed text-hvac-muted">{t.sections.cta.body}</p>
+        <a
+          href={config.cta.url}
+          target="_blank"
+          rel="noreferrer"
+          class="mt-6 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md border border-hvac-brand bg-hvac-brand px-8 py-3 font-display text-lg font-bold uppercase tracking-wide text-white transition-colors hover:bg-hvac-brand-strong"
+        >
+          {ctaLabel}
+        </a>
+        <p class="mt-4 font-mono text-[11px] uppercase tracking-wide text-hvac-muted">{c.fine}</p>
+      </div>
+    </div>
+  </div>
+</section>

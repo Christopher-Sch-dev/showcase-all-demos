@@ -1,0 +1,110 @@
+---
+// rol: primera pantalla. Asimétrico: el mensaje y las cifras a la izquierda, y a
+// la derecha el flujo real del producto (llamada → IA → lead → técnico) con el
+// técnico ilustrado. El dashboard interactivo vive en su propia sección: montarlo
+// dos veces duplicaría el island y su estado.
+import { getNiche } from '../../config/niches';
+import { ui, esCopy } from '../../i18n/strings';
+import Technician from '../illustrations/Technician.astro';
+
+interface Props { locale?: 'en' | 'es' }
+const { locale = 'en' } = Astro.props;
+
+const entry = getNiche('a', 'hvac')!;
+const config = entry.config;
+const t = ui[locale];
+const copy = locale === 'es' ? esCopy : config;
+const metrics = copy.painPoint.metrics;
+
+const COPY = {
+  en: {
+    flow: 'live call flow', running: 'running', jobValue: 'job value', recovered: 'recovered',
+    bubble: 'on route', lost: 'lost', ok: 'ok',
+    steps: ['Call', 'AI callback', 'Lead', 'Dispatch'],
+    values: ['Missed · 2.3s', 'Answered in 12s', 'Qualified · score 87', 'Tech on route'],
+  },
+  es: {
+    flow: 'flujo de llamada', running: 'en vivo', jobValue: 'valor del trabajo', recovered: 'recuperado',
+    bubble: 'en ruta', lost: 'perdida', ok: 'ok',
+    steps: ['Llamada', 'IA devuelve', 'Lead', 'Despacho'],
+    values: ['Perdida · 2,3 s', 'Contestada en 12 s', 'Calificado · score 87', 'Técnico en ruta'],
+  },
+};
+const c = COPY[locale];
+const ctaLabel = locale === 'es' ? t.ctaLabel : config.cta.label;
+
+const flow = c.steps.map((step, i) => ({ step, value: c.values[i], lost: i === 0 }));
+const stateClass: Record<string, string> = {
+  lost: 'border-hvac-urgent text-hvac-urgent bg-hvac-urgent/10',
+  ok: 'border-hvac-on-route text-hvac-on-route bg-hvac-on-route/10',
+};
+---
+
+<section class="hero border-b border-hvac-border-real bg-hvac-base">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 items-start gap-10 px-4 pb-16 pt-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14 lg:pt-16">
+    <div>
+      <p class="font-mono text-xs uppercase tracking-widest text-hvac-brand">{copy.hero.eyebrow}</p>
+
+      <h1 class="mt-3 font-display text-5xl font-bold leading-[1.02] tracking-tight text-hvac-text md:text-6xl">
+        {copy.hero.headline}
+      </h1>
+
+      <p class="mt-4 max-w-xl text-lg text-hvac-muted">{copy.hero.subheadline}</p>
+
+      <div class="mt-7">
+        <a
+          href={config.cta.url}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-md border border-hvac-brand bg-hvac-brand px-7 py-3 font-display text-lg font-bold uppercase tracking-wide text-white transition-colors hover:bg-hvac-brand-strong"
+        >
+          {ctaLabel}
+        </a>
+      </div>
+
+      <dl class="mt-9 flex flex-wrap gap-x-10 gap-y-5 border-t border-hvac-border-real pt-6">
+        {metrics.map((m) => (
+          <div>
+            <dt class="font-display text-4xl font-bold leading-none text-hvac-urgent">{m.value}</dt>
+            <dd class="mt-1.5 max-w-[15ch] text-xs leading-snug text-hvac-muted">{m.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="relative min-w-0">
+      <Technician class="pointer-events-none absolute -left-10 bottom-0 z-10 hidden w-40 drop-shadow-lg lg:block" bubble={c.bubble} />
+
+      <div class="rounded-xl border border-hvac-border-real bg-hvac-surface shadow-card">
+        <div class="flex items-center justify-between gap-3 border-b border-hvac-border-real bg-hvac-neutral px-4 py-2.5">
+          <span class="font-mono text-[11px] uppercase tracking-widest text-hvac-muted">{c.flow}</span>
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-hvac-on-route bg-hvac-on-route/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-hvac-on-route">
+            <span class="h-1.5 w-1.5 rounded-full bg-hvac-on-route"></span> {c.running}
+          </span>
+        </div>
+
+        <ol class="divide-y divide-hvac-border-real">
+          {flow.map((f, i) => (
+            <li class="flex items-center gap-3 px-4 py-3">
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-hvac-border-real bg-hvac-base font-mono text-[11px] font-bold text-hvac-muted">
+                {i + 1}
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block font-display text-base font-semibold uppercase tracking-wide text-hvac-text">{f.step}</span>
+                <span class="block font-mono text-[11px] text-hvac-muted">{f.value}</span>
+              </span>
+              <span class:list={['shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide', stateClass[f.lost ? 'lost' : 'ok']]}>
+                {f.lost ? c.lost : c.ok}
+              </span>
+            </li>
+          ))}
+        </ol>
+
+        <div class="flex items-baseline justify-between gap-3 border-t border-hvac-border-real px-4 py-3">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-hvac-muted">{c.jobValue}</span>
+          <span class="font-display text-2xl font-bold text-hvac-text">$2,200 <span class="text-sm font-semibold text-hvac-on-route">{c.recovered}</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

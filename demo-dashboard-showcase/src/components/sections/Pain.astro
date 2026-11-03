@@ -1,0 +1,131 @@
+---
+// rol: el problema, contado con la ilustración. La silla vacía es el argumento:
+// el paciente no llegó y la silla queda pagada igual.
+import type { NicheConfig } from '../../config/schema';
+import type { UiStrings } from '../../i18n/strings';
+import ChairScene from '../illustrations/ChairScene.astro';
+
+interface Props {
+  config: NicheConfig;
+  strings: UiStrings;
+}
+
+const { config, strings } = Astro.props;
+---
+
+<section class="pain">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 lg:py-24">
+    <div>
+      <p class="pain__label">The problem</p>
+      <h2 class="pain__title">{config.painPoint.headline}</h2>
+      <p class="pain__body">{config.painPoint.body}</p>
+
+      <ul class="pain__metrics">
+        {config.painPoint.metrics.map((m) => (
+          <li class="pain__metric">
+            <span class="pain__metric-value">{m.value}</span>
+            <span class="pain__metric-body">
+              <span class="pain__metric-label">{m.label}</span>
+              <a class="pain__source" href={m.source} target="_blank" rel="noopener noreferrer">
+                {strings.kpi.source}
+              </a>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="pain__art">
+      <ChairScene variant="empty" />
+      <p class="pain__caption">The chair you already paid for.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pain {
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+  .pain__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--danger);
+  }
+  .pain__title {
+    margin-top: 0.85rem;
+    font-size: clamp(1.55rem, 2.7vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .pain__body {
+    margin-top: 1.1rem;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 56ch;
+  }
+
+  .pain__metrics {
+    list-style: none;
+    display: grid;
+    gap: 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .pain__metric {
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pain__metric-value {
+    flex: none;
+    width: 5.6rem;
+    font-family: var(--font-display), sans-serif;
+    font-size: 1.32rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--danger);
+  }
+  .pain__metric-body { display: grid; gap: 0.12rem; }
+  .pain__metric-label { font-size: 0.83rem; line-height: 1.45; color: var(--text-secondary); }
+  .pain__source {
+    /* área táctil de 44px sin agrandar la tipografía: el link se toca con el dedo */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--text-muted) 40%, transparent);
+    text-underline-offset: 3px;
+    width: fit-content;
+  }
+  .pain__source:hover { color: var(--accent-strong); }
+
+  .pain__art {
+    position: relative;
+    background: linear-gradient(160deg, var(--accent-soft), var(--lavender-soft));
+    border-radius: 24px;
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+    box-shadow: 0 30px 60px -44px rgba(26, 31, 38, 0.5);
+  }
+  .pain__caption {
+    margin-top: 0.9rem;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+  }
+</style>

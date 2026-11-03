@@ -1,0 +1,149 @@
+---
+// rol: las cuatro capacidades del producto en bento grid. Tamaños distintos para
+// que el ojo tenga recorrido, y una celda la ocupa la ilustración de la silla llena.
+import ChairScene from '../illustrations/ChairScene.astro';
+
+const capabilities = [
+  {
+    title: 'No-show rate, live',
+    body: 'You see the leak while it is happening, before it compounds into lost production.',
+    tag: 'Live KPI',
+  },
+  {
+    title: 'Revenue per patient',
+    body: 'Know which patients are worth the most and where the chair time actually pays.',
+    tag: 'Derived',
+  },
+  {
+    title: 'Production by month and treatment',
+    body: 'Where the money is and where it is stuck, split by procedure and by month.',
+    tag: 'Charts',
+  },
+  {
+    title: 'Recovered no-shows',
+    body: 'Track the slots you win back, not just the ones you lose.',
+    tag: 'Recovery',
+  },
+];
+---
+
+<section class="caps">
+  <div class="mx-auto max-w-6xl px-4 py-20 lg:py-24">
+    <header class="caps__head">
+      <p class="caps__label">See it live</p>
+      <h2 class="caps__title">This is not a mockup. Add a patient and watch every number move.</h2>
+      <p class="caps__body">
+        Mark a no-show, filter by treatment, page the table. Revenue by month, by
+        procedure and the no-show rate are all derived from your data, never hardcoded.
+      </p>
+    </header>
+
+    <div class="caps__grid">
+      <div class="caps__art">
+        <ChairScene variant="full" />
+        <p class="caps__art-caption">The chair you got back.</p>
+      </div>
+
+      {capabilities.map((c, i) => (
+        <article class:list={['caps__card', `caps__card--${i}`]}>
+          <span class="caps__tag">{c.tag}</span>
+          <h3 class="caps__card-title">{c.title}</h3>
+          <p class="caps__card-body">{c.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .caps { background: var(--bg); }
+  .caps__head { max-width: 62ch; }
+  .caps__label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+  .caps__title {
+    margin-top: 0.85rem;
+    font-size: clamp(1.55rem, 2.7vw, 2.25rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .caps__body {
+    margin-top: 1rem;
+    font-size: 0.96rem;
+    line-height: 1.68;
+    color: var(--text-secondary);
+  }
+
+  .caps__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 2.6rem;
+  }
+  .caps__art {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 1.6rem;
+    background: linear-gradient(155deg, var(--lavender-soft), var(--accent-soft));
+  }
+  .caps__art-caption {
+    margin-top: 0.7rem;
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .caps__card {
+    border-radius: 18px;
+    padding: 1.35rem 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 34px -30px rgba(26, 31, 38, 0.42);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  }
+  .caps__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 26px 46px -32px rgba(26, 31, 38, 0.5);
+  }
+  .caps__tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 0.18rem 0.55rem;
+  }
+  .caps__card-title {
+    margin-top: 0.7rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .caps__card-body {
+    margin-top: 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .caps__grid { grid-template-columns: 1fr; }
+    .caps__art { grid-row: auto; }
+  }
+</style>

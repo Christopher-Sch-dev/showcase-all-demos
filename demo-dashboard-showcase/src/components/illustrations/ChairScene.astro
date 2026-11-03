@@ -1,0 +1,141 @@
+---
+// rol: escena ilustrada de la silla dental, el argumento visual de la página.
+// variant="empty" = el paciente no llegó (el problema). variant="full" = la
+// silla ocupada (el resultado). Dibujado en SVG: nítido en cualquier tamaño,
+// pesa kilobytes y hereda los tokens de color del nicho.
+interface Props {
+  variant: 'empty' | 'full';
+  class?: string;
+}
+
+const { variant, class: className = '' } = Astro.props;
+const occupied = variant === 'full';
+---
+
+<svg
+  class:list={['chair-scene', `${className}`]}
+  viewBox="0 0 320 240"
+  role="img"
+  aria-label={occupied ? 'Sillón dental ocupado por un paciente, con el profesional al lado' : 'Sillón dental vacío, con el paciente que no llegó'}
+>
+  <!-- fondo -->
+  <circle cx="160" cy="118" r="104" fill="var(--accent-soft)" opacity="0.55" />
+  <circle cx="160" cy="118" r="78" fill="var(--lavender-soft)" opacity="0.7" />
+
+  <!-- lámpara -->
+  <g stroke="var(--text)" stroke-width="3.4" stroke-linecap="round" fill="none" opacity="0.32">
+    <path d="M186 22v20" />
+    <path d="M186 42c0 8 6 10 12 10" />
+  </g>
+  <g transform="translate(198 52) rotate(18)">
+    <rect x="-17" y="-7" width="34" height="15" rx="7" fill="var(--accent)" opacity="0.9" />
+    <ellipse cx="0" cy="9" rx="15" ry="4.5" fill="var(--accent-strong)" opacity="0.45" />
+  </g>
+
+  <!-- base del sillón -->
+  <g fill="var(--text)" opacity="0.16">
+    <rect x="140" y="196" width="40" height="7" rx="3.5" />
+    <rect x="155" y="176" width="10" height="24" rx="4" />
+  </g>
+
+  <!-- sillón reclinable -->
+  <g>
+    <path
+      d="M92 148c-6 0-11-4-12-10l-4-18c-2-9 4-17 13-17h44c8 0 13 5 15 13l6 24c2 8-4 15-12 15H92Z"
+      fill="var(--accent)"
+      opacity="0.92"
+    />
+    <path
+      d="M64 132c-9 0-15 7-14 15l3 16c1 8 7 13 15 13h24c7 0 11-5 10-12l-3-18c-1-9-8-14-16-14H64Z"
+      fill="var(--accent-strong)"
+      opacity="0.85"
+    />
+    <rect x="120" y="118" width="52" height="11" rx="5.5" fill="var(--surface)" opacity="0.55" />
+  </g>
+
+  {occupied ? (
+    <g>
+      <!-- paciente recostado -->
+      <circle cx="96" cy="120" r="15" fill="#F2C9A8" />
+      <path d="M84 113c2-8 8-11 13-11 6 0 11 4 12 11-4-3-8-4-13-4s-9 1-12 4Z" fill="var(--text)" opacity="0.75" />
+      <g fill="var(--text)" opacity="0.8">
+        <circle cx="91" cy="121" r="1.9" />
+        <circle cx="101" cy="121" r="1.9" />
+      </g>
+      <path d="M92 127c2.6 3 7.4 3 10 0" stroke="var(--text)" stroke-width="2.1" stroke-linecap="round" fill="none" opacity="0.6" />
+      <path d="M78 152c4-9 11-13 19-13s15 4 19 13Z" fill="var(--lavender)" opacity="0.9" />
+
+      <!-- profesional al lado -->
+      <g transform="translate(228 96)">
+        <circle cx="0" cy="14" r="13" fill="#E9B48C" />
+        <path d="M-13 12c0-9 6-14 13-14s13 5 13 14c-3-5-8-7-13-7s-10 2-13 7Z" fill="var(--text)" opacity="0.72" />
+        <g fill="var(--text)" opacity="0.8">
+          <circle cx="-4.5" cy="15" r="1.7" />
+          <circle cx="4.5" cy="15" r="1.7" />
+        </g>
+        <path d="M-4 20c2.4 2.6 5.6 2.6 8 0" stroke="var(--text)" stroke-width="1.9" stroke-linecap="round" fill="none" opacity="0.55" />
+        <path d="M-16 54c1-13 8-21 16-21s15 8 16 21Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.4" />
+        <path d="M-16 54h32" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" />
+      </g>
+
+      <!-- recuperado -->
+      <g transform="translate(196 34)">
+        <rect x="-26" y="-14" width="52" height="28" rx="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.2" />
+        <text
+          x="0" y="4.5"
+          text-anchor="middle"
+          font-family="var(--font-display), sans-serif"
+          font-size="13"
+          font-weight="700"
+          fill="var(--accent-strong)">+$250</text>
+      </g>
+    </g>
+  ) : (
+    <g>
+      <!-- silla vacía: el hueco marcado -->
+      <ellipse cx="104" cy="140" rx="30" ry="9" fill="var(--accent-strong)" opacity="0.18" />
+      <g stroke="var(--accent-strong)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="5 6" opacity="0.5" fill="none">
+        <path d="M92 132v16" />
+        <path d="M116 132v16" />
+      </g>
+
+      <!-- reloj de pared: la hora que nadie usó -->
+      <g transform="translate(72 62)">
+        <circle r="17" fill="var(--surface)" stroke="var(--text)" stroke-width="2.4" opacity="0.85" />
+        <g stroke="var(--text)" stroke-width="2.2" stroke-linecap="round" opacity="0.7" fill="none">
+          <path d="M0 -9V0l6 4" />
+        </g>
+      </g>
+
+      <!-- taza sola -->
+      <g transform="translate(236 150)">
+        <path d="M-11-6h20l-2.6 19c-.4 3-2.6 4.4-5.4 4.4h-4c-2.8 0-5-1.4-5.4-4.4L-11-6Z" fill="var(--surface)" stroke="var(--text)" stroke-width="2.2" opacity="0.9" />
+        <path d="M9-1c5 0 7 3 7 6s-2.6 6-7 6" stroke="var(--text)" stroke-width="2.2" fill="none" opacity="0.7" />
+        <g stroke="var(--text)" stroke-width="1.8" stroke-linecap="round" opacity="0.35" fill="none">
+          <path d="M-4-12v-5" /><path d="M2-12v-7" /><path d="M8-12v-4" />
+        </g>
+      </g>
+
+      <!-- etiqueta del problema -->
+      <g transform="translate(198 96)">
+        <rect x="-30" y="-14" width="60" height="28" rx="14" fill="var(--surface)" stroke="var(--danger)" stroke-width="2.2" opacity="0.95" />
+        <text
+          x="2" y="4.5"
+          text-anchor="middle"
+          font-family="var(--font-display), sans-serif"
+          font-size="12"
+          font-weight="700"
+          fill="var(--danger)">−$250</text>
+      </g>
+    </g>
+  )}
+</svg>
+
+<style>
+  .chair-scene {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+</style>

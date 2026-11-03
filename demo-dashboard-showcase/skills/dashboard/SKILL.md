@@ -3,7 +3,7 @@ name: dashboard
 description: Operar el dashboard dental demo-dashboard (demo-dashboard) desde cualquier IA externa: crear/actualizar/eliminar pacientes, transicionar citas en la FSM determinista (scheduled→confirmed→completed/no_show/cancelled) y leer KPIs, sin romper la lógica. Use when an external agent needs to operate the dental dashboard state machine.
 license: MIT
 metadata:
- version: "1.0.0"
+  version: "1.0.0"
 ---
 
 # Operar el dashboard dental (demo-dashboard)
@@ -16,9 +16,9 @@ Todas las operaciones devuelven `ReduceResult`:
 
 ```ts
 interface ReduceResult {
- state: DemoState; // estado NUEVO (inmutable: el de entrada nunca se muta)
- changed: boolean; // false = transición inválida / entidad inexistente (REJECT)
- reason?: string; // por qué se rechazó (solo cuando changed=false)
+  state: DemoState;   // estado NUEVO (inmutable: el de entrada nunca se muta)
+  changed: boolean;   // false = transición inválida / entidad inexistente (REJECT)
+  reason?: string;    // por qué se rechazó (solo cuando changed=false)
 }
 ```
 
@@ -45,8 +45,8 @@ Transiciona una cita a un estado destino de la FSM. `to` ∈ `confirmed | comple
 
 ```
 scheduled → confirmed → completed
- ↘ no_show
- ↘ cancelled
+                    ↘ no_show
+                    ↘ cancelled
 ```
 
 - Toda cita nueva arranca en `scheduled`.
