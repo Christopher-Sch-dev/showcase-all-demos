@@ -63,3 +63,12 @@ Thumbs.db
 .idea/
 .vscode/
 .engram/
+
+# --- metodologia interna: NUNCA se publica en el showcase ---
+AGENTS.md
+program.md
+README.generated.md
+.mcp.json
+.netrunner/
+CLAUDE.md
+.cursorrules
