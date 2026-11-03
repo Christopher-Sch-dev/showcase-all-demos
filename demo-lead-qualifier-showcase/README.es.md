@@ -81,7 +81,8 @@ npm run preview      # Sirve el build localmente
 │   │   ├── ai.ts                # Lógica de respuesta IA simulada
 │   │   ├── storage.ts           # Persistencia en localStorage
 │   │   ├── seed.ts              # Datos de ejemplo realistas
-│   │   ├── constants.ts         # Constantes de dominio centralizadas (URL Calendly, nicho default)
+│   │   ├── roi.ts               # Fórmula de ROI como dato (sobrevive el boundary del island)
+│   │   ├── constants.ts         # Constantes de dominio centralizadas (URL Calendly, nicho por defecto)
 │   │   ├── types.ts             # Contrato de tipos del dominio
 │   │   └── __tests__/           # Tests unitarios de la lógica
 │   ├── config/                  # Config Zod por nicho (Real Estate / Law)

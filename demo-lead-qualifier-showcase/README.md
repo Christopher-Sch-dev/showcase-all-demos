@@ -17,7 +17,7 @@ A Lead Qualifier AI for two niches (Real Estate and Law) with:
 - **Two niches as configuration**: Real Estate (dark luxury) and Law (navy, serious), each with its own sales narrative, design tokens and ROI formula — a niche is a config change, not a code change.
 - **Agentic layer (MCP)**: `src/agent/plugin.ts` + `mcp.json` + `plugin.json` + `skills/` expose the three agentic actions (`capture_lead` / `qualify` / `book`) to any external AI via `reduce()`. The reducer validates every transition, so the AI cannot break the logic.
 - **CTA to Calendly**: a "book a call" action pointing to a real scheduling link (never `mailto:`).
-- **"MODE DEMO" badge**: a clear badge in the nav so it's obvious this is a demo, not a live business system.
+- **"DEMO MODE" badge**: a clear badge in the nav so it's obvious this is a demo, not a live business system.
 
 The data lives in the browser's `localStorage`. There's no backend: in production the AI qualifier would connect to the firm's CRM and scheduling system. The KPIs are **derived** from the state, never stored as independent data.
 
@@ -62,7 +62,7 @@ npm run preview      # Serves the build locally
 │   │   ├── index.astro          # Landing (EN, Real Estate)
 │   │   └── es/index.astro       # Landing (ES)
 │   ├── layouts/
-│   │   └── BaseLayout.astro     # Base layout with design tokens + MODE DEMO badge
+│   │   └── BaseLayout.astro     # Base layout with design tokens + DEMO MODE badge
 │   ├── components/
 │   │   ├── DemoShell.tsx        # Orchestrator: form + qualify + dashboard + KPIs
 │   │   ├── LeadForm.tsx         # Captures a lead and starts the speed-to-lead timer
@@ -70,7 +70,7 @@ npm run preview      # Serves the build locally
 │   │   ├── LeadDashboard.tsx    # Leads grouped by status with KPIs
 │   │   ├── KpiBar.tsx           # Live derived KPIs with visible source
 │   │   ├── ROICalculator.tsx    # ROI calculator with sourced industry metrics
-│   │   ├── ModeBadge.tsx        # "MODE DEMO" badge + reset
+│   │   ├── ModeBadge.tsx        # "DEMO MODE" badge + reset
 │   │   └── ui/                  # Presentational components (StatusBadge, CTACalendly)
 │   ├── agent/
 │   │   └── plugin.ts            # ★ Agentic layer: capture/qualify/book over reduce()
@@ -81,6 +81,7 @@ npm run preview      # Serves the build locally
 │   │   ├── ai.ts                # Simulated AI response logic
 │   │   ├── storage.ts           # localStorage persistence
 │   │   ├── seed.ts              # Realistic sample data
+│   │   ├── roi.ts               # ROI formula as data (survives the island boundary)
 │   │   ├── constants.ts         # Centralized domain constants (Calendly URL, default niche)
 │   │   ├── types.ts             # Domain type contract
 │   │   └── __tests__/           # Unit tests for the logic
